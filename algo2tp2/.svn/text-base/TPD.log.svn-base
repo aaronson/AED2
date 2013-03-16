@@ -1,0 +1,2902 @@
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.6.4)  11 JUN 2010 11:52
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**TPD.tex
+(./TPD.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, loaded.
+(/usr/share/texmf-texlive/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texmf-texlive/tex/latex/base/size10.clo
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texmf-texlive/tex/latex/geometry/geometry.sty
+Package: geometry 2008/12/21 v4.2 Page Geometry
+
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2009/04/10 v2.0 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in pdf mode detected.
+)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2008/11/04 v1.4 Switches for detecting VTeX and its modes (HO)
+Package ifvtex Info: VTeX not detected.
+)
+\Gm@cnth=\count87
+\Gm@cntv=\count88
+\c@Gm@tempcnt=\count89
+\Gm@bindingoffset=\dimen103
+\Gm@wd@mp=\dimen104
+\Gm@odd@mp=\dimen105
+\Gm@even@mp=\dimen106
+\Gm@dimlist=\toks15
+)
+(/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
+Package: inputenc 2008/03/30 v1.1d Input encoding file
+\inpenc@prehook=\toks16
+\inpenc@posthook=\toks17
+
+(/usr/share/texmf-texlive/tex/latex/ucs/utf8x.def
+File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
+))
+(/usr/share/texmf-texlive/tex/latex/ucs/ucs.sty
+Package: ucs 2004/10/17 UCS: Unicode input support
+
+(/usr/share/texmf-texlive/tex/latex/ucs/data/uni-global.def
+File: uni-global.def 2004/10/17 UCS: Unicode global data
+)
+\uc@secondtry=\count90
+\uc@combtoks=\toks18
+\uc@combtoksb=\toks19
+\uc@temptokena=\toks20
+)
+(/usr/share/texmf-texlive/tex/generic/babel/babel.sty
+Package: babel 2008/07/06 v3.8l The Babel package
+
+(/usr/share/texmf-texlive/tex/generic/babel/spanish.ldf
+Language: spanish.ldf 2009/01/02 v5.0h Spanish support from the babel system
+
+(/usr/share/texmf-texlive/tex/generic/babel/babel.def
+File: babel.def 2008/07/06 v3.8l Babel common definitions
+\babel@savecnt=\count91
+\U@D=\dimen107
+)
+
+Package babel Warning: No hyphenation patterns were loaded for
+(babel)                the language `Spanish'
+(babel)                I will use the patterns loaded for \language=0 instead.
+
+\l@spanish = a dialect from \language0
+\es@datefmt=\count92
+\es@quottoks=\toks21
+\es@quotdepth=\count93
+Package babel Info: Making " an active character on input line 492.
+Package babel Info: Making . an active character on input line 585.
+Package babel Info: Making < an active character on input line 630.
+Package babel Info: Making > an active character on input line 630.
+Package babel Info: Making ' an active character on input line 657.
+)) (./algo2symb.sty (./rcs.sty
+Package: rcs 2003/02/02 v2.10 typeset info from RCS fields
+\rcsLogIntro=\toks22
+)
+Package: algo2symb 2004/04/17 v1.11Para componer simbolitos frecuentemente usad
+os en AED2
+
+Cargando package 'aed2symb' v1.11, \begingroup \year 2006 \month 09 \day 03 Jun
+e 11, 2010\endgroup 
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip43
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks23
+\ex@=\dimen108
+))
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen109
+)
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count94
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count95
+\leftroot@=\count96
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count97
+\DOTSCASE@=\count98
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen110
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count99
+\c@MaxMatrixCols=\count100
+\dotsspace@=\muskip10
+\c@parentequation=\count101
+\dspbrk@lvl=\count102
+\tag@help=\toks24
+\row@=\count103
+\column@=\count104
+\maxfields@=\count105
+\andhelp@=\toks25
+\eqnshift@=\dimen111
+\alignsep@=\dimen112
+\tagshift@=\dimen113
+\tagwidth@=\dimen114
+\totwidth@=\dimen115
+\lineht@=\dimen116
+\@envbody=\toks26
+\multlinegap=\skip44
+\multlinetaggap=\skip45
+\mathdisplay@stack=\toks27
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2009/06/22 v3.00
+
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
+))
+(/usr/share/texmf-texlive/tex/latex/tools/xspace.sty
+Package: xspace 2006/05/08 v1.12 Space after command names (DPC,MH)
+)) (./tad.sty
+Package: tad 2002/9/23 v0.33 Para especificar TADs en formato AED2
+
+Cargando package 'tad' v0.33 (19/10/2002)
+\tadmargen=\dimen117
+\tadsubmargen=\dimen118
+\tadmaxenc=\dimen119
+\tadtitskip=\dimen120
+\tadfuncsep=\dimen121
+\tadaxisep=\dimen122
+\funcmaxnom=\dimen123
+\funcmaxari=\dimen124
+\aximaxizq=\dimen125
+) (./algorithm.sty
+
+LaTeX Warning: You have requested package `algorithm',
+               but the package provides `algoritmo'.
+
+Package: algoritmo 
+Document Style `algoritmo' - floating environment
+(/usr/share/texmf-texlive/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count106
+\float@exts=\toks28
+\float@box=\box28
+\@float@everytoks=\toks29
+\@floatcapt=\box29
+)
+(/usr/share/texmf-texlive/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algoritmo=\toks30
+\c@algoritmo=\count107
+) (./algorithmic.sty
+Package: algorithmic 2006/06/02
+
+Document Style `algorithmic' - environment
+(/usr/share/texmf-texlive/tex/latex/tools/calc.sty
+Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count108
+\calc@Bcount=\count109
+\calc@Adimen=\dimen126
+\calc@Bdimen=\dimen127
+\calc@Askip=\skip46
+\calc@Bskip=\skip47
+LaTeX Info: Redefining \setlength on input line 76.
+LaTeX Info: Redefining \addtolength on input line 77.
+\calc@Ccount=\count110
+\calc@Cskip=\skip48
+)
+\c@ALC@line=\count111
+\c@ALC@rem=\count112
+\c@ALC@depth=\count113
+\ALC@tlm=\skip49
+\algorithmicindent=\skip50
+)
+(/usr/share/texmf-texlive/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2009/10/09 v6.79a Hypertext links for LaTeX
+
+(/usr/share/texmf-texlive/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2009/01/23 v0.5 Provides ifxetex conditional
+)
+(/usr/share/texmf-texlive/tex/latex/oberdiek/hycolor.sty
+Package: hycolor 2009/10/02 v1.5 Code for color options of hyperref/bookmark (H
+O)
+
+(/usr/share/texmf-texlive/tex/latex/oberdiek/xcolor-patch.sty
+Package: xcolor-patch 2009/10/02 xcolor patch
+))
+\@linkdim=\dimen128
+\Hy@linkcounter=\count114
+\Hy@pagecounter=\count115
+
+(/usr/share/texmf-texlive/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2009/10/09 v6.79a Hyperref: PDFDocEncoding definition (HO)
+)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2007/12/12 v1.2 Prefix for e-TeX command names (HO)
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2007/09/09 v1.2 Providing info/warning/message (HO)
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)
+(/usr/share/texmf-texlive/tex/latex/latexconfig/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+(/usr/share/texmf-texlive/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2009/08/13 v3.4 Keyval support for LaTeX options (HO)
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2009/07/30 v1.5 Key value parser with default handler suppor
+t (HO)
+))
+Package hyperref Info: Hyper figures OFF on input line 2975.
+Package hyperref Info: Link nesting OFF on input line 2980.
+Package hyperref Info: Hyper index ON on input line 2983.
+Package hyperref Info: Plain pages OFF on input line 2990.
+Package hyperref Info: Backreferencing OFF on input line 2995.
+
+Implicit mode ON; LaTeX internals redefined
+Package hyperref Info: Bookmarks ON on input line 3191.
+(/usr/share/texmf-texlive/tex/latex/ltxmisc/url.sty
+\Urlmuskip=\muskip11
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 3428.
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/bitset.sty
+Package: bitset 2007/09/28 v1.0 Data type bit set (HO)
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/intcalc.sty
+Package: intcalc 2007/09/27 v1.1 Expandable integer calculations (HO)
+)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/bigintcalc.sty
+Package: bigintcalc 2007/11/11 v1.1 Expandable big integer calculations (HO)
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2009/09/23 v0.6 LuaTeX support for pdfTeX utility functions
+ (HO)
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2009/04/17 v1.2 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2009/08/05 v1.0 Some LaTeX kernel commands for general use (HO
+)
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+)))
+\Fld@menulength=\count116
+\Field@Width=\dimen129
+\Fld@charsize=\dimen130
+\Field@toks=\toks31
+Package hyperref Info: Hyper figures OFF on input line 4377.
+Package hyperref Info: Link nesting OFF on input line 4382.
+Package hyperref Info: Hyper index ON on input line 4385.
+Package hyperref Info: backreferencing OFF on input line 4392.
+Package hyperref Info: Link coloring OFF on input line 4397.
+Package hyperref Info: Link coloring with OCG OFF on input line 4402.
+Package hyperref Info: PDF/A mode OFF on input line 4407.
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/atbegshi.sty
+Package: atbegshi 2008/07/31 v1.9 At begin shipout hook (HO)
+)
+\Hy@abspage=\count117
+\c@Item=\count118
+\c@Hfootnote=\count119
+)
+*hyperref using default driver hpdftex*
+(/usr/share/texmf-texlive/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2009/10/09 v6.79a Hyperref driver for pdfTeX
+\Fld@listcount=\count120
+) (./itef.sty
+Package: itef 2004/04/17 v1.4if-then-else-fi.
+
+Cargando package 'itef' v1.4, \begingroup \year 2006 \month 10 \day 12 June 11,
+ 2010\endgroup 
+) (/usr/share/texmf-texlive/tex/latex/lastpage/lastpage.sty
+Package: lastpage 1994/06/25 v0.1b LaTeX2e package for refs to last page number
+ (JPG)
+)
+(/usr/share/texmf-texlive/tex/latex/fancyhdr/fancyhdr.sty
+\fancy@headwidth=\skip51
+\f@ncyO@elh=\skip52
+\f@ncyO@erh=\skip53
+\f@ncyO@olh=\skip54
+\f@ncyO@orh=\skip55
+\f@ncyO@elf=\skip56
+\f@ncyO@erf=\skip57
+\f@ncyO@olf=\skip58
+\f@ncyO@orf=\skip59
+) (./TPD.aux)
+\openout1 = `TPD.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+
+*geometry auto-detecting driver*
+*geometry detected driver: pdftex*
+-------------------- Geometry parameters
+paper: a4paper
+landscape: --
+twocolumn: --
+twoside: --
+asymmetric: --
+h-parts: 42.67912pt, 512.14963pt, 42.67912pt
+v-parts: 99.58464pt, 702.78308pt, 42.67912pt
+hmarginratio: --
+vmarginratio: --
+lines: --
+heightrounded: --
+bindingoffset: 0.0pt
+truedimen: --
+includehead: --
+includefoot: --
+includemp: --
+driver: pdftex
+-------------------- Page layout dimensions and switches
+\paperwidth  597.50787pt
+\paperheight 845.04684pt
+\textwidth  512.14963pt
+\textheight 702.78308pt
+\oddsidemargin  -29.59087pt
+\evensidemargin -29.59087pt
+\topmargin  -9.68535pt
+\headheight 12.0pt
+\headsep    25.0pt
+\footskip   30.0pt
+\marginparwidth 57.0pt
+\marginparsep   11.0pt
+\columnsep  10.0pt
+\skip\footins  9.0pt plus 4.0pt minus 2.0pt
+\hoffset 0.0pt
+\voffset 0.0pt
+\mag 1000
+
+(1in=72.27pt, 1cm=28.45pt)
+-----------------------
+(/usr/share/texmf-texlive/tex/latex/ucs/ucsencs.def
+File: ucsencs.def 2003/11/29 Fixes to fontencodings LGR, T3
+)
+Package hyperref Info: Link coloring OFF on input line 42.
+
+(/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
+Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
+
+(/usr/share/texmf-texlive/tex/latex/oberdiek/refcount.sty
+Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
+)
+\c@section@level=\count121
+)
+LaTeX Info: Redefining \ref on input line 42.
+LaTeX Info: Redefining \pageref on input line 42.
+ (./TPD.out)
+(./TPD.out)
+\@outlinefile=\write3
+\openout3 = `TPD.out'.
+
+\AtBeginShipoutBox=\box30
+ (./TPD.toc
+LaTeX Font Info:    Try loading font information for U+msa on input line 3.
+ (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2009/06/22 v3.00 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 3.
+
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2009/06/22 v3.00 AMS symbols B
+))
+\tf@toc=\write4
+\openout4 = `TPD.toc'.
+
+ [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 53--57
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--61
+
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 63.
+(/usr/share/texmf-texlive/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 63.
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--65
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 66--69
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 70--73
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 74--77
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--81
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--85
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 86--89
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 91--94
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 95--98
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 100--103
+
+ []
+
+[2]
+Underfull \hbox (badness 10000) in paragraph at lines 111--114
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 117--118
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 121--123
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 124--126
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 127--129
+
+ []
+
+
+Overfull \hbox (20.50404pt too wide) in paragraph at lines 130--132
+[]\OT1/cmr/m/n/10 predecesoresCorrectos (a,cant,n) = n $\OMS/cmsy/m/n/10 ^^U$ \
+OT1/cmr/m/n/10 cant $\OMS/cmsy/m/n/10 _[]$ \OT1/cmr/m/n/10 ((cant-Pred(a[n]) ==
+ long (pre-de-ce-sores(a[n]) $\OMS/cmsy/m/n/10 ^$ \OT1/cmr/m/n/10 ($\OMS/cmsy/m
+/n/10 :$ $;$\OT1/cmr/m/n/10 ?(predecesores(a[n]))
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 130--132
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 133--135
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 138--139
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 140--142
+
+ []
+
+[3]
+Package hyperref Info: bookmark level for unknown algoritmo defaults to 0 on in
+put line 147.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.148 
+      
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 149--159
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.165   i
+         Consumo(in w: estrWorkflow, in t: tarea) $\rightarrow$ $res$: recur...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 165--169
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.175   i
+         Prioridad(in w: estrWorkflow, in t: tarea) $\rightarrow$ $res$: nat\\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 175--179
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.185   i
+         Predecesoras(in w: estrWorkflow, in t: tarea) $\rightarrow$ $res$: ...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 185--189
+
+ []
+
+[4]
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.196   i
+         Nuevo(in p: nat, in r: recursos) $\rightarrow$ $res$: workflow\\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 196--206
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.213   i
+         AgTarea(inout w: estrWorkflow, in p:prioridad, in r:recursos, in ps...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 213--235
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 236--237
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.244   i
+         Finales(in w: estrWorkflow) $\rightarrow$ $res$: conj(tarea)\\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 244--261
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.268   i
+         Sucesoras(in w: estrWorkflow, in t: tarea) $\rightarrow$ $res$: con...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 268--277
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.283   i
+         CantTareas(in w: estrWorkflow) $\rightarrow$ $res$: nat\\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 283--287
+
+ []
+
+[5] [6] [7]
+Underfull \hbox (badness 10000) in paragraph at lines 298--302
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 305--306
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 307--310
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 311--314
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 315--318
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 319--322
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 323--326
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 327--330
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 331--334
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 335--338
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 339--342
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 343--346
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 347--350
+
+ []
+
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 354--355
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 358--359
+
+ []
+
+
+Overfull \hbox (44.19023pt too wide) in paragraph at lines 360--361
+\OT1/cmr/m/n/10 disponible-sCor-rec-tos(u.status, 0, u.cantRecursos) $\OMS/cmsy
+/m/n/10 ^$ \OT1/cmr/m/n/10 seC-or-re-spon-den-LosAr-reg-los (u.status, u.ordene
+sConsumo, 0, u.cantRecursos)
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 360--361
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 362--364
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 365--367
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 368--370
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 372--374
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 381--382
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 383--385
+
+ []
+
+[9]
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.391   i
+         TiposDeRecurso(in u: estrUsoRecursos) $\rightarrow$ $res$: conj(tar...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 391--395
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.401   i
+         VerTotal(in u: estrUsoRecursos, in r: recurso) $\rightarrow$ $res$:...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 401--405
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.411   i
+         Disponible(in u: estrUsoRecursos, in r: recurso) $\rightarrow$ $res...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 411--415
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.422   i
+         Generar(in r: recursos) $\rightarrow$ $res$: usoRecursos \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 422--451
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.458   h
+         eapify(inout ao: arregloDimensionable (nat, nat), in i: nat, inout ...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 458--483
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.489   i
+         NuevoConsumo(inout u: estrUsoRecursos, in r: recurso, in n: nat)\\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 489--498
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.506   i
+         MenorConsumo(in u: estrUsoRecursos) $\rightarrow$ $res$: nat \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 506--511
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.519 i
+       ActualizarConsumo (inout u: estrUsoRecursos, in mconj: recursos) \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 519--532
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.538 i
+       ActualizarUso (inout u: estrUsoRecursos, in ar: arregloDimensionable ...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 538--551
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.558 i
+       AlcanzanLosRecursos (in u: estrUsoRecursos, in mconj: recursos) $\rig...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 558--570
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.576 i
+       Multiconjuntizar (in u: estrUsoRecursos) $\rightarrow$ $res$: recurso...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 576--590
+
+ []
+
+(/usr/share/texmf-texlive/tex/latex/ucs/data/uni-1.def
+File: uni-1.def 2004/10/17 UCS: Unicode data U+0100..U+01FF
+)
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.598 i
+       DisponiblesEnMulticonj (in u: estrUsoRecursos) $\rightarrow$ $res$: r...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 598--613
+
+ []
+
+[10] [11] [12] [13] [14]
+Underfull \hbox (badness 10000) in paragraph at lines 624--628
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 631--632
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 633--636
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 637--640
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 641--644
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 645--648
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 649--652
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 653--656
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 657--660
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 661--664
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 665--668
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 669--672
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 673--676
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 677--680
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 681--684
+
+ []
+
+[15]
+Underfull \hbox (badness 10000) in paragraph at lines 685--688
+
+ []
+
+[16]
+Underfull \hbox (badness 10000) in paragraph at lines 691--692
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 695--696
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 697--698
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 699--701
+
+ []
+
+
+Overfull \hbox (22.71481pt too wide) in paragraph at lines 702--704
+[]\OT1/cmr/m/n/10 noHayRecursosInvalidos (n,w,i) = i == $#$ (tar-eas(w)) $\OMS/
+cmsy/m/n/10 _[]$ \OT1/cmr/m/n/10 (mul-ti-con-j-Menor (con-sumo(i, w), n) $\OMS/
+cmsy/m/n/10 ^[]$\OT1/cmr/m/n/10 noHayRecursosInvalidos
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 702--704
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 705--707
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 708--710
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 711--713
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 714--716
+
+ []
+
+
+Overfull \hbox (24.88005pt too wide) in paragraph at lines 717--719
+[]\OT1/cmr/m/n/10 sucesoresCorrectos (w,as,i) = i == $#$ (tar-eas(w)) $\OMS/cms
+y/m/n/10 _[]$ \OT1/cmr/m/n/10 (suce-soresTarea-Cor-rec-tos(sucesoras(i, w),as[i
+]) $\OMS/cmsy/m/n/10 ^[]$\OT1/cmr/m/n/10 sucesoresCorrectos
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 717--719
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 720--722
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 723--725
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 726--728
+
+ []
+
+[17]
+Underfull \hbox (badness 10000) in paragraph at lines 730--732
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 733--735
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 736--738
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 739--741
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 742--744
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 745--747
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 748--750
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 752--754
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 755--757
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 758--760
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 761--763
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 764--766
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 767--769
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 770--772
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 773--775
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 776--778
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 779--781
+
+ []
+
+[18]
+Underfull \hbox (badness 10000) in paragraph at lines 782--784
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 785--787
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 790--792
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 793--795
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 799--800
+
+ []
+
+[19]
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.809   i
+         Worfklow(in p: estrPlanta) $\rightarrow$ $res$: workflow \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 809--813
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.820   i
+         Recursos(in p: estrPlanta) $\rightarrow$ $res$: recursos \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.821 ...ticonjuntizar(p.recursos)  \ \ \ \ \ O(r^
+                                                  ${2}*$m)\\
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing { inserted.
+<to be read again> 
+                   $
+l.821 ...iconjuntizar(p.recursos)  \ \ \ \ \ O(r^$
+                                                  {2}*$m)\\
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.821 ...iconjuntizar(p.recursos)  \ \ \ \ \ O(r^$
+                                                  {2}*$m)\\
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.824 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 820--824
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.831   i
+         EnEspera(in p: estrPlanta) $\rightarrow$ $res$: cola \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 831--835
+
+ []
+
+[20]
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.842   i
+         EnEjecucion(in p: estrPlanta) $\rightarrow$ $res$: actividades \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 842--861
+
+ []
+
+[21]
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.869   i
+         Finalizadas(in p: estrPlanta) $\rightarrow$ $res$: actividades \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 869--886
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.893   i
+         Crear(in w: workflow, in r: recursos) $\rightarrow$ $res$: planta \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 893--934
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.942   h
+         eapify(inout ap: arregloDimensionable (nat, nat), in i: nat, in n: ...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 942--961
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 942--961
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.967   i
+         AgOrden(in o: orden, inout p: estrPlanta) \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 967--983
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.991   i
+         Terminar (in actividad a, inout p: estrPlanta) \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 991--1028
+
+ []
+
+(/usr/share/texmf-texlive/tex/latex/ucs/data/uni-0.def
+File: uni-0.def 2004/10/17 UCS: Unicode data U+0000..U+00FF
+)
+
+LaTeX Warning: Float too large for page by 21.15024pt on input line 1032.
+
+[22] [23] [24] [25]
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1038 r
+        ecursosAArreglo (in p: estrPlanta) $\rightarrow$ $res$: arregloDimen...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1038--1048
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1055   m
+          conjIncluidoEnArreglo(in r: arregloDimensionable(nat), in mconj: r...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1055--1065
+
+ []
+
+[26]
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1074   a
+          ctualizarArreglo(inout r: arregloDimensionable(nat), in mconj: rec...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1074--1091
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1097   i
+          Actividades(in p: estrPlanta) $\rightarrow$ $res$: conj (actividad...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1097--1111
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1118   i
+          Ordenes(in p: estrPlanta) $\rightarrow$ $res$: conj (orden) \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1118--1127
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1134   i
+          OrdenesFinalizadas(in p: estrPlanta) $\rightarrow$ $res$: conj (or...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1134--1145
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1151   t
+          erminoOrden (in at:arregloDimensionable($<$bool, nat$>$), in n: na...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1151--1162
+
+ []
+
+[27] [28]
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1170   i
+          Disponibles (in at:arregloDimensionable($<$bool, nat$>$), in n: na...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1170--1174
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1181   i
+          Consumo(in p: estrPlanta, in r: recurso) $\rightarrow$ $res$: nat \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1181--1185
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1191   i
+          MenorConsumo(in p: estrPlanta) $\rightarrow$ $res$: nat \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1191--1195
+
+ []
+
+[29]
+Underfull \hbox (badness 10000) in paragraph at lines 1205--1209
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1210--1211
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1212--1215
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1216--1219
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1220--1223
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1224--1227
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1228--1231
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1232--1235
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1236--1239
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1240--1243
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1244--1247
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1248--1251
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1252--1255
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1257--1260
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1261--1264
+
+ []
+
+[30]
+Underfull \hbox (badness 10000) in paragraph at lines 1265--1268
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1269--1272
+
+ []
+
+[31]
+Underfull \hbox (badness 10000) in paragraph at lines 1285--1286
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1291--1292
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1293--1295
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1297--1298
+
+ []
+
+[32]
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1307   i
+          Vacia?(in s: estrSecu($\alpha$)) $\rightarrow$ $res$: bool \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1314   i
+          Prim(in s: estrSecu($\alpha$)) $\rightarrow$ $res$: $\alpha$ \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1321   i
+          Fin(inout s: estrSecu($\alpha$))\\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1321--1324
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1330   i
+          Vacia() $\rightarrow$ $res$: $\alpha$\\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1337   i
+          AgregarAdelante(inout s: estrSecu($\alpha$), in n: $\alpha$)\\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1348   i
+          AgregarAtras(inout s: estrSecu($\alpha$), in n: $\alpha$)\\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1360   i
+          CrearIt(in s: estrSecu($\alpha$)) $\rightarrow$ $res$: estrIterado...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1368   i
+          HayMas(in it: estrIterador($\alpha$)) $\rightarrow$ $res$: bool\\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1375   i
+          Actual(in it: estrIterador($\alpha$)) $\rightarrow$ $res$: $\alpha...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1382   i
+          Avanzar(inout it: estrIterador($\alpha$)) \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1389   i
+          AgregarAtrasDeIt(inout it: estrIterador($\alpha$), in n: $\alpha$)\\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1414   i
+          AgregarAdelanteDeIt(inout it: estrIterador($\alpha$), in n: $\alph...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1438   i
+          RetrocederAlPrincipio(inout it: estrIterador($\alpha$)) \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+[33] [34] [35]
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1447   i
+          BorrarActual(inout it: estrIterador($\alpha$))\\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+[36]
+Underfull \hbox (badness 10000) in paragraph at lines 1475--1479
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1480--1481
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1482--1485
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1486--1489
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1490--1493
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1495--1498
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1499--1502
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1503--1506
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1507--1510
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1511--1514
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1515--1518
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1519--1522
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1523--1526
+
+ []
+
+[37]
+Underfull \hbox (badness 10000) in paragraph at lines 1535--1536
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1537--1538
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1539--1541
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1549   i
+          Pertenece(in a: $\alpha$, in c: estrConj($\alpha$)) $\rightarrow$ ...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1556   i
+          Vacio() $\rightarrow$ $res$: estrConj($\alpha$) \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1563   i
+          Vacio? (in c: estrConj($\alpha$)) $\rightarrow$ $res$: bool \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1570   i
+          Agregar(in a: $\alpha$, inout c: estrConj($\alpha$)) \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1570--1575
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1581   i
+          Sacar(in a: $\alpha$, inout c: estrConj($\alpha$))\\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1596   i
+          Union(inout c: estrConj($\alpha$), in otroc: estrConj($\alpha$))\\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1609   i
+          CrearIt(in c: estrConj($\alpha$)) $\rightarrow$ $res$: iterador($\...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1616  i
+         HayMas(in it: iterador($\alpha$)) $\rightarrow$ $res$: bool \ \ \ \...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1623  i
+         Actual(in it: iterador($\alpha$)) $\rightarrow$ $res$: $\alpha$ \ \...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1630  i
+         Avanzar(inout it: iterador($\alpha$)) \ \ \ \ \ \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1637  i
+         BorrarActual(inout it: iterador($\alpha$)) \ \ \ \ \ \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+[38] [39]
+Underfull \hbox (badness 10000) in paragraph at lines 1648--1652
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1653--1654
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1655--1658
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1659--1662
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1663--1666
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1667--1670
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1671--1674
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1675--1678
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1679--1682
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1683--1686
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1687--1690
+
+ []
+
+[40]
+Underfull \hbox (badness 10000) in paragraph at lines 1699--1700
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1701--1702
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1703--1705
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1706--1708
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1716   i
+          Cardinal(in a: $\alpha$, in c: estrConj($\alpha$)) $\rightarrow$ $...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1716--1728
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1734   i
+          Vacio() $\rightarrow$ $res$: estrConj($\alpha$) \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1734--1737
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1744   i
+          Agregar(in a: $\alpha$, inout c: estrMConj($\alpha$)) \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1744--1759
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1765   i
+          CantElemDistintos(in c: estrMConj($\alpha$)) \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1765--1774
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1780   i
+          CrearIt(in c: estrMConj($\alpha$)) $\rightarrow$ $res$: iterador($...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1787  i
+         HayMas(in it: iterador($\alpha$)) $\rightarrow$ $res$: bool \ \ \ \...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1794  i
+         Actual(in it: iterador($\alpha$)) $\rightarrow$ $res$: $\alpha$ \ \...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1801  i
+         Avanzar(inout it: iterador($\alpha$)) \ \ \ \ \ \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1809  i
+         BorrarActual(inout it: iterador($\alpha$)) \ \ \ \ \ \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+[41] [42]
+Underfull \hbox (badness 10000) in paragraph at lines 1820--1824
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1825--1826
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1827--1830
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1831--1834
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1835--1838
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1839--1842
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1843--1846
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1847--1850
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1851--1854
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1855--1858
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1859--1862
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1863--1866
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1867--1870
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1871--1874
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1875--1878
+
+ []
+
+[43]
+Underfull \hbox (badness 10000) in paragraph at lines 1879--1882
+
+ []
+
+[44]
+Underfull \hbox (badness 10000) in paragraph at lines 1891--1892
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1893--1894
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1895--1897
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1898--1900
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1901--1903
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1904--1906
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1907--1909
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1911--1913
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1914--1916
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1917--1919
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1922--1923
+
+ []
+
+[45]
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1932   i
+          Vacia?(in c: estrCola) $\rightarrow$ $res$: bool \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1932--1935
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1941   i
+          Esta?(in c: estrCola, in t: tarea) $\rightarrow$ $res$: bool \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1941--1951
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1957   i
+          Proxima(in c: estrCola) $\rightarrow$ $res$: actividad \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1957--1960
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1966   i
+          Prioridad(in c: estrCola) $\rightarrow$ $res$: nat \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1966--1969
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1975   i
+          Ordenes(in c: estrCola) $\rightarrow$ $res$: secu(orden) \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1975--1978
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1984   i
+          SacarOrden(inout c: estrCola, in t:tarea, in o :orden)\\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1984--1998
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.2004   i
+          Vacia() $\rightarrow$ $res$: estrCola \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2004--2007
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.2013   i
+          Encolar(inout c: estrCola, in t:tarea, in p:prioridad, in o :orden)\\
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2013--2025
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.2033   i
+          EncolarSecuOrdenada(inout c: estrCola, in s:secu ($<$actvidad, pri...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2033--2048
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.2054   i
+          CrearIt(in c: estrCola($\alpha$)) $\rightarrow$ $res$: iterador($\...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.2061  i
+         HayMas(in it: iterador($\alpha$)) $\rightarrow$ $res$: bool \ \ \ \...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+[46] [47] [48]
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.2069  i
+         Actual(in it: iterador($\alpha$)) $\rightarrow$ $res$: $\alpha$ \ \...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.2076  i
+         Avanzar(inout it: iterador($\alpha$)) \ \ \ \ \ \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.2083  i
+         BorrarActual(inout it: iterador($\alpha$)) \ \ \ \ \ \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+[49] AED: lastpage setting LastPage (./TPD.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 7520 strings out of 495061
+ 100198 string characters out of 1182622
+ 197184 words of memory out of 3000000
+ 10397 multiletter control sequences out of 15000+50000
+ 7517 words of font info for 29 fonts, out of 3000000 for 9000
+ 28 hyphenation exceptions out of 8191
+ 38i,12n,43p,1704b,615s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/sha
+re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-te
+xlive/fonts/type1/public/amsfonts/cm/cmbxsl10.pfb></usr/share/texmf-texlive/fon
+ts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-texlive/fonts/type1/p
+ublic/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfo
+nts/cm/cmmi7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10
+.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/sh
+are/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-tex
+live/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/
+type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on TPD.pdf (49 pages, 284563 bytes).
+PDF statistics:
+ 644 PDF objects out of 1000 (max. 8388607)
+ 181 named destinations out of 1000 (max. 500000)
+ 337 words of extra memory for PDF output out of 10000 (max. 10000000)
+

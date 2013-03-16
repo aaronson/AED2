@@ -1,0 +1,328 @@
+\documentclass[10pt, a4paper]{article}
+
+%Margenes de la pagina.  otra opcion, usar \usepackage{a4wide}
+\usepackage[paper=a4paper, left=1.5cm, right=1.5cm, bottom=1.5cm, top=3.5cm]{geometry}
+
+%este paquete permite incluir acentos.  Notar que espera un formato ANSI-blah de archivo.  Si en lugar de eso se tiene un utf8 (usual en los linux), entonces usar \usepackage[utf8]{inputenc}
+\usepackage[latin1]{inputenc}
+
+\usepackage{lastpage}
+
+
+%Este paquete es para que algunos titulos (como Tabla de Contenidos) esten en castellano
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{TP de Especificación - Órdenes de Producción }
+\rhead{Algoritmos y Estructuras de Datos II - 1º Cuatrimestre de 2010}
+\cfoot{\thepage\ de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt} 
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+\usepackage[spanish,activeacute]{babel}
+
+%Estos son los paquetes de TADs.  aed2-symb contiene algunos simbolos, itef permite escribir if then else fi de forma simple, y aed2-tad es el paquete central.
+\usepackage{aed2-symb,aed2-itef,aed2-tad}
+
+%El siguiente paquete permite escribir la caratula facilmente
+\usepackage{caratula}
+
+%este paquete es innecesario para el T$p$, aca lo uso para recuadrar
+\usepackage{framed}
+
+ 
+
+%Datos para la caratula
+\materia{Algoritmos y Estructuras de Datos II}
+
+\titulo{Trabajo Práctico 1}
+
+\subtitulo{Órdenes de Producción}
+
+\grupo{Grupo 6}
+
+\integrante{Aronson, Alex}{443/008}{alexaronson@gmail.com}
+\integrante{Bianchetti, Marcelo}{378/08}{bianchetti.ml@gmail.com}
+\integrante{Pacosillo Mamani, Jhonny}{796/06}{jpacosillo@hotmail.com}
+\integrante{Ravasi, Nicolás}{53/08}{nravasi@gmail.com}
+
+
+\begin{document}
+ 
+ %esto construye la caractula
+ \maketitle 
+
+ %aca empieza el TP.
+ \section{Signatura de los TADs}
+
+\begin{tad}{\nombretad{Workflow}}
+  
+  \tadGeneros{workflow}
+  \tadExporta{workflow, generadores, observadores, workflowValido?, idTareaFinal, esTarea?}
+  \tadUsa{Nat, Tarea, Recursos, Bool }
+
+  \tadIgualdadObservacional{a}{b}{workflow}{dameIDTareas ($a$) $\igobs$ dameIDTareas ($b$) $\yluego$ ($\forall$ $t$: tarea) esTarea? ($a$, $t$) \impluego verRecursosTarea ($a$,$t$) $\igobs$ verRecursosTarea ($b$,$t$) $\wedge$  verReqsTarea ($a$,$t$) $\igobs$ verReqsTarea ($b$,$t$)}
+
+
+  \tadObservadores
+
+ %\begin{framed}
+  %Para ver cï¿½mo se logra la alineacion de las signaturas, consultar el codigo fuente.  Ver ademï¿½s, que es importante NO DEJAR ESPACIOS entre la ',' y el tipo de parametro, en la macro \verb|tadOperacion|.  De otra forma, ese espacio serï¿½ agregado al existente.
+  %\end{framed}
+
+  \tadAlinearFunciones{verRecursosTarea}{\tadTipoFuncion{param1,param2,param3}}
+  \tadOperacion{dameIDTareas}{workflow}{conj(tarea)}{}
+  \tadOperacion{verRecursosTarea}{workflow $w$,tarea $t$}{recursos}{esTarea? ($w$,$t$)}
+  \tadOperacion{verReqsTarea}{workflow $w$,tarea $t$}{conj(nat)}{esTarea? ($w$,$t$)}
+
+  \tadGeneradores
+
+  %\begin{framed}
+  %Si quieren, aca pueden realinear las funciones o no.  Ver el codigo fuente.
+  %\end{framed}
+
+  \tadAlinearFunciones{agTarea}{\tadTipoFuncion{tarea $t$,recursos,conj(tarea) $ct$,workflow $w$}}
+  \tadOperacion{crear}{recursos}{workflow}{}
+  \tadOperacion{agTarea}{tarea $t$,recursos,conj(tarea) $ct$,workflow $w$}{workflow}{0 $<$ $n$ $\wedge$ $\neg$ esTarea?($w$,$n$) $\wedge$ $\forall$ ($x$:tarea, $x$ $\in$ $ct$) esTarea?($w$,$x$)}
+
+  \tadOtrasOperaciones
+  \tadAlinearFunciones{workflowValido?}{\tadTipoFuncion{workflow,conj(tarea)}}
+   \tadOperacion{esTarea?}{workflow,nat}{bool}{}
+   \tadOperacion{workflowValido?}{workflow}{bool}{}
+   \tadOperacion{idTareaFinal}{workflow}{conj(tarea)}{}
+   \tadOperacion{todosLosReqs}{workflow,conj(tarea)}{conj(tarea)}{}
+  
+  \tadAlinearFunciones{OtraOperacion}{\tadTipoFuncion{param}}
+  \tadOperacion{OtraOperacion}{param}{resul}{}
+
+  \tadAxiomas $\forall$$w$: workflow, $\forall$$t$,$n$: tarea, $\forall$$r$: recursos, $\forall$$ct$: conj(tarea)\\
+  
+  \tadAxioma{dameIDTareas (crear ($r$))}{Ag (0, $\emptyset$)}
+  \tadAxioma{dameIDTareas (agTarea ($t$,$r$,$ct$,$w$))}{Ag ($t$, dameIDTareas ($w$))}
+ 
+  ~
+	\tadAxioma{verRecursosTarea (crear ($r$), $n$)}{$r$}
+  \tadAxioma{verRecursosTarea (agTarea ($t$,$r$,$ct$,$w$), $n$)}{\lif $n$ = $t$ \lthen $r$ \lelse verRecursosTarea ($w$,$n$) \lfi}
+  
+  ~
+  \tadAxioma{verReqsTarea (crear ($r$), $n$)}{$\emptyset$}
+  \tadAxioma{verReqsTarea (agTarea ($t$,$r$,$ct$,$w$), $n$)}{\lif $n$ = $t$ \lthen $ct$ \lelse verReqsTarea ($w$,$n$) \lfi}
+  
+  ~
+  
+  \tadAxioma{esTarea? ($w$,$t$)}{$t$ $\in$ dameIDTareas ($w$)}
+  
+  ~
+  
+  \tadAxioma{workflowValido? ($w$)}{$\emptyset$? (sinUno (idTareaFinal ($w$)))}
+  
+  ~
+  
+  \tadAxioma{idTareaFinal ($w$)}{dameIDTareas ($w$) - todosLosReqs ($w$, idTareas($w$))}
+  
+   ~
+  
+  \tadAxioma{todosLosReqs ($w$,$ct$)}{\lif $\emptyset$? ($ct$) \lthen $\emptyset$ \lelse verReqsTarea(dameUno($ct$), $w$) $\cup$ todosLosReqs ($w$, sinUno($ct$)) \lfi}
+
+  %\IF trata de acomodar las cosas lo mejor que sabe.  Si no gusta, se puede usar \IFL e \IFV.  El primero escribe todo en una linea, mientras que el segundo lo hace en varias lineas.
+ 
+ \end{tad}
+ 
+\newpage
+
+ 
+ \begin{tad}{\nombretad{Produccion}}
+  
+  \tadGeneros{produccion}
+  \tadExporta{produccion, generadores, obsevadores, mostrarTareas, enEjecucion?, terminoOrden?, verRecursosDisponibles}
+  \tadUsa{Bool, Tarea, Orden, Recursos, Workflow, Conjunto}
+
+  \tadIgualdadObservacional{$a$}{$b$}{produccion}{verWorkflow ($a$) $\igobs$ verWorkflow ($b$) $\wedge$ verRecursos ($a$) $\igobs$ verRecursos ($b$) $\wedge$ ultimaOrden ($a$) $\igobs$ ultimaOrden ($b$) $\wedge$ tareasEjecutandose ($a$) $\igobs$ tareasEjecutandose ($b$) $\yluego$ ($\forall$ $ord$: orden, $t$: tarea) (0 $<$ $ord$ $\leq$ ultimaOrden ($a$) $\wedge$ esTarea (verWorkflow ($p$), $t$)) \impluego terminoTarea ($a$,$o$,$t$) $\igobs$ terminoTarea ($b$,$o$,$t$)}
+
+
+  \tadObservadores
+
+  \tadAlinearFunciones{tareasEjecutandose}{\tadTipoFuncion{produccion $p$,orden $ord$,tarea t}}
+  \tadOperacion{verWorkflow}{produccion}{workflow}{}
+  \tadOperacion{verRecursos}{produccion}{recursos}{}
+	\tadOperacion{terminoTarea?}{produccion $p$,orden $ord$,tarea $t$}{bool}{0 $<$ $ord$  $\leq$ ultimaOrden ($p$) $\wedge$ esTarea? (verWorkflow ($p$), $t$)}
+	\tadOperacion{tareasEjecutandose}{produccion}{}{conj(fase)}
+	\tadOperacion{ultimaOrden}{produccion}{orden}{}
+	
+	
+	
+  \tadGeneradores
+
+  \tadAlinearFunciones{terminarTarea}{\tadTipoFuncion{produccion $p$, orden $ord$, tarea $t$}}
+  \tadOperacion{crear}{workflow $w$,recursos}{produccion}{workflowValido? ($w$)}
+  \tadOperacion{agregarOrden}{produccion $p$}{produccion}{}
+  \tadOperacion{terminarTarea}{produccion $p$, orden $ord$, tarea $t$}{produccion}{fase($ord$,$t$) $\in$ tareasEjecutandose($p$)}
+
+  \tadOtrasOperaciones
+  
+  \tadAlinearFunciones{tareasNuevasEjecutandose}{\tadTipoFuncion{produccion,orden,conj(tarea),tarea}}
+  \tadOperacion{terminoOrden?}{produccion $p$,orden $ord$}{bool}{0 $<$ $ord$  $\leq$ ultimaOrden ($p$)}
+   
+  ~
+  \tadOperacion{mostrarTareas}{produccion $p$,orden $ord$}{dicc (tarea,string)}{0 $<$ $ord$  $\leq$ ultimaOrden ($p$)}
+   
+  ~
+  \tadOperacion{generarDiccionarioTareas}{produccion $p$,orden $ord$,conj(tarea) $ct$}{dicc (tarea,string)}{0 $<$ $ord$ $\leq$ ultimaOrden ($p$) $\wedge$ ($\forall$ $t$:tarea, $t$ $\in$ $ct$) esTarea? (verWorkflow ($p$), $t$)}
+   
+  ~
+  \tadOperacion{enEjecucion?}{produccion $p$,orden $ord$, tarea $t$}{bool}{0 $<$ $ord$ $\leq$ ultimaOrden($p$)}
+   
+  ~
+  \tadOperacion{terminaronTodosReq}{produccion $p$,orden $ord$,conj(tarea) $ct$}{bool}{$ord$ = 0 $\wedge$ $\emptyset$? (ct) $\vee$ 0 $<$ $ord$ $\leq$ ultimaOrden ($p$)$\wedge$ ($\forall$ $t$:tarea, $t$ $\in$ $ct$) esTarea? (verWorkflow ($p$), $t$)}
+   
+  ~
+  \tadOperacion{hayRecursos}{recursos,recursos}{bool}{}
+   
+  ~
+  %\tadOperacion{ejecutandose?}{produccion}{bool}{o $\leq$ ultimaOrden ($p$) $\wedge$ esTarea? (t, verWorkflow ($p$))}
+  \tadOperacion{reqsSatisfechos}{produccion}{conj(fase)}{}
+   
+  ~
+  \tadOperacion{reqsSatisfechosAux}{produccion,orden $ord$,conj(tarea)}{conj(fase)}{$ord$ = 0 $\wedge$ $\emptyset$? (ct) $\vee$ 0 $<$ $ord$ $\leq$ ultimaOrden ($p$)$\wedge$ ($\forall$ $t$:tarea, $t$ $\in$ $ct$) esTarea? (verWorkflow ($p$), $t$)}
+   
+  ~
+  \tadOperacion{tareasNuevasEjecutandose}{recursos,workflow,conj(fase)}{conj(fase)}{}
+   
+  ~
+  \tadOperacion{nuevosSatisfechos}{produccion,orden,conj(tarea),tarea}{conj(fase)}{$ord$ = 0 $\wedge$ $\emptyset$? (ct) $\vee$ 0 $<$ $ord$ $\leq$ ultimaOrden ($p$)$\wedge$ ($\forall$ $t$:tarea, $t$ $\in$ $ct$) esTarea? (verWorkflow ($p$), $t$)}
+   
+  ~
+  \tadOperacion{tareasCompletadasOrden}{produccion,orden,conj(tarea)}{conj(tarea)}{$ord$ $\leq$ ultimaOrden ($p$) $\wedge$ ($\forall$ $t$:tarea, $t$ $\in$ $ct$) esTarea? (verWorkflow ($p$), $t$)}
+   
+  ~
+  \tadOperacion{verRecursosDisponibles}{produccion}{recursos}{}
+   
+  ~
+  \tadOperacion{recursosTareasEjecutandose}{conj(fase)),workflow}{recursos}{}
+   
+  ~
+
+ %\newpage
+  \tadAxiomas $\forall$$p$: produccion, $\forall$$w$: workflow, $\forall$$r$,$r1$,$r2$: recursos, $\forall$$t$,$t1$,$t2$: tarea, $\forall$$ord$,$ord1$,$ord2$: orden, $\forall$$ct$: conj(tarea), $\forall$$cf$: conj(fase)
+ \\
+
+  \tadAxioma{verWorkflow (crear ($w$,$r$))}{$w$}
+  \tadAxioma{verWorkflow (agregarOrden ($p$))}{verWorkflow ($p$)}
+  \tadAxioma{verWorkflow (terminarTarea ($p$,$ord$,t))}{verWorkflow ($p$)}
+  ~
+
+  \tadAxioma{verRecursos (crear ($w$,$r$))}{$r$}
+  \tadAxioma{verRecursos (agregarOrden ($p$))}{verRecursos ($p$)}
+  \tadAxioma{verRecursos (terminarTarea ($p$,$ord$,t))}{verRecursos ($p$)}
+
+  ~
+  \tadAxioma{terminoTarea? (agregarOrden ($p$), $ord$, $t$)}{\lif ultimaOrden($p$) $<$ $ord$ \lthen  \\ \hspace*{1em} false \\  \lelse \\ \hspace*{1em} terminoTarea? ($p$,$ord$,t) \\ \lfi \\}
+  \tadAxioma{terminoTarea? (terminarTarea ($p$,$ord1$,$t1$), $ord2$, $t2$)}{\lif $ord1$ = $ord2$ $\wedge$ $t1$ = $t2$ \lthen \\ \hspace*{1em} true \\ \lelse \\ \hspace*{1em} terminoTarea? ($p$,$ord2$,$t2$) \\ \lfi \\}
+  
+  ~
+  
+  \tadAxioma{ultimaOrden (crear ($w$,$r$))}{0}
+  \tadAxioma{ultimaOrden (agregarOrden ($p$))}{1 + ultimaOrden($p$)}
+  \tadAxioma{ultimaOrden (terminarTarea ($p$,$ord$,$t$))}{ultimaOrden ($p$)}
+  
+  ~
+  
+  \tadAxioma{tareasEjecutandose (crear ($w$,$r$))}{$\emptyset$}
+  \tadAxioma{tareasEjecutandose (agregarOrden ($p$))}{\lif (hayRecursos ($r$, verRecursosTarea ($w$, 0))) \lthen \\ \hspace*{1em} Ag (fase((ultimaOrden ($p$) + 1),0), tareasEjecutandose ($p$)) \\ \lelse \\ \hspace*{1em} tareasEjecutandose ($p$) \\ \lfi \\ }
+  \tadAxioma{tareasEjecutandose (terminarTarea ($p$,$ord$,$t$))}{(tareasEjecutandose ($p$) - fase($ord$,$t$)) $\cup$ tareasNuevasEjecutandose (agregarRecursosLiberados ($p$, $t$), verWorkflow ($p$), (actualizarRequerimientosSatisfechos ($p$, $ord$, $t$)))\\}
+  
+  ~
+  
+  \tadAxioma{agregarRecursosLiberados ($p$, $t$)}{verRecursosDisponibles ($p$) $\cup$ verRecursosTarea (verWorkflow($p$), $t$)}
+  
+  ~
+  
+  \tadAxioma{actualizarRequerimientosSatisfechos ($p$, $ord$, $t$)}{(reqsSatisfechos ($p$) $\cup$ nuevosSatisfechos (verWorkflow ($p$), $ord$, dameIDTareas (verWorkflow ($p$) - Ag (tareasCompletadasOrden ($p$, $ord$, verIDTareas (verWorfklow($p$))), $t$))))}
+  
+  ~
+  
+  
+	\tadAxioma{tareasNuevasEjecutandose ($r$,$w$,$cf$)}{\lif $\emptyset$? ($cf$) \lthen \\ \hspace*{1em} $\emptyset$ \\  \lelse  \\ \hspace*{1em} \lif hayRecursos ($r$, verRecursosTarea(w, tarea(dameUno($cf$)))) \lthen \\ \hspace*{1em} \hspace*{1em} Ag (dameUno ($cf$), tareasNuevasEjecutandose ($r$ - (verRecursosTarea(w, (tarea(dameUno($cf$))))), $w$, sinUno ($cf$)) \\ \hspace*{1em} \lelse \\ \hspace*{1em}  \hspace*{1em} tareasNuevasEjecutandose ($r$, $w$, sinUno ($cf$) \\ \hspace*{1em} \lfi  \\\lfi \\}
+  
+  \tadAxioma{nuevosSatisfechos ($p$,$ord$,$ct$,$t$))}{\lif $\emptyset$? (ct) \lthen \\ \hspace*{1em} $\emptyset$ \\ \lelse \\ \hspace*{1em} \lif terminaronTodosReq ($p$, $ord$, (verReqsTarea (verWorkflow ($p$), dameUno ($ct$)) - $t$) \lthen \\ \hspace*{1em} \hspace*{1em} Ag (fase($ord$,dameUno ($ct$)), nuevosSatisfechos ($p$, $ord$, sinUno ($ct$), $t$) \\ \hspace*{1em} \lelse \\ \hspace*{1em} \hspace*{1em} nuevosSatisfechos ($p$, $ord$, sinUno ($ct$), $t$) \\ \hspace*{1em} \lfi \\ \lfi \\}
+  
+    ~
+	\tadAxioma{tareasCompletadasOrden ($p$,$ord$,$ct$)}{\lif $\emptyset$? ($ct$) \lthen \\ \hspace*{1em} $\emptyset$ \\ \lelse \\ \hspace*{1em} \lif terminoTarea(dameUno ($ct$)) \lthen \\ \hspace*{1em} \hspace*{1em} Ag (dameUno ($ct$), tareasCompletadasOrden ($p$, $ord$, sinUno ($ct$))) \\ \hspace*{1em} \lelse \\ \hspace*{1em}  \hspace*{1em} tareasCompletadasOrden ($p$, $ord$, sinUno ($ct$)) \\ \hspace*{1em} \lfi \\ \lfi \\ }
+  
+  ~
+	\tadAxioma{terminoOrden? ($p$,$ord$)}{terminoTarea? ($p$ ,$ord$, dameUno (idTareaFinal (verWorkflow($p$))))\\}
+	~
+  
+  \tadAxioma{mostrarTareas ($p$,$ord$)}{generarDiccionarioTareas ($p$, $ord$, dameIDTareas (verWorkflow($p$)))\\ }
+ 
+  ~
+  
+  \tadAxioma{generarDiccionarioTareas ($p$,$ord$,$ct$)}{\lif $\emptyset$? ($ct$) \lthen \\ \hspace*{1em}  vacio \\ \lelse  \\ \hspace*{1em} \lif terminoTarea? ($p$, $ord$, dameUno ($ct$)) \lthen \\ \hspace*{1em} \hspace*{1em} definir (dameUno ($ct$), 'Tarea Finalizada', generarDiccionarioTareas ($p$, $ord$, sinUno ($ct$))) \\ \hspace*{1em}  \lelse \\ \hspace*{1em} \hspace*{1em} \lif enEjecucion? ($p$, $ord$, dameUno ($ct$) \lthen \\ \hspace*{1em} \hspace*{1em} \hspace*{1em} definir (dameUno ($ct$), 'En Ejecuciï¿½n', generarDiccionarioTareas ($p$, $ord$, sinUno ($ct$))) \\ \hspace*{1em} \hspace*{1em}  \lelse \\ \hspace*{1em} \hspace*{1em} \hspace*{1em} definir (dameUno ($ct$), 'Tarea No Iniciada', generarDiccionarioTareas ($p$, $ord$, sinUno ($ct$))) \\ \hspace*{1em} \hspace*{1em} \lfi \\ \hspace*{1em} \lfi \\ \lfi \\ }
+ 
+  ~
+  
+  
+  
+  \tadAxioma{enEjecucion? ($p$,$ord$,$t$)}{fase($ord$,$t$) $\in$ tareasEjecutandose ($p$)}
+     
+  	
+  ~
+  
+  \tadAxioma{hayRecursos ($r1$,$r2$)}{\lif $\emptyset$? ($r2$) \lthen True \lelse$ \#$ (dameUno ($r2$), $r1$) $>$ 0 \yluego hayRecursos ($r1$ - dameUno ($r2$), sinUno ($r2$))}
+ 
+  ~
+  
+  \tadAxioma{terminaronTodosReq ($p$,$ord$,$ct$)}{\lif $\emptyset$? ($cf$) \lthen $\emptyset$ \lelse terminoTarea? ($p$, $ord$, dameUno ($ct$)) $\wedge$ terminaronTodosReq($p$, $ord$, sinUno($ct$))}
+ 
+  ~
+  
+   \tadAxioma{reqsSatisfechos ($p$)}{reqsSatisfechosAux ($p$, ultimaOrden($p$), dameIDTareas (verWorkflow($p$)))}
+ 
+  ~ 
+  
+  \tadAxioma{reqsSatisfechosAux ($p$,$ord$,$ct$)}{\lif $ord$  = 0 \lthen \\ \hspace*{1em} $\emptyset$ \\ \lelse \\ \hspace*{1em} \lif $\emptyset$? ($ct$) \lthen \\ \hspace*{1em} \hspace*{1em} reqsSatisfechosAux ($p$, $ord$ -1, dameIDTareas (verWorkflow ($p$))) \\ \hspace*{1em} \lelse \\ \hspace*{1em} \lif terminaronTodosReq? ($p$, $ord$, verReqsTarea(verWorkflow, tarea(dameUno($c$))) \lthen \\ \hspace*{1em} \hspace*{1em}  Ag (fase($ord$, dameUno($ct$)), reqsSatisfechosAux ($p$, $ord$, sinUno ($ct$))) \\ \hspace*{1em} \lelse \\ \hspace*{1em} \hspace*{1em} (reqsSatisfechosAux ($p$, $ord$, sinUno ($c$)))\\ \hspace*{1em} \hspace*{1em}  \lfi \\ \hspace*{1em} \lfi \\ \lfi \\}
+ 
+  ~
+  
+  \tadAxioma{verRecursosDisponibles ($p$)}{verRecursos ($p$) - recursosTareasEjecutandose (tareasEjecutandose ($p$), verWorkflow($p$))}\\
+  
+  ~
+  
+  \tadAxioma{recursosTareasEjecutandose ($cf$,$w$))}{\lif $\emptyset$? ($cf$) \lthen $\emptyset$ \lelse verRecursosTarea ($w$, tarea (dameUno($cf$))) $\cup$  recursosTareasEjecutandose (sinUno ($cf$), $w$)}\\
+  
+  
+ 
+ \end{tad}\\
+ 
+  ~
+ 
+ \textbf{TAD} \nombretad{Fase}\\ Es un renombre de la tupla de $<nat,nat>$ cuyos observadores $\pi_1$ y $\pi_2$ fueron renombrados orden y tarea respectivamente, y el generador que toma un orden y una tarea y devuelve una fase fue renombrado fase \\
+ 
+  ~
+ 
+ 
+\textbf{TAD} \nombretad{Tarea}\\ Es $nat$ \\
+  ~
+ 
+
+\textbf{TAD} \nombretad{Orden}\\ Es $nat$ \\
+  ~
+ 
+\textbf{TAD} \nombretad{Recursos}\\ Es $multiconjunto(nat)$ \\
+
+\newpage
+\section{Informe}
+
+En este trabajo hicimos uso de una estructura de TADs en dos niveles. En primer lugar creamos el TAD Workflow, que representa la jerarqu'ia de tareas necesarias para llevar a cabo una orden, en s'i simboliza la tabla indicada en las consignas del TP con cada tarea cons sus respectivos recursos y tareas previas requeridas; el workflow se crea con una sola tarea, a la que le asignamos el ID 0, y que no requiere de otras tareas para comenzar. Luego se agregan tareas progresivamente, cada una s'olo puede requerir como tareas anteriores aquellas que ya hayan sido agregadas al workflow previamente. No cre'imos necesario poner alg'un l'imite sobre el ID de cada tarea que se agregue, por lo tanto es t'ecnicamente posible que por ejemplo la tarea final sea la 1 y una de las primeras la 24, si bien en la realidad eso ser'ia poco claro, nos pareci'o que era muy restrictivo pedir m'as que eso y cre'imos que era mejor dejar esa decisi'on sobre c'omo asignar los IDs en manos del usuario
+
+El otro nivel de TAD es el representado por Produccion, que toma un Workflow al que requerimos que sea v'alido y un n'umero de recursos que permanecer'a invariable a lo largo de toda la ejecuci'on. Para determinar si un Worklow es v'alido, tuvimos en cuenta lo pedido por la materia; ya que nuestrar reglas mismas de construcci'on de un workflow imped'ian tanto designar a m'as de una tarea como inicial como crear ciclos en los requerimientos de las tareas, solamente deb'iamos pedir que no hubiera m'as de una tarea final, lo que lo hicimos comprobando que no hubiera m'as de una tarea que no fuera requerida por ninguna otra.
+
+Al agregarse 'ordenes vimos necesario el tener que distinguir las diferentes tareas de cada orden, y por eso creamos el TAD Fase, que si bien es simplemente un renombre de la tupla de dos elementos, nos ayuda a poder visualizar claramente a qu'e n'umero de orden pertenece cada tarea. Ante la imposiblidad de elegir, dadas varias tareas posibles, cu'al es la que empieza a ejecutarse cuando las condiciones est'an dadas, decidimos no especificar cu'al es la tarea que se ejecuta en ese caso. Para lograr esto, apelamos a crearnos una lista de posibles tareas ejecutables, que simplemente toma todas las tareas cuyos requerimientos previos han sido satisfechos. Luego, se llama a la funci'on dameUno que toma un elemento determin'isticamente, pero sin que nosotros tengamos que especificar cu'al. Dado ese elemento, chequeamos si los recursos disponibles en ese momento alcanzan para ejecutarla, y en caso de que ello suceda, la agregamos como tarea en ejecuci'on, continuando en tanto en caso de ser agregada como en caso de que no verificando si hay m'as tareas por ejecutar (habiendo actualizado los recursos si la tarea entr'o en ejecuci'on para marcar que hay menos recursos disponibles).
+
+Para cumplir con lo pedido por el TP, creamos dos funciones que ser'an exportadas con el TAD que sirven para conocer el estado de las 'ordenes. 'Estas son terminoOrden?, que simplemente consulta si la tarea final del workflow, dada una orden, termin'o su ejecuci'on; y mostrarTareas, que tambi'en dada una orden, devuelve un diccionario cuyas claves son todas las tareas de ese workflow y sus definiciones muestran el estado en el que tal tarea se encuentra, pudiendo ser este Tarea Finalizada, En Ejecuci'on o Tarea No Iniciada, seg'un corresponda.
+
+
+
+
+
+\end{document}

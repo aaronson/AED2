@@ -1,0 +1,2088 @@
+\documentclass[a4paper,10pt]{article}
+%\documentclass[a4paper,10pt]{scrartcl}
+\usepackage[paper=a4paper, left=1.5cm, right=1.5cm, bottom=1.5cm, top=3.5cm]{geometry}
+
+\usepackage[utf8x]{inputenc}
+
+\usepackage[spanish,activeacute]{babel}
+
+\usepackage{algo2symb,tad,algorithm,algorithmic,hyperref,itef}
+\usepackage{amsmath, amssymb}
+
+
+
+\usepackage{lastpage}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Trabajo Practico 2}
+\rhead{Algoritmos y Estructuras de Datos II - 1$^{er}$ Cuatrimestre de 2010}
+\cfoot{\thepage\ de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt} 
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+\newcommand{\f}[1]{\text{#1}}
+\renewcommand{\paratodo}[2]{$\forall~#2$: #1}
+\newcommand{\omitir}[1]{}
+\newcommand{\g}[1]{\texttt{#1}\xspace}
+\newcommand{\tab}{\hspace*{1em}}
+\newcommand{\sombrero}{\widehat}
+\newcommand{\comment}[1]{}
+
+%\newcommand{\vacio}{\ensuremath{\textrm{vac�o}}}
+%\newcommand{\esvacio}{\ensuremath{\textrm{esVac�o}}}
+%\newcommand{\union}{\ensuremath{\textrm{uni�n}}}
+%\newcommand{\interseccion}{\ensuremath{\textrm{intersecci�n}}}
+%\newcommand{\difsim}{\ensuremath{\textrm{difSim�trica}}}
+%\newcommand{\proximo}{\ensuremath{\textrm{pr�ximo}}}
+%\newcommand{\tieneProximo}{\ensuremath{\textrm{tienePr�ximo}}}
+
+
+\begin{document}
+
+
+\tableofcontents
+
+\newpage
+
+
+\section{Workflow}
+\subsection{Interfaz}
+
+\indent \noindent \textbf{interfaz:} \nombretad{Workflow}\\
+\indent \textbf{usa:}\nombretad{Nat,Multiconjunto($\alpha$),Conj($\alpha$)}\\
+\indent \textbf{se explica con:} \nombretad{Workflow}\\
+\indent \textbf{g'eneros:} \nombretad{workflow}\\
+
+
+
+\noindent \textbf{\textsl{Operaciones:}}\\
+
+\noindent tareas(\textbf{in}\ $w$: workflow)  \en $res$: conj(tarea) \ \ \ \ \ \\
+\indent \{P:\ true\ \}  \\
+\indent \{Q:\ res \igobs tareas (w) \}\\
+
+\noindent consumo(\textbf{in}\ $w$: workflow, \textbf{in}\ $t$: tarea)  \en $res$: recursos \ \ \ \ \ O(1)\\
+\indent \{P:\ t $<$ $\#$ (tareas (w)) \ \}  \\
+\indent \{Q:\ res \igobs consumo (w,t) \}\\
+
+\noindent predecesoras(\textbf{in}\ $w$: workflow, \textbf{in}\ $t$: tarea)  \en $res$: conj(tarea) \ \ \ \ \ O(1)\\
+\indent \{P:\ t $<$ $\#$(tareas (w)) \ \}  \\
+\indent \{Q:\ res \igobs predecesoras (w,t) \}\\
+
+\noindent prioridad(\textbf{in}\ $w$: workflow, \textbf{in}\ $t$: tarea)  \en $res$: nat \ \ \ \ \ O(1)\\
+\indent \{P:\ t $<$ $\#$(tareas (w)) \ \}  \\
+\indent \{Q:\ res \igobs prioridad (w,t) \}\\
+
+\noindent nuevo(\textbf{in}\ $p$: nat, \textbf{in}\ $r$: recursos) \en $res$: workflow \ \ \ \ \ O() \\
+\indent \{P:\ true \}\\
+\indent \{Q:\ res  \igobs  nuevo(p,r)\}\\
+
+\noindent agTarea(\textbf{inout}\ $w$: workflow, \textbf{in} $p$:prioridad, \textbf{in} $r$:recursos, \textbf{in} $ps$:conj(tarea))  \ \ \ \ \ O()\\
+\indent \{P:\ w = w$_0$ $\wedge$ p $<$ prioridad(0,w) $\wedge$ $\emptyset$ $\subset$ ps $\subseteq$ tareas (w) $\wedge$ $\forall$(t:tarea) (t $\in$ tareas (w) $\impluego$ p $\neq$ prioridad (t,w)\}\\
+\indent \{Q:\ w  \igobs agTarea(w$_0$,p,r,ps))\}\\
+
+\noindent finales(\textbf{in}\ $w$: workflow)  \en $res$: conj (tarea)\ \ \ \ \ O()\\
+\indent \{P:\ true \ \}  \\
+\indent \{Q:\ res \igobs finales (w)\}\\
+
+
+\noindent sucesoras(\textbf{in}\ $w$: workflow, \textbf{in}\ $t$: tarea)  \en $res$: conj (tarea)\ \ \ \ \ O()\\
+\indent \{P:\ t $\in$ tareas (w) \ \}  \\
+\indent \{Q:\ res \igobs sucesoras (t,w) \}\\
+
+\noindent cantPredecesoras(\textbf{in}\ $w$: workflow, \textbf{in}\ $t$: tarea)  \en $res$: nat \ \ \ \ \ O(1)\\
+\indent \{P:\ t $<$ $\#$(tareas (w)) \ \}  \\
+\indent \{Q:\ res \igobs $\#$(predecesoras (w,t)) \}\\
+
+
+\noindent cantTareas(\textbf{in}\ $w$: workflow)  \en $res$: nat \ \ \ \ \ O(1)\\
+\indent \{P:\ t $<$ $\#$(tareas (w)) \ \}  \\
+\indent \{Q:\ res \igobs $\#$(tareas(w)) \}\\
+
+\newpage
+
+\subsection{Estructura}
+    
+    
+    
+    %\section{Estructura}\\
+    \noindent \textsc{estrWorkflow se representa con tupla}$<$ tareas: arregloDimensionable ($<$prioridad:nat $\times$ 
+	predecesoras: conj (tarea) $\times$ cantPred: nat $\times$ 
+	recursos: recursos$>$) $\times$ cantTareas: nat$>$\\
+	
+\subsection{Invariante de Representacion}
+
+    \indent \ \ \ \ \ \ Rep: $\sombrero{estrWorkflow}$ $\rightarrow$ bool \\
+    
+($\forall\ e$ : estrWorkflow) Rep$(e) =$ cantTareasCorrecta (e.tareas, e.cantTareas) $\wedge$ primeraCorrecta (e.tareas$[0]$) $\yluego$ prioridadesCorrectas (e.tareas, e.cantTareas, $\emptyset$, 1, prioridad ((e.tareas)$[0]$)) $\wedge$ predecesoresCorrectos (e.tareas, e.cantTareas, 1)
+
+cantTareasCorrecta: ad($<$nat, conj(tarea), recursos$>$) $\times$ nat \en bool\\
+	\indent cantTareasCorrecta\ (a, n) = (tam (a) $\geq$ n $\geq$ 1) \\    
+	
+primeraCorrecta: tupla($<$nat, conj(tarea), nat,recursos$>$)  \en bool\\
+	\indent primeraCorrecta\ (t) = $\emptyset$? predecesoras (t) $\wedge$ cantPred (t) == 0 \\    
+	
+prioridadesCorrectas: ad($<$nat, conj(tarea), recursos$>$) $\times$ nat $\times$ conj(nat) $\times$ nat $\times$ nat \en bool\\
+	\indent prioridadesCorrectas\ (a,cant,c,n,p) = n $\geq$ cant $\oluego$ (prioridad(a[n]) $<$ p $\wedge$ prioridad(a[n]) $\notin$ c $\yluego$ (prioridadesCorrectas(a,cant,Ag(prioridad(a[n]), c), n+1, p))) \\ 
+	
+predecesoresCorrectos: ad($<$nat, conj(tarea), recursos$>$) $\times$ nat $\times$ nat \en bool\\
+	\indent predecesoresCorrectos\ (a,cant,n) = n $\geq$ cant $\oluego$ ((cantPred(a[n]) == long (predecesores(a[n]) $\wedge$ ($\neg$ $\emptyset$?(predecesores(a[n])) $\wedge$ sonMenores(predecesores(a[n]), n)) $\yluego$ (predecesoresCorrectos(a,cant, n+1))))) \\ 
+	
+sonMenores: conj(nat) $\times$ nat \en bool\\
+	\indent sonMenores\ (c, n) = $\emptyset$?(c) $\oluego$ dameUno (c) $<$ n $\wedge$ sonMenores (sinUno(c), n)\\    
+
+\subsection{Funcion de abstraccion}
+   
+   \indent \ \ \ \ \ \ Abs : estrWorkflow e $\rightarrow$ workflow \ \ \ \ \ \ \ \ \ \ \ \ \ (Rep($e$))\\
+   
+   $(\forall\ e$: estrWorkflow) {Abs$(e) = w$: workflow} \ \ / \ \ 
+e.cantTareas = $\#$ tareas(w) $\yluego$ $(\forall\ n$: nat) n $<$ cantTareas $\impluego$ prioridad (e.tareas[n]) $==$ prioridad (w,n) $\wedge$  recursos (e.tareas[n]) $==$ recursos (w,n) $\wedge$ predecesoras (e.tareas[n]) $==$ predecesoras (w,n) $\wedge$ cantPred (e.tareas[n]) $==$ long (predecesoras(w,n)) \\
+
+\newpage
+\subsection{Algoritmos}
+
+\begin{algoritmo}
+\caption{}\\
+
+  iTareas(in w: estrWorkflow) $\rightarrow$ $res$: conj(tarea) \\
+	\indent \ \ \ \ \ \  var n: nat = 0  \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \  var c: conj (tarea) = vacio  \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \  while (n $<$ w.cantTareas)  \ \ \ \ \ O(t)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ agregar (w.tareas[n], c) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ n++ \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \  endWhile \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \  res $\gets$ c   \ \ \ \ \ O(1)\\   
+	\indent \ \ \ \ \ \  devolver res    \\
+   end Function \\
+   
+  Creamos un conjunto vacio en O(1), la condicion del while se eval'ua en O(1) porque es un observador de la tupla, dentro del while el agregar tarda O(1) de acuerdo a la implementacion que hicimos en el m'odulo conjunto, este while se hace n veces, siendo n la cantidad de tareas del workflow, como hace n veces O(1), la operaci'on tarda O(n) 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iConsumo(in w: estrWorkflow, in t: tarea) $\rightarrow$ $res$: recursos\\
+    \indent \ \ \ \ \ \  res $\gets$ recursos(w.tareas[t])   \ \ \ \ \ O(1)\\   
+    \indent \ \ \ \ \ \  devolver res    \\
+   end Function \\
+   
+   Como simplemente tenemos que acceder a un observador de una tupla que se accede sobre una posici'on del arreglo (lo cual es inmediato) y dicho arreglo es un observador de la tupla del workflow, esto tarda O(1) 
+\end{algoritmo}
+	    
+\begin{algoritmo}
+\caption{}\\
+  iPrioridad(in w: estrWorkflow, in t: tarea) $\rightarrow$ $res$: nat\\
+    \indent \ \ \ \ \ \  res $\gets$ prioridad(w.tareas[t])   \ \ \ \ \ O(1)\\   
+    \indent \ \ \ \ \ \  devolver res    \\
+     end Function \\
+   
+   Como simplemente tenemos que acceder a un observador de una tupla que se accede sobre una posici'on del arreglo (lo cual es inmediato) y dicho arreglo es un observador de la tupla del workflow, esto tarda O(1)  
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iPredecesoras(in w: estrWorkflow, in t: tarea) $\rightarrow$ $res$: conj(tarea)\\
+    \indent \ \ \ \ \ \  res $\gets$ predecesoras(w.tareas[t])   \ \ \ \ \ O(1)\\   
+    \indent \ \ \ \ \ \  devolver res    \\
+     end Function \\
+   
+   Como simplemente tenemos que acceder a un observador de una tupla que se accede sobre una posici'on del arreglo (lo cual es inmediato) y dicho arreglo es un observador de la tupla del workflow, esto tarda O(1) 
+\end{algoritmo}
+
+\newpage
+\begin{algoritmo}
+\caption{}\\
+  iNuevo(in p: nat, in r: recursos) $\rightarrow$ $res$: workflow\\
+    \indent \ \ \ \ \ \  res.cantTareas = 1   \ \ \ \ \ O(1)\\
+    \indent \ \ \ \ \ \  var a: arregloDimensionable (<nat, conj(tarea), recursos) = crearArreglo (1)  \ \ \ \ \ O(1) \\ 
+    \indent \ \ \ \ \ \  res.tareas = a \ \ \ \ \ O(1)\\
+    \indent \ \ \ \ \ \  prioridad(res.tareas[0]) = p \ \ \ \ \ O(1)\\ 
+    \indent \ \ \ \ \ \  recursos(res.tareas[0]) = r \ \ \ \ \ O(1)\\
+    \indent \ \ \ \ \ \  predecesoras(res.tareas[0]) = vacio \ \ \ \ \ O(1)\\
+    \indent \ \ \ \ \ \  cantPred(res.tareas[0]) = 0 \ \ \ \ \ O(1)\\
+    \indent \ \ \ \ \ \  devolver res    \\
+   end Function \\
+   
+   Crear un arreglo tiene siempre costo constante, despu'es s'olo debemos asignar a los observadores de la tupla ya sea los par'ametros pasados o en el caso de predecesoras, un conjunto vacio que se crea en tiempo constante (ver m'odulo conjunto), por lo tanto, el algoritmo cuesta O(1)
+\end{algoritmo}
+
+
+\begin{algoritmo}
+\caption{}\\
+  iAgTarea(inout w: estrWorkflow, in p:prioridad, in r:recursos, in ps:conj(tarea)) $\rightarrow$ $res$: conj(tarea)\\
+    \indent \ \ \ \ \ \  if (w.cantTareas $>$ 1 $\wedge$ vacio? (predecesoras(w.tareas [cantTareas -1])))\\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ var dim: nat = w.cantTareas * 2 \ \ \ \ \ O(1) \\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ var a: arregloDimensionable ($<$nat, conj(tarea), recursos)$>$ = crearArreglo (dim)  \ \ \ \ \ O(1) \\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ var n: nat = 0 \ \ \ \ \ O(1) \\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ while (n $<$ w.cantTareas) \\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ a[n] = w.tareas[n] \ \ \ \ \ O(1) \\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n++ \ \ \ \ \ O(1) \\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ endWhile \\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ $\pi_1$(a[n]) = p \ \ \ \ \ O(1) \\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ $\pi_2$ (a[n]) = ps \ \ \ \ \ O(1) \\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ $\pi_3$ (a[n]) = long (ps) \ \ \ \ \ O(ps) \\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ $\pi_4$ (a[n]) = r \ \ \ \ \ O(1) \\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ w.cantTareas = dim \ \ \ \ \ O(1) \\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ w.tareas = a \ \ \ \ \ O(1) \\
+    \indent \ \ \ \ \ \ else \\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ prioridad (a[n]) = p \ \ \ \ \ O(1) \\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ recursos (a[n]) = r \ \ \ \ \ O(1) \\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ predecesoras (a[n]) = ps \ \ \ \ \ O(1) \\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ cantPred(a[n]) = long(ps) \ \ \ \ \ O(ps)\\
+    \indent \ \ \ \ \ \ endIf \\
+   end Function \\
+   
+   El primer if lo hacemos en tiempo constante para evitar pagar el O(log n) que tardar'ia si evalu'aramos si n es potencia de dos, costo que no podemos pagar si n no lo fuese, por lo tanto, s'olo vemos si el 'ultimo conjunto de predecesores es vacio, esto se supone que es verdad si todav'ia no se le agreg'o una tarea (ya que deben tener predecesores si no es la tarea inicial). En caso de que el if sea falso, simplemente se asignan a la posicion del arreglo los par'ametros pasados, esto tiene costo constante ya que es una acceso a un array. En caso que el if sea true, debemos crear un arreglo nuevo (tiempo constante) de tama'no 2 $*$ tama'no anterior, y despues asignarle a las n-1 posiciones previas los valores que tenia el arreglo anterior, cada asignaci'on tarda O(1), por lo tanto en total el while tarda O(n) con n el tama'no del arreglo previo (o sea, la cantidad de tareas a reasignar). Luego asignamos la nueva tarea de la misma manera en O (1).\\
+   
+   Por lo tanto, esta operaci'on tarda O(1) si la tarea a agregar no es potencia de 2, y O(n) si lo es
+   
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iFinales(in w: estrWorkflow) $\rightarrow$ $res$: conj(tarea)\\
+    \indent \ \ \ \ \ \  res $\gets$ tareas (w) \ \ \ \ \ O(1) \\
+    \indent \ \ \ \ \ \  var cp: conj (tarea) = vacio \ \ \ \ \ O(1) \\
+    \indent \ \ \ \ \ \  var i: nat = 0 \ \ \ \ \ O(1) \\ 
+    \indent \ \ \ \ \ \  var t: tarea = 0 \ \ \ \ \ O(1)  \\   
+    \indent \ \ \ \ \ \  while (i $<$ w.cantTareas) \\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ union (cp, predecesoras(w[i])) \ \ \ \ \ O(n$^{2}$)  \\   
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ i++ \ \ \ \ \ O(1) \\
+    \indent \ \ \ \ \ \  endWhile \\
+    \indent \ \ \ \ \ \  var it: conj(tarea) $\gets$ crearIt (cp) \\
+    \indent \ \ \ \ \ \  while (hayMas (it)) \\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ t = actual (it) \ \ \ \ \ O(1)\\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ sacar (res, t) \ \ \ \ \ O(n) \\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ borrarActual (it) \ \ \ \ \ O(1) \\
+    \indent \ \ \ \ \ \  endWhile \\
+    \indent \ \ \ \ \ \  devolver res    \\
+   end Function \\
+   
+   La funci'on union de conjunto tarda O(n$^{2}$) seg'un el m'odulo conjunto, esta operaci'on la ejecutamos n veces siendo n la cantidad de tareas en el workflow, por lo tanto ese while tiene costo O(n$^{3}$). Para el segundo while, la operaci'on sacar sabemos que tiene costo O(n), como nuevamente se ejecuta n veces, el costo del segundo while es O(n$^{2}$). Como lo dem'as son operaciones que tardan tiempo constante, el costo total es O(n$^{3}$) + O(n$^{2}$) = O(n$^{3}$) 
+   
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iSucesoras(in w: estrWorkflow, in t: tarea) $\rightarrow$ $res$: conj(tarea)\\
+    \indent \ \ \ \ \ \  var n: nat = 0 \ \ \ \ \ O(1) \\
+    \indent \ \ \ \ \ \  while (n $<$ w.cantTareas) \\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ if (pertenece (t, predecesoras(w.tareas[n])) O(p)\\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ agregar (n, res) \ \ \ \ \ O(1) \\
+    \indent \ \ \ \ \ \ \ \ \ \ \ \ \ n++ \ \ \ \ \ O(1) \\
+    \indent \ \ \ \ \ \  endWhile \\
+    \indent \ \ \ \ \ \  devolver res    \\
+   end Function \\
+   
+   En esta operaci'on, recorremos todo el arreglo de tareas, y en cada pasada nos fijamos si la tarea actual pertenece a las predecesoras de la tarea pasada por par'ametro. Sabemos que la operaci'on pertenece del conjunto tiene costo O(p), con p la cantidad de elementos del conjunto (en este caso, la cantidad de predecesores). Adem'as, el agregar insume tiempo constante. Por lo tanto, la operaci'on tarda O(n$*$p)
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iCantTareas(in w: estrWorkflow) $\rightarrow$ $res$: nat\\
+    \indent \ \ \ \ \ \  res $\gets$ w.cantTareas \\
+    \indent \ \ \ \ \ \  devolver res    \\
+   end Function \\
+   
+   En esta operaci'on simplemente devolvemos un observador de la tupla, por lo tanto es O(1)
+\end{algoritmo}
+
+\newpage
+
+\section{UsoRecursos}
+
+\subsection{Interfaz}
+
+
+\indent \noindent \textbf{interfaz:} \nombretad{UsoRecursos}\\
+\indent \textbf{usa:}\nombretad{Nat,Multiconjunto($\alpha$),Conj($\alpha$)}\\
+\indent \textbf{se explica con:} \nombretad{UsoRecursos}\\
+\indent \textbf{g'eneros:} \nombretad{UsoRecursos}\\
+
+
+
+\noindent \textbf{\textsl{Operaciones:}}\\
+
+\noindent tiposDeRecurso (\textbf{in}\ $u$: UsoRecursos)  \en $res$: nat \ \ \ \ \ \\
+\indent \{P: true\ \ \}  \\
+\indent \{Q:\ res \igobs tiposDeRecursos (u) \}\\
+
+\noindent verTotal (\textbf{in}\ $u$: UsoRecursos, $r$: recurso)  \en $res$: nat \ \ \ \ \ \\
+\indent \{P:\ r $<$ tiposDeRecurso (u) \ \}  \\
+\indent \{Q:\ res \igobs verTotal (u,r) \}\\
+
+\noindent disponible (\textbf{in}\ $u$: UsoRecursos, $r$: recurso)  \en $res$: nat \ \ \ \ \ \\
+\indent \{P:\ r $<$ tiposDeRecurso (u) \ \}  \\
+\indent \{Q:\ res \igobs disponibilidad (u,r) \}\\
+
+\noindent generar (\textbf{in}\ $rs$: recursos)  \en $res$: usoRecursos \ \ \ \ \ \\
+\indent \{P:\ true \ \}  \\
+\indent \{Q:\ res \igobs generar(rs) \}\\
+
+\noindent nuevoConsumo (\textbf{inout}\ $u$: UsoRecursos, $r$: recurso, $n$: nat) \ \ \ \ \ \\
+\indent \{P:\ u = u$_0$ $\wedge$ r $<$ tiposDeRecurso (u) $\wedge$ n $<$ verTotal (u,r)\ \}  \\
+\indent \{Q:\ u \igobs nuevoConsumo (u$_0$, r, n) \}\\
+
+\noindent menorConsumo (\textbf{in}\ $u$: UsoRecursos)  \en $res$: recurso \ \ \ \ \ \\
+\indent \{P: tiposDeRecurso (u) $>$ 0 \ \ \}  \\
+\indent \{Q:\ res \igobs menorConsumo (u) \}\\
+
+\noindent actualizarConsumo (\textbf{inout}\ $u$: UsoRecursos, \textbf{in}\ $mconj$: recursos) \ \ \ \ \ \\
+\indent \{P: u = u$_0$ $\wedge$ ($\forall$ r: recurso) r $\in$ mconj $\impluego$ (r $<$ tiposDeRecurso $\yluego$ $\#$ (r, mconj) $<$ verTotal (u, i)) \ \ \}  \\
+\indent \{Q:\ u \igobs actualizarConsumo (u$_0$, mconj) \}\\
+
+\noindent actualizarUso (\textbf{inout}\ $u$: UsoRecursos, $ar$: arregloDimensionable (nat)) \ \ \ \ \ \\
+\indent \{P: u = u$_0$ $\wedge$ tiposDeRecurso (u) $==$ tam (ar) $\wedge$ ($\forall$ i: nat) i $<$ tam (ar) $\impluego$ ar[i] $<$ verTotal (u, i) \ \ \}  \\
+\indent \{Q:\ u \igobs actualizarUso (u$_0$, ar) \}\\
+
+\noindent alcanzanLosRecursos (\textbf{in}\ $u$: UsoRecursos, \textbf{in}\ $mconj$: recursos) \en $res$: bool \ \ \ \ \ \\
+\indent \{P: ($\forall$ r: recurso) r $\in$ mconj $\impluego$ r $<$ tiposDeRecurso (u) \ \ \}  \\
+\indent \{Q:\ res \igobs alcanzanLosRecursos (u, mconj) \}\\
+
+\noindent multiconjuntizar (\textbf{in}\ $u$: UsoRecursos) \en $res$: recursos \ \ \ \ \ \\
+\indent \{P: true \ \ \}  \\
+\indent \{Q:\ res \igobs multiconjuntizar (u) \}\\
+
+\noindent disponiblesEnMulticonj (\textbf{in}\ $u$: UsoRecursos) \en $res$: recursos \ \ \ \ \ \\
+\indent \{P: true \ \ \}  \\
+\indent \{Q:\ res \igobs disponiblesEnMulticonj (u) \}\\
+
+\newpage
+\subsection{Estructura}
+
+    \noindent \textsc{estrUsoRecursos se representa tupla} $<$status: arregloDimensionable ($<$total:nat $\times$ disponible: nat $\times$ orden: nat$>$ $\times$ ordenesConsumo: arregloDimensionable (recurso: nat $\times$ disponible: nat)$>$) $\times$ cantRecursos: nat$>$\\
+
+\subsection{Invariante de Representaci'on}
+
+    \indent \ \ \ \ \ \ Rep: $\sombrero{estrUsoRecursos}$ $\rightarrow$ bool \\
+    
+($\forall\ e$ : estrUsoRecursos) Rep$(e) =$ cantidadRecursosCorrecta (u.status, u.ordenesConsumo, u. cantRecursos) $\yluego$ disponiblesCorrectos(u.status, 0, u.cantRecursos) $\wedge$ seCorrespondenLosArreglos (u.status, u.ordenesConsumo, 0, u.cantRecursos) $\wedge$ esUnHeap (u.ordenesConsumo, u.cantRecursos, u.cantRecursos) \\
+
+cantidadRecursosCorrecta: ad($<$nat, nat, nat$>$) $\times$ ad($<$nat, nat$>$) $\times$ nat \en bool\\
+	\indent cantTareasCorrecta\ (ar, ao, n) = (tam (ar) == tam (ao) == n) \\    
+
+disponiblesCorrectos: ad($<$nat, nat, nat$>$) $\times$ nat $\times$ nat \en bool\\
+	\indent disponiblesCorrectos (ar, i, n) = i == n $\oluego$ (total(a[i]) $\geq$ disponible(a[i]) $\yluego$ (disponiblesCorrectos (ar, i+1, n)))  \\    
+
+seCorrespondenLosArreglos: ad($<$nat, nat, nat$>$) $\times$ ad($<$nat, nat$>$) $\times$ nat $\times$ nat \en bool\\
+	\indent seCorrespondenLosArreglos (ar, ao, i, n) = i == n $\oluego$ (recurso (ao[(orden (ar[i]))]) == i $\wedge$ disponible(ar[i]) == disponible (ao[(orden (ar[i]))]) $\yluego$ (disponiblesCorrectos (ar, ao, i+1, n)))  \\   
+
+ 
+esUnHeap: ad($<$nat, nat$>$) $\times$ nat $\times$ nat\en bool\\
+	\indent esUnHeap (ao, i, n) = \lif i == 0 \lthen nodoValido (ao, i, n) \lelse nodoValido (ao, i, n) $\wedge$ esUnHeap (ao, i-1, n) \lfi \\ 
+
+nodoValido: ad($<$nat, nat$>$) $\times$ nat $\times$ nat\en bool\\
+	\indent nodoValido (ao, i, n) = i $\leq$ n/2 -1 $\impluego$ \lif i $\leq$ n/2 - 2 \lthen disponible(ao[i]) $\geq$ disponible(ao [i*2+1]) $\wedge$ disponible(ao[i]) $\geq$ disponible(ao [i*2+2]) \lelse disponible(ao[i]) $\geq$ disponible(ao [i*2+1]) \lfi
+
+
+\subsection{Funci'on de Abstracci'on}
+
+   \indent \ \ \ \ \ \ Abs : estrUsoRecursos e $\rightarrow$ usoRecursos \ \ \ \ \ \ \ \ \ \ \ \ \ (Rep($e$))\\
+   
+   $(\forall\ e$: estrUsoRecursos) {Abs$(e) = u$: usoRecursos} \ \ / \ \ 
+e.cantRecursos = $\#$ tiposDeRecurso(w) $\yluego$ $(\forall\ n$: nat) n $<$ cantRecursos $\impluego$ total (e.status[n]) $==$ verTotal (u,n) $\wedge$  disponible (e.status[n]) $==$ disponible (u,n)  \\
+
+\newpage
+\subsection{Algoritmos}
+
+\begin{algoritmo}
+\caption{}\\
+  iTiposDeRecurso(in u: estrUsoRecursos) $\rightarrow$ $res$: conj(tarea) \\
+    \indent \ \ \ \ \ \  res $\gets$ u.cantRecursos   \ \ \ \ \ O(1)\\   
+    \indent \ \ \ \ \ \  devolver res    \\
+   end Function \\
+   
+   Ac'a s'olo debemos devolver un observador de la tupla, entonces demora O(1)
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iVerTotal(in u: estrUsoRecursos, in r: recurso) $\rightarrow$ $res$: nat \\
+	\indent \ \ \ \ \ \  res $\gets$ total(u.status[r])   \ \ \ \ \ O(1)\\   
+   	\indent \ \ \ \ \ \  devolver res    \\
+ end Function \\
+   
+   Ac'a s'olo debemos acceder a una posici'on del arreglo de un observador de la tupla, lo cual demora O(1)
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iDisponible(in u: estrUsoRecursos, in r: recurso) $\rightarrow$ $res$: nat \\
+	\indent \ \ \ \ \ \  res $\gets$ disponible(u.status[r])   \ \ \ \ \ O(1)\\   
+   	\indent \ \ \ \ \ \  devolver res    \\
+   end Function \\
+   
+   Ac'a s'olo debemos acceder a una posici'on del arreglo de un observador de la tupla, lo cual demora O(1)
+\end{algoritmo}
+
+
+\begin{algoritmo}
+\caption{}\\
+  iGenerar(in r: recursos) $\rightarrow$ $res$: usoRecursos \\
+  \indent \ \ \ \ \ \  var n: nat = cantElemDistintos (n)  \ \ \ \ \ O(r)\\  
+	\indent \ \ \ \ \ \  var it: recursos $\gets$ crearIt (r)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var ar: arregloDimensionable (nat,nat,nat) = ad(n)  \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \  var temp: nat = 0  \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \  while (hayMas (it))  \ \ \ \ \ O(r)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ temp = actual (it) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ total(ar[temp] = cardinal (temp,r)) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ disponible(ar[temp]) = total(ar[temp]) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ borrarActual (it) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \  endWhile \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var ao: arregloDimensionable (nat, nat) = ad (n) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  i = 0 \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  while (i $<$ n)  \ \ \ \ \ O(n)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ recurso (ao [i]) = i \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ disponible (ao [i]) = disponible (ar [i]) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ orden (ar [i]) = i \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ i++ \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \  endWhile \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  i = n/2 - 1 \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  while (i $\geq$ 0)  \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ heapify (ao, i, ar, n) \ \ \ \ \ O(...) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ i$--$ \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \  endWhile \ \ \ \ \ O(1)\\	
+	\indent \ \ \ \ \ \  res.status $\gets$ ar  \ \ \ \ \ O(1)\\   
+	\indent \ \ \ \ \ \  res.ordenesConsumo $\gets$ ao  \ \ \ \ \ O(1)\\   
+	\indent \ \ \ \ \ \  res.cantRecuros $\gets$ n  \ \ \ \ \ O(1)\\   
+	\indent \ \ \ \ \ \  devolver res    \\
+   end Function \\ 
+   
+   La creaci'on de las variables insume tiempo constante. Luego, debemos recorrer el multiconjunto, lo cual tarda O(r) siendo r la cantidad de elementos del mismo, en cada pasada asignamos variables al arreglo lo cual es constante (teniendo en cuenta que el cardinal insume tiempo O(1) si el elemento a buscar es el primero, lo cual est'a garantizado por la forma de recorrer el multiconjunto que hacemos con el iterador), entonces, ese while insume O(r). Luego, recorremos el nuevo arreglo asignando variables ya creadas, eso demora O(r) tambi'en. Cuando tenemos que heapificar, el heapify sabemos que demora O(log r) para una llamada, pero nosotros seguimos el algoritmo de Floyd, que nos garantiza que recorriendo el arreglo desde abajo y heapificando desde ah'i se reducen la cantidad de swaps que se deben hacer, y en total demora O (r). Finalmente, simplemente debemos asignar las variables a los observaadores de la tupla, por lo tanto la operaci'on demora O (r) + O (r) + O (r) = O (r)
+   
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  heapify(inout ao: arregloDimensionable (nat, nat), in i: nat, inout ar:  arregloDimensionable (nat, nat, nat), in n: nat)\\
+	\indent \ \ \ \ \ \  if (i $\leq$ n/2 -1)   \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ if (i $\leq$ n/2 - 2)   \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if (disponible(ao[i*2+1]) $>$ disponible (ao[i]) $||$ (disponible(ao[i*2+2]) $>$ disponible (ao[i]))) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if (disponible(ao[i*2+1]) $>$ (disponible(ao[i*2+2])))  \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ swap (ao[i], ao[i*2+1]) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ orden (ar[recurso(ao[i])]) = i  \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ orden (ar[recurso(ao[i*2+1])]) = i*2+1  \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ heapify (ao, i*2+1, ar, n) \ \ \ \ \ O(log r) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ else \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ swap (ao[i], ao[i*2+2]) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ orden (ar[recurso(ao[i])]) = i  \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ orden (ar[recurso(ao[i*2+2])]) = i*2+2  \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ heapify (ao, i*2+2, ar, n) \ \ \ \ \ O(...) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ endIf \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  endIf \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  else \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if (disponible(ao[i*2+1]) $>$ disponible (ao[i]))  \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  swap (ao[i], ao[i*2+1]) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  orden (ar[recurso(ao[i])]) = i  \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ orden (ar[recurso(ao[i*2+1])]) = i*2+1  \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  endIf \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ endIf \\
+	\indent \ \ \ \ \ \ endIf \\
+   end Function \\
+   
+   Una llamada al heapify (sin contar la llamada recursiva) insume tiempo lineal, ya que se puede ver que se acceden a posiciones de un arreglo y se cambian los valores o swapea, lo que tiene costo O (1) al igual que las comparaciones del if. Por lo tanto, el costo del heapify se reduce a la cantidad de veces que se llama recursivamente, se puede ver que cada llamada duplica el i, por lo tanto, este crece exponencialmente y deja de llamar recursivamente cuando esa operaci'on dar'ia mayor que el tama'no del arreglo, por lo tanto, se puede llamar como mucho log n veces, siendo n el tama'no del arreglo. Entonces, el heapify tiene costo O(log n) en peor caso
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iNuevoConsumo(inout u: estrUsoRecursos, in r: recurso, in n: nat)\\
+	\indent \ \ \ \ \ \  disponible(u.status[r]) = n  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  disponible(u.ordenesConsumo[(orden(u.status[r]))]) = n  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  nat i = orden [(u.status[r])] = n  \ \ \ \ \ O(1)\\	
+	\indent \ \ \ \ \ \  while i $\geq$ 0 \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ heapify (u.ordenesConsumo, i, u.status, u.cantRecursos) \ \ \ \ \ O(...) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ i = i/2 -1 \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \  endWhile \ \ \ \ \ O(1)\\
+   end Function \\
+   
+   Esta operaci'on cuesta primero asignar valores a posiciones de un array, cuyo acceso es inmediato. Luego, se debe heapificar, y el heapify tiene costo O(log n), con n el tama'no del arreglo, se puede ver que la cantidad de veces que se llama a la funci'on tambi'en cambia exponecialmente sobre el tama'no del arreglo. Es m'as, puede verse que mientras m'as chico sea el i inicial, menos veces se va a llamar al heapify, y al rev'es, por lo tanto, la operaci'on tarda O(log n)
+   
+\end{algoritmo}
+
+
+\begin{algoritmo}
+\caption{}\\
+  iMenorConsumo(in u: estrUsoRecursos) $\rightarrow$ $res$: nat \\
+	\indent \ \ \ \ \ \  var n: nat = recurso (u.ordenesConsumo[0])  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  res $\gets$ total(u.status[n]) - disponible(u.status[n])   \ \ \ \ \ O(1)\\   
+   	\indent \ \ \ \ \ \  devolver res    \\
+   end Function \\
+
+Esta funci'on tan s'olo debe acceder a la primera posici'on del arreglo de 'ordenes por consumo, y con ese dato, buscar en el otro arreglo (status) su total y su disponibilidad, y hacer la resta, por lo tanto al ser todas operaciones inmediatas es O(1)
+\end{algoritmo}
+
+
+
+\begin{algoritmo}
+\caption{}\\
+iActualizarConsumo (inout u: estrUsoRecursos, in mconj: recursos) \\
+	\indent \ \ \ \ \ \  var n: nat = u.cantRecursos  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var i: nat = 0  \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \  var it: recursos $\gets$ crearIt (mconj)  \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \  while (hayMas (it))  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ var rtemp: recurso = actual(it) \\	
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ disponible (u.status [rtemp]) += cardinal (rtemp, mconj) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ disponible (u.ordenesConsumo [orden(u.status[rtemp])]) += cardinal (rtemp, mconj) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ heapify (u.ordenesConsumo, rtemp, u.status, n) \ \ \ \ \ O(log r) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ borrarActual (it) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \  endWhile \ \ \ \ \ O(1)\\ 
+	\indent \ \ \ \ \ \  devolver res    \\
+   end Function \\
+
+Aqu'i nuevamente debemos iterar sobre un multiconjunto y pedir el cardinal del elemento actual, iterar sobre el multiconjunto, sabiendo que la cantidad de recursos utilizada por una tarea es siempre O(1), se puede hacer en O(1), adem'as sabemos que el cardinal que pedimos es siempre el primero por lo tanto esta operaci'on tambi'en siempre demora O(1), dentro del while debemos heapificar, lo cual se sabe que tiene un costo de O(log r) ya justificado; por lo tanto hacer O(1) veces O(log r) resulta en una complejidad para la funci'on de O(log r)
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+iActualizarUso (inout u: estrUsoRecursos, in ar: arregloDimensionable (nat)) \\
+	\indent \ \ \ \ \ \  var n: nat = u.cantRecursos  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var i: nat = 0  \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \  while (i $<$ n)  \ \ \ \ \ O(r)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ disponible (u.status [i]) = ar[i] \\	
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ disponible (u.ordenesConsumo [orden(u.status[i])] =  ar[i] \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \  endWhile \ \ \ \ \ \\ 
+	\indent \ \ \ \ \ \  i = n/2 -1  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  while (i $\geq$ 0)  \ \ \ \ \ O(r)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ heapify (u.ordenesConsumo, i, u.status, n) \ \ \ \ \ O(log r) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ i $--$ \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \  endWhile    \\
+   end Function \\
+
+Esta funci'on es similar a la heapificaci'on del generar, primero se actualizan todos los disponibles recorriendo todo el arreglo (con un costo de O(r)); luego se heapifica seg'un el algoritmo de Floyd, que ya justificamos que tiene costo O(r), por lo tanto la funci'on es O(r)
+
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+iAlcanzanLosRecursos (in u: estrUsoRecursos, in mconj: recursos) $\rightarrow$ $res$: bool \\
+	\indent \ \ \ \ \ \  res $\gets$ true  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var n: nat = u.cantRecursos  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var i: nat = 0  \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \  var it: recursos $\gets$ crearIt (mconj)  \ \ \ \ \ O(1)\\ 
+	\indent \ \ \ \ \ \  while (hayMas (it) $\wedge$ res)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ var rtemp: recurso = actual(it) \\	
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ res $\gets$ (disponible (u.status [rtemp] $\geq$ cardinal (rtemp, mconj)))) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ borrarActual (it) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \  endWhile \ \ \ \ \ O(1)\\ 
+	\indent \ \ \ \ \ \  devolver res    \\
+   end Function \\
+
+Nuevamente, el multiconjunto sobre el cual iteramos nos demora O(1) porque est'a acotado al ser los consumos de una tarea; el cardinal, como siempre, demora O(1) porque nuestra manera de iterar nos asegura que el cardinal pedido siempre es el primero, por lo tanto, la operaci'on se resuelve en O(1)
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+iMulticonjuntizar (in u: estrUsoRecursos) $\rightarrow$ $res$: recursos \\
+	\indent \ \ \ \ \ \  res $\gets$ vacio  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var n: nat = u.cantRecursos  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var i: nat = 0  \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \  while (i $<$ n)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ var cant: recurso = total (u.status [i]) \\	
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ while (cant $>$ 0)
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (agregar (i, res)) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cant$--$ \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ i$++$ \ \ \ \ \ \\
+	\indent \ \ \ \ \ \  endWhile \ \ \ \ \ O(1)\\ 
+	\indent \ \ \ \ \ \  devolver res    \\
+   end Function \\
+
+Esta funci'on itera sobre el arreglo de recursos, que tiene tama'no n; dentro del while hay otro que itera sobre la cantidad de un mismo recurso existente, esto lo consideramos acotado, pero suponiendo que no lo fuera, si la cantidad m'axima de recursos fuera m, la compĺejidad total, sabiendo que el agregar es O(r) porque debe recorrer todo el multiconjunto para verificar si este se encuentra en el mismo, resulta O(n$^{2}*$m)
+
+\end{algoritmo}
+
+
+\begin{algoritmo}
+\caption{}\\
+iDisponiblesEnMulticonj (in u: estrUsoRecursos) $\rightarrow$ $res$: recursos \\
+	\indent \ \ \ \ \ \  res $\gets$ vacio  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  res $\gets$ vacio  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var n: nat = u.cantRecursos  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var i: nat = 0  \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \  while (i $<$ n)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ var cant: recurso = disponible (u.status [i]) \\	
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ while (cant $>$ 0)
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (agregar (i, res)) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cant$--$ \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ i$++$ \ \ \ \ \ \\
+	\indent \ \ \ \ \ \  endWhile \ \ \ \ \ O(1)\\ 
+	\indent \ \ \ \ \ \  devolver res    \\
+   end Function \\
+
+Esta funci'on itera sobre el arreglo de recursos, que tiene tama'no n; dentro del while hay otro que itera sobre la cantidad de un mismo recurso existente, esto lo consideramos acotado, pero suponiendo que no lo fuera, si la cantidad m'axima de recursos fuera m, la compĺejidad total, sabiendo que el agregar es O(r) porque debe recorrer todo el multiconjunto para verificar si este se encuentra en el mismo, resulta O(n$^{2}*$m)
+\end{algoritmo}
+
+
+\newpage
+
+\section{Planta}
+
+\subsection{Interfaz}
+
+\indent \noindent \textbf{interfaz:} \nombretad{Planta}\\
+\indent \textbf{usa:}\nombretad{Nat,Multiconjunto($\alpha$),Conj($\alpha$),Secu($\alpha$),Workflow,UsoRecursos}\\
+\indent \textbf{se explica con:} \nombretad{Planta de Produccion}\\
+\indent \textbf{g'eneros:} \nombretad{Planta}\\
+
+
+
+\noindent \textbf{\textsl{Operaciones:}}\\
+
+\noindent workflow(\textbf{in}\ $p$: planta)  \en $res$: workflow \ \ \ \ \ \\
+\indent \{P:\ true\ \}  \\
+\indent \{Q:\ res \igobs workflow (p) \}\\
+
+\noindent recursos(\textbf{in}\ $p$: planta)  \en $res$: recursos \ \ \ \ \ \\
+\indent \{P:\ true\ \}  \\
+\indent \{Q:\ res \igobs recursos (p) \}\\
+
+\noindent enEspera(\textbf{in}\ $p$: planta)  \en $res$: cola \ \ \ \ \ \\
+\indent \{P:\ true\ \}  \\
+\indent \{Q:\ res \igobs enEspera (p) \}\\
+
+\noindent enEjecucion(\textbf{in}\ $p$: planta)  \en $res$: actividades \ \ \ \ \ \\
+\indent \{P:\ true\ \}  \\
+\indent \{Q:\ res \igobs enEjecucion (p) \}\\
+
+\noindent finalizadas(\textbf{in}\ $p$: planta)  \en $res$: actividades \ \ \ \ \ \\
+\indent \{P:\ true\ \}  \\
+\indent \{Q:\ res \igobs finalizadas (p) \}\\
+
+\noindent crear(\textbf{in}\ $w$: workflow, \textbf{in}\ $r$: recursos)  \en $res$: planta \ \ \ \ \ \\
+\indent \{P:\ $\#$ finales (w) = 1 \}  \\
+\indent \{Q:\ res \igobs crear (w,r) \}\\
+
+\noindent agOrden(\textbf{in}\ $o$: orden, \textbf{inout}\ $p$: planta)  \ \ \ \ \ \\
+\indent \{P:\ p = p$_0$ $\wedge$ o $\notin$ ordenes (p) = 1 \}  \\
+\indent \{Q:\ p \igobs agOrden (o,p$_0$) \}\\
+
+\noindent terminar(\textbf{in}\ $a$: actividad, \textbf{inout}\ $p$: planta)  \ \ \ \ \ \\
+\indent \{P:\ p = p$_0$ $\wedge$ esta? (a, enEjecucion(p)) \}  \\
+\indent \{Q:\ p \igobs agOrden (o,p$_0$) \}\\
+
+\noindent actividades(\textbf{in}\ $p$: planta)  \en $res$: actividades \ \ \ \ \ \\
+\indent \{P:\ true \}  \\
+\indent \{Q:\ res \igobs actividades (p) \}\\
+
+\noindent ordenes(\textbf{in}\ $p$: planta)  \en $res$: conj(orden) \ \ \ \ \ \\
+\indent \{P:\ true \}  \\
+\indent \{Q:\ res \igobs ordenes (p) \}\\
+
+\noindent ordenesFinalizadas(\textbf{in}\ $p$: planta)  \en $res$: conj(orden) \ \ \ \ \ \\
+\indent \{P:\ true \}  \\
+\indent \{Q:\ res \igobs ordenesFinalizadas(p) \}\\
+
+\noindent disponibles(\textbf{in}\ $p$: planta)  \en $res$: recursos \ \ \ \ \ \\
+\indent \{P:\ true \}  \\
+\indent \{Q:\ res \igobs disponibles(p) \}\\
+
+\noindent consumoDeRecurso(\textbf{in}\ $p$: planta, \textbf{in}\ $r$: recurso)  \en $res$: nat \ \ \ \ \ \\
+\indent \{P:\ r $\in$ recursos(p) \}  \\
+\indent \{Q:\ res \igobs consumoDeRecurso (r,p) \}\\
+
+\noindent menorConsumo(\textbf{in}\ $p$: planta)  \en $res$: nat \ \ \ \ \ \\
+\indent \{P:\ true \}  \\
+\indent \{Q:\ res \igobs menorConsumo (p) \}\\
+\newpage
+\subsection{Estructura}
+
+    \noindent \textsc{estrPlanta se representa tupla} $<$recursos: usoRecursos $\times$ workflow: workflow $\times$ \\ terminadas: secu($<$ orden: nat $\times$ tareas:arregloDimensionable($<$termino:bool $\times$ predPendientes: nat$>$)) $\times$ enEspera: cola $\times$ sucesores: arregloDimensionable (secu (nat))\\ 
+
+\subsection{Invariante de Representacion}
+
+\indent \ \ \ \ \ \ Rep: $\sombrero{estrPlanta}$ $\rightarrow$ bool \\
+    
+($\forall\ e$ : estrPlanta) Rep$(e) =$ workflowValido (e.workflow) $\wedge$ tamSucCorrecto (e.workflow, e.sucesores) $\wedge$ tamTermCorrecto (e.workflow, e.terminadas) $\wedge$ noHayRecursosInvalidos (tiposDeRecurso (e.recursos), e.workflow, 0) $\yluego$ (sucesoresCorrectos (e.workflow, e.sucesores, 0) $\wedge$ ordenesCorrectas (e.terminadas, e.enEspera $\wedge$ prioridadesCorrectasEnEspera (e.enEspera, e.workflow) $\yluego$ ((predPendientesCorrectas (e.terminadas, e.workflow) $\wedge$ puedenHaberTerminado (e.terminadas, e.workflow) $\wedge$ puedenEstarEnEspera (e.enEspera, e.terminadas, e.workflow) $\wedge$ noHayRecursosParaTareasEnEspera (e.enEspera, e.recursos, e.workflow)))) \\
+
+workflowValido: workflow \en bool\\
+	\indent workflowValido\ (w) = $\#$ finales (w) == 1 \\    
+	
+noHayRecursosInvalidos: nat $\times$ workflow $\times$ nat \en bool\\
+	\indent noHayRecursosInvalidos\ (n,w,i) =  i == $\#$ (tareas(w)) $\oluego$ (multiconjMenor (consumo(i, w), n) \yluego noHayRecursosInvalidos (n,w,i+1)) \\  
+	
+	multiconjMenor: recursos $\times$ nat \en bool\\
+	\indent multiconjMenor\ (r, n) =  $\emptyset$? (r) $\oluego$ (dameUno (r) $<$ n  $\yluego$ multiconjMenor (r / \{dameUno(r)\}, n)) \\
+	
+	tamSucCorrecto: workflow $\times$ arregloDimensionable (secu (nat)) \en bool\\
+	\indent tamSucCorrecto\ (w,as) =  $\#$ (tareas(w)) $==$ tam (as)\\
+	
+	tamTermCorrecto: workflow $\times$ secu($<$ nat $\times$ arregloDimensionable($<$bool $\times$ nat$>$)$>$) \en bool\\
+	\indent tamTermCorrecto\ (w,s) =  vacia? (s) $\oluego$ tamArrCorrecto (tareas(prim (s))) $\yluego$ tamTermCorrecto (w, fin(s)) \\  
+	
+	tamArrCorrecto: workflow $\times$ arregloDimensionable($<$bool $\times$ nat$>$) \en bool\\
+	\indent tamArrCorrecto\ (w,at) =  $\#$ (tareas(w)) $==$ tam (at)\\
+	
+	sucesoresCorrectos: workflow $\times$ arregloDimensionable (secu (nat)) $\times$ nat \en bool\\
+	\indent sucesoresCorrectos\ (w,as,i) =  i == $\#$ (tareas(w))  $\oluego$ (sucesoresTareaCorrectos(sucesoras(i, w),as[i])  \yluego sucesoresCorrectos (w,as,i+1)) \\
+	
+	sucesoresTareaCorrectos: conj(tarea) $\times$ secu (nat) \en bool\\
+	\indent sucesoresTareaCorrectos\ (c,s) =  $\#$ (c) == long (s)  $\yluego$ mismosElems (c,s) \\  
+ 
+ 	mismosElems: conj(tarea) $\times$ secu (nat) \en bool\\
+	\indent mismosElems\ (c,s) =  vacia? (s) $\oluego$ (prim (s) $\in$ c $\yluego$ mismosElems (c, fin(s)) \\  
+		
+		ordenesCorrectas: secu($<$ nat $\times$ arregloDimensionable($<$bool $\times$ nat$>$)$>$) $\times$ cola \en bool\\
+	\indent ordenesCorrectas\ (s,c) =  noHayOrdenesRepetidas (s) \yluego ordenesColaEnOrdenes (s,c) $\yluego$ ordenadasEnEspera (s,c)\\
+	
+	\newpage
+	ordenadasEnEspera: secu($<$ nat $\times$ arregloDimensionable($<$bool $\times$ nat$>$) $\times$ cola) \en bool\\
+	\indent ordenadasEnEspera\ (s,c) =  vacia? (c) \oluego ordenadas (ordenes (proximo (c)), dameOrdenes(s)) \yluego ordenadasEnEspera (s, sacarOrden (c, tarea (proximo (c)), prim (ordenes (proximo (c)))))\\
+	
+	dameOrdenes: secu($<$ nat $\times$ arregloDimensionable($<$bool $\times$ nat$>$)) \en secu (nat)\\
+	\indent dameOrdenes\ (s) = \lif vacia? (s) \lthen vacia \lelse orden (prim (s) $\puntito$ dameOrdenes (fin (s))\\
+	
+	ordenadas: secu(nat) $\times$ secu (nat)) \en bool\\
+	\indent ordenadas\ (s1,s2) =  long (s1) $\leq$ 1 $\oluego$ iesimo (prim (s1), s2) $<$ iesimo (prim (fin (s1), s2) $\yluego$ ordenadas (fin (s1), s2)\\
+	
+	iesimo: nat $\times$ secu (nat)) \en nat\\
+	\indent iesimo\ (n,s) =  \lif prim (s) $==$ n \lthen 0 \lelse  1 + (iesimo (n, fin (s)))\\
+	
+	 noHayOrdenesRepetidas: secu($<$ nat $\times$ arregloDimensionable($<$bool $\times$ nat$>$)$>$) \en bool\\
+	\indent noHayOrdenesRepetidas\ (s) =  vacia? (s) $\oluego$ noEstaEnResto (orden(prim (s), fin(s)) $\yluego$ noHayOrdenesRepetidas (fin(s))\\
+	
+	 noEstaEnResto: nat $\times$ secu($<$ nat $\times$ arregloDimensionable($<$bool $\times$ nat$>$)$>$) \en bool\\
+	\indent noEstaEnResto\ (n, s) =  vacia? (s) $\oluego$ (n $\neq$ (orden(prim (s))) $\yluego$ noEstaEnResto (n, fin(s)))\\
+	
+	prioridadesCorrectasEnEspera: cola $\times$ workflow \en bool\\
+	\indent prioridadesCorrectasEnEspera\ (c,w) =  vacia? (c) $\oluego$ (prioridad (proxima (c)) $==$ prioridad (tarea(proxima (c)), w) $\yluego$ prioridadesCorrectasEnEspera sacarOrden (c, tarea (proxima (c)), prim (ordenes (proxima(c))))\\
+	
+	
+	ordenesColaEnOrdenes: secu($<$ nat $\times$ arregloDimensionable($<$bool $\times$ nat$>$)$>$) $\times$ cola \en bool\\
+	\indent ordenesColaEnOrdenes\ (s,c) =   vacia? (c) $\oluego$ esOrden (orden(proxima(c))) $\yluego$ ordenesColaEnOrdenes (sacarOrden (c, tarea (proxima (c)), prim (ordenes (proxima(c))), s) \\
+	
+	esOrden: nat $\times$ secu($<$ nat $\times$ arregloDimensionable($<$bool $\times$ nat$>$)$>$) \en bool\\
+	\indent esOrden\ (n, s) =  \lif vacia? (s) \lthen false \lelse (n $==$ orden(prim (s)) $\oluego$ esOrden (n, fin(s))) \\
+	
+	predPendientesCorrectas: secu($<$ nat $\times$ arregloDimensionable($<$bool $\times$ nat$>$)$>$) $\times$ workflow \en bool\\
+	\indent predPendientesCorrectas\ (s,w) =  vacia? (s) $\oluego$ (predPendCorrEnArreglo (tareas(prim (s), w, 0)) $\yluego$ predPendientesCorrectas (fin(s), w)) \\  
+	
+		predPendCorrEnArreglo: arregloDimensionable($<$bool $\times$ nat$>$) $\times$ workflow $\times$ nat \en bool\\
+	\indent predPendCorrEnArreglo\ (a,w,i) =  i == $\#$ (tareas(w)) $\oluego$ cantPredCorrecta (predecesoras (i), a) $\yluego$ predPendCorrEnArreglo (a,w,i+1) \\  
+	
+	cantPredCorrecta: conj (tarea) $\times$ arregloDimensionable($<$bool $\times$ nat$>$) $\times$ workflow $\times$ nst \en bool\\
+	\indent cantPredCorrecta\ (c,a,i) =   $\#$ (c) - cantPredTerminaron (c,a) $==$ predPendientes (a[i]) \\  
+	
+	cantPredTerminaron: conj (tarea) $\times$ arregloDimensionable($<$bool $\times$ nat$>$) \en bool\\
+	\indent cantPredTerminaron\ (c,a) = \lif  $\emptyset$? (c) \lthen 0 \lelse \lif termino (a[dameUno(c)]) \lthen 1 \lelse 0 \lfi + cantPredTerminaron (sinUno (c),a) \lfi \\ 
+		 
+	 	puedenHaberTerminado: secu($<$ nat $\times$ arregloDimensionable($<$bool $\times$ nat$>$)$>$) $\times$ workflow \en bool\\
+	\indent puedenHaberTerminado\ (s,w) =  vacia? (s) $\oluego$ (puedenHabTermEnArreglo (tareas(prim (s), w, 0)) $\yluego$ puedenHaberTerminado (fin(s), w)) \\  
+	
+	puedenHabTermEnArreglo: arregloDimensionable($<$bool $\times$ nat$>$) $\times$ workflow $\times$ nat \en bool\\
+	\indent puedenHabTermEnArreglo\ (a,w,i) =  (i == $\#$ (tareas(w))) $\oluego$ (termino (a[i]) \impluego terminaronTodosPred (predecesores (i,w), a)) \\  
+	
+	terminaronTodosPred: conj (tarea) $\times$ arregloDimensionable($<$bool $\times$ nat$>$) \en bool\\
+	\indent terminaronTodosPred\ (c,a) =   $\emptyset$? (c) \oluego (termino (a[dameUno(c)]) \yluego terminaronTodosPred (sinUno(c),a))\\ 
+	
+	 	puedenEstarEnEspera: cola $\times$ secu($<$ nat $\times$ arregloDimensionable($<$bool $\times$ nat$>$)$>$) $\times$ workflow \en bool\\
+	\indent puedenEstarEnEspera\ (c,s,w) =  vacia? (c) $\oluego$ (activPuedeEstar(proxima(c),s,w) $\yluego$ puedenEstarEnEspera (sacarOrden (c, tarea (proxima (c)), prim (ordenes (proxima(c))), w)) \\  
+	
+	activPuedeEstar: actividad $\times$ secu($<$ nat $\times$ arregloDimensionable($<$bool $\times$ nat$>$)$>$) $\times$ workflow \en bool\\
+	\indent activPuedeEstar\ (a,s,w) =  \lif orden (a) $==$ orden (prim(s)) \lthen puedeEstarTarea (tarea(a), tareas(prim(s)), w) \lelse activPuedeEstar(a,fin (s),w) \\  
+	
+		activPuedeEstar: tarea $\times$ arregloDimensionable($<$bool $\times$ nat$>$) $\times$ workflow \en bool\\
+	\indent activPuedeEstar\ (t,a,w) =  terminaronTodosPred (predecesores (t, w), a)  \\
+	
+
+	 
+	 noHayRecursosParaTareasEnEspera: cola $\times$ usoRecursos $\times$ workflow \en bool\\
+	\indent noHayRecursosParaTareasEnEspera\ (c,u,w) =  vacia? (c) $\oluego$ noHayRecParaTarea(tarea(proxima(c)),s,w) $\yluego$ noHayRecursosParaTareasEnEspera (sacarOrden (c, tarea (proxima (c)), prim (ordenes(proxima(c)), w)) \\  
+	
+	 noHayRecParaTarea: tarea $\times$ usoRecursos $\times$ workflow \en bool\\
+	\indent noHayRecParaTarea\ (t,u,w) =  $\neg$ alcanzanLosRecursos (u, consumo (t,w)) \\  
+	
+
+\subsection{Funcion de Abstraccion}
+
+   \indent \ \ \ \ \ \ Abs : estrPlanta e $\rightarrow$ planta \ \ \ \ \ \ \ \ \ \ \ \ \ (Rep($e$))\\
+   
+   $(\forall\ e$: estrPlanta) {Abs$(e) = p$: planta} \ \ / \ \ 
+multiconjuntizar (e.recursos) $==$ (recursos (p)) $\wedge$ e.workflow $==$ workflow (p) $\wedge$ e.enEspera $==$ enEspera (p) $\wedge$ e.enEjecucion $==$ enEjecuion (p) $\wedge$ e.finalizadas $==$ finalizadas (p)
+\newpage
+\subsection{Algoritmos}
+
+
+\begin{algoritmo}
+\caption{}\\
+  iWorfklow(in p: estrPlanta) $\rightarrow$ $res$: workflow \\
+	\indent \ \ \ \ \ \  res $\gets$ p.workflow  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  devolver res    \\
+   end Function \\
+
+Ac'a solo se devuelve el observador de una tupla, lo cual demora O(1)
+
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iRecursos(in p: estrPlanta) $\rightarrow$ $res$: recursos \\
+	\indent \ \ \ \ \ \  res $\gets$ multiconjuntizar(p.recursos)  \ \ \ \ \ O(r^${2}*$m)\\
+	\indent \ \ \ \ \ \  devolver res    \\
+   end Function \\
+
+Tomar el observador de la tupla demora O(1), la funci'on multiconjuntizar sabemos que demora O(r$^{2}*$m) como mucho, siendo r la cantidad de recursos diferentes y m el m'aximo presente de un recurso dado, por lo tanto esta funci'on es O(r$^{2}*$m)
+
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iEnEspera(in p: estrPlanta) $\rightarrow$ $res$: cola \\
+	\indent \ \ \ \ \ \  res $\gets$ (p.enEspera)  \ \ \ \ \ O(e)\\
+	\indent \ \ \ \ \ \  devolver res    \\
+   end Function  \\
+
+Ac'a solo se devuelve el observador de una tupla, lo cual demora O(1). Nota: En este caso cambiamos lo que devolv'ia la funci'on, en lugar de devolver una ColaEspera devuelve nuestro propio TAD Cola, el cual contiene no actividades sino las ordenes dada una tarea en particular ordenadas en una secuencia. Dado que pasar de uno a otro no es d'ificil algor'itmicamente hablando, pero s'i nos requerir'ia hacer un nuevo m'odulo s'olo para esa operaci'on, preferimos devolver simplemente algo que es suficientemente similar, asegur'andonos que la funcionalidad b'asica y la forma de ser consultada de la misma sigue preservada.
+
+\end{algoritmo}
+\newpage
+\begin{algoritmo}
+\caption{}\\
+  iEnEjecucion(in p: estrPlanta) $\rightarrow$ $res$: actividades \\
+	\indent \ \ \ \ \ \  res $\gets$ vacio  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var it: secu (nat) $\gets$ crearIt(p.terminadas)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var i: nat = 0  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var n: nat = cantTareas (p.workflow)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  while (hayMas (it))  \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ i = 0 \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ while (i $<$ n) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if ($\neg$ termino (tareas(actual(it)) [i]) $\wedge$ predPendientes (tareas(actual(it)) [i]) $==$ 0)  \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if ($\neg$ esta? (actividad(orden(actual(it)), i), p.enEspera)) \ \ \ \ \ O(e) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Ag (actividad(orden(actual(it)), i), res) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ endIf \ \ \ \ \ O(e) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ endIf \ \ \ \ \ O(e) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i++ \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ avanzar (it) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+	\indent \ \ \ \ \ \  devolver res    \\
+   end Function \\
+
+Ac'a iteramos sobre todas las 'ordenes, y luego sobre las tareas de dicha orden (ver lo que contiene dicha tarea es O(1)). Pero a su vez, sobre estas iteramos siempre sobre la cola de enEspera, para buscar si existe en la misma, teniendo en cuenta que para cada tarea llamamos a la funci'on esta?, que debe recorrer toda la secu de 'ordenes y en caso contrario, agregarlo (en O(1)) a un conjunto; por lo tanto, esta operaci'on demora O(o$*$t$*$(te $*$ o), o sea, O(o$^{2}*$t$*$te), siendo $o$ la cantidad de 'ordenes en la planta, $t$ la cantidad de tareas y $te$ la cantidad de tareas en espera.
+\end{algoritmo}
+
+\newpage
+
+\begin{algoritmo}
+\caption{}\\
+  iFinalizadas(in p: estrPlanta) $\rightarrow$ $res$: actividades \\
+	\indent \ \ \ \ \ \  res $\gets$ vacio  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var it: secu (nat) $\gets$ crearIt(p.terminadas)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var i: nat = 0  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var n: nat = cantTareas (p.workflow)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  while (hayMas (it))  \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ i = 0 \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ while (i $<$ n) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if (termino (tareas(actual(it)) [i]))  \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  Ag (actividad(orden(actual(it)), i), res) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ endIf \ \ \ \ \ O(e) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i++ \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ avanzar (it) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+	\indent \ \ \ \ \ \  devolver res    \\
+   end Function \\
+
+Esta funci'on es similar a la anterior, primero itera sobre las 'ordenes de la planta, y para cada una sobre las cantidad de tareas en el workflow, en estas para cada una se accede al arreglo (O(1)) y se agregan si satisfacen al conjunto (tambi'en tiempo constante). Por lo tanto, la operaci'on tiene complejidad O(o$*$t), siendo o la cantidad de 'ordenes y t la cantidad de tareas en la planta
+\end{algoritmo}
+
+
+\begin{algoritmo}
+\caption{}\\
+  iCrear(in w: workflow, in r: recursos) $\rightarrow$ $res$: planta \\
+	\indent \ \ \ \ \ \  res.recursos $\gets$ generar (r) \ \ \ \ \ O(r)\\
+	\indent \ \ \ \ \ \  res.workflow $\gets$ w \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  res.enEspera $\gets$ vacia \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  res.terminadas $\gets$ vacia \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var i: nat = 0 \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var n: nat = cantTareas (p.workflow)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var ap: arregloDimensionable ($<$nat, nat$>$) = ad(n)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  while (i $<$ n) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ $\pi_1$ (ap[i]) = i  \ \ \ \ \ O(1) \\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ $\pi_2$ (ap[i]) = prioridad (i,w) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ i++ \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \  endWhile \ \ \ \ \ \\	
+	\indent \ \ \ \ \ \  i = n/2 - 1 \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  while (i $\geq$ 0)  \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ heapify (ap, i, n) \ \ \ \ \ O(...) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ i$--$ \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \  endWhile \ \ \ \ \ O(1)\\	
+	\indent \ \ \ \ \ \  i = 0 \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var s: secu (tarea) $\gets$ vacia  \ \ \ \ \ O(1)\\	
+	\indent \ \ \ \ \ \  var it: secu (nat,nat) $\gets$ crearIt(s)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  while (i $<$ n)  \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ agregarAtrasDeIt (it, ap[0]) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ $\pi_2$ (ap[0]) = 0  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ heapify (ap, 0, n) \ \ \ \ \ O(log n) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ i++ \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \  endWhile \ \ \ \ \ O(1)\\	
+	\indent \ \ \ \ \ \  retrocederAlPrincipio (it) \ \ \ \ \ O(1)\\	
+	\indent \ \ \ \ \ \  var asuc: arregloDimensionable (secu (nat)) = ad(n) \ \ \ \ \ O(1)\\	
+	\indent \ \ \ \ \ \  while (hayMas (it))  \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ i = $\pi_1$ (actual(it))\ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ var itpred: conj(tarea) $\gets$ crearIt(predecesores(w,i))\ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ while (hayMas(itpred)) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ agregarAtras (asuc[actual(itpred)], i)\ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ avanzar (itpred) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ avanzar (it) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+	\indent \ \ \ \ \ \  res.sucesores $\gets$ asuc \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ devolver res    \\
+   end Function \\
+
+Al crear la planta, primero debemos generarnos el usoRecursos, que sabemos demora O(r) siendo r la cantidad de recursos; a continuaci'on debemos recorrer el arreglo (creado en O(1)) y asignarle a cada posici'on la tarea correspondiente, con costo total O(n), siendo n la cantidad de tareas del workflow. Luego, procedemos a heapificar este arreglo seg'un el algoritmo de Floyd, de manera muy similar a como lo hicimos en el m'odulo usoRecursos, sabemos que dicha complejidad es O(n). Despu'es debemos completar el heapsort, para esto tomamos el primer elemento y heapificamos nuevamente (reemplazando ese elemento por uno con prioridad 0, que necesariamente va a bajar con el heapify), como esto se hace n veces y el heapify cuesta O(log n), el heapsort en total nos cuesta O(n log n). Con el heapsort hecho, podemos proceder a obtener los sucesores, los cuales vamos a necesitar que est'en de manera ordenada para poder satisfacer complejidades posteriores; al acceder a las tareas de manera ordenada, podemos asegurar que podemos colocarlos ordenados sin problema. Por lo tanto, recorremos los sucesores de cada tarea, en orden de prioridad, y los agregamos en O (1) a la tarea correspondiente (la cantidad de sucesores es dependiente de la cantidad de tareas, por lo tanto al recorrer los sucesores estamos pagando el coste de recorrer las tareas, ya que para que el workflow sea v'alido la cantidad de sucesores debe ser cuanto menos muy similar a la cantidad de tareas). Si la cantidad de sucesores es m, sabemos que cada uno lo recorremos en O(1), y esto es independiente de las operaciones anteriores, por lo tanto la complejidad de la funci'on es O(r + n log n + m)
+
+\end{algoritmo}
+
+
+\begin{algoritmo}
+\caption{}\\
+  heapify(inout ap: arregloDimensionable (nat, nat), in i: nat, in n: nat)\\
+	\indent \ \ \ \ \ \  if (i $\leq$ n/2 -1)   \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ if (i $\leq$ n/2 - 2)   \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if ($\pi_2$(ao[i*2+1]) $>$ $\pi_2$ (ao[i]) $||$ ($\pi_2$(ao[i*2+2]) $>$ $\pi_2$ (ao[i]))) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if ($\pi_2$(ao[i*2+1]) $\geq$ ($\pi_2$(ao[i*2+2])))  \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ swap (ao[i], ao[i*2+1]) \ \ \ \ \ O(1) \\\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ heapify (ao, i*2+1, ar, n) \ \ \ \ \ O(..) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ else \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ swap (ao[i], ao[i*2+2]) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ heapify (ao, i*2+2, ar, n) \ \ \ \ \ O(...) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ endIf \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  endIf \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  else \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if ($\pi_2$(ao[i*2+1]) $\geq$ $\pi_2$ (ao[i]))  \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  swap (ao[i], ao[i*2+1]) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  endIf \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ endIf \\
+	\indent \ \ \ \ \ \ endIf \\
+   end Function \\
+
+Esta funci'on es muy similar a la hom'onima del m'odulo usoRecursos, la complejidad es id'entica, pot lo tanto demora O(log n), siendo n el tama'no del arreglo a heapificar
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iAgOrden(in o: orden, inout p: estrPlanta) \\
+	\indent \ \ \ \ \ \ var n: nat = cantTareas (p.workflow))  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ var at: arregloDimensionable ($<$bool, nat$>$) = ad(n) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ var i: nat = 0  \ \ \ \ \ O(t)\\
+	\indent \ \ \ \ \ \ while (i $<$ n)  \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ at[i] = $<$false, cantPredecesoras (p.worfklow, i)$>$\ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ i++ \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+	\indent \ \ \ \ \ \  if (alcanzanLosRecursos (p.recursos, consumo (p.workflow, 0)))  \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ actualizarConsumo (p.recursos, consumo (p.workflow, 0)) \ \ \ \ \ O(log r)\\
+	\indent \ \ \ \ \ \ else \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ encolar (p.enEspera, 0, prioridad (p.workflow, 0), o)\ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ endIf \\
+	\indent \ \ \ \ \ \ agregarAlFinal (p.terminadas, $<$o, at$>$)\ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ devolver res    \\
+   end Function \\
+
+Al ejecutar esta funci'on, se debe agregar un nuevo arreglo para la nueva orden, para esto lo creamos y le asignamos a cada posici'on los datos correspondientes (con costo total O(n), siendo n la cantidad de tareas del workflow). Luego de hecho esto, podemos verificar si la primera tarea puede ejecutarse (sabemos que no tiene predecesores), si puede, actualizamos los recursos con la funci'on actualizarConsumo, con costo O(log r) seg'un el m'odulo usoRecursos (r siendo la cantidad de recursos distintos, o sea la longitud de dicho arreglo); en caso contrario, debemos ponerla en cola, como sabemos que la primera tarea siempre tiene m'axima prioridad, el m'odulo cola se ocupa de agregarla en O(1). Por lo tanto, la complejidad en peor caso es O (n + log r) 
+
+\end{algoritmo}
+
+
+\begin{algoritmo}
+\caption{}\\
+  iTerminar (in actividad a, inout p: estrPlanta) \\
+	\indent \ \ \ \ \ \ var rec: arregloDimensionable(nat) = recursosAArreglo (p)  \ \ \ \ \ O(r)\\
+	\indent \ \ \ \ \ \ var it: secu ($<$nat,arregloDimensionable($<$bool, nat$>$)$>$) $\gets$ crearIt(p.terminadas)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ while (orden(actual (it)) $\neq$ orden (a))   \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ avanzar (it) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ termino (tareas(actual(it))[tarea(a)]) = true  \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ var mulrec: recursos = recursos (tarea(a), p.workflow)   \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ actualizarArreglo (rec, mulrec, true)   \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ var suc: secu (nat) = p.sucesores [tarea(a)] \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ var aencolar: secu ($<$actividad, nat$>$) = vacia \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ var itsuc: secu (nat) $\gets$ crearIt(suc)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ while (hayMas (it))   \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ predPendientes (tareas(actual(it))[actual (itsuc)]) -= 1 \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ if (predPendientes (tareas(actual(it))[actual (itsuc)]) == 0) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ agregarAlFinal (aencolar, $<$actividad (orden(actual(it), actual (itsuc))), prioridad (p.worfklow,actual (itsuc)))$>$) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ endIf \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ avanzar (it) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ encolarSecuOrdenada (p.enEspera, aencolar, p.workflow) \ \ \ \ \ O(e+t)\\
+	\indent \ \ \ \ \ \ var itEspera: colaConPrioridades $\gets$ crearIt(p.enEspera) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ while (hayMas (itEspera))   \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ mulrec = recursos (tarea(actual(itEspera)), p.workflow) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ if (mconjIncluidoEnArreglo(rec, mulrec)) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ var itOrden: secu(nat) $\gets$ crearIt(orden(actual(itEspera)))  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ while (hayMas (itOrden) $\wedge$ (mconjIncluidoEnArreglo(rec, mulrec))) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ borrarActual (itOrden)\ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ actualizarArreglo (rec, mulrec, false)\ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ endWhile \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if (vacia? (ordenes(actual(itEspera))))\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ borrarActual (itEspera) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ endIf \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ endIf \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ avanzar (itEspera) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ actualizarUso (p.recursos, rec) \ \ \ \ \ O(r) \\
+  end Function \\
+
+Al ejecutar esta función, primero bajamos el usoRecursos a un arreglo, para poder trabajar con esto mismo sin necesidad de que al actualizarlos se re-heapifique el consumo (ya que es posible que necesitemos actualizar el consumo varias veces dadas diferentes tareas que podr'ian entrar en ejecuci'on), esta operaci'on tiene costo O(r), con r la cantidad de recursos distintos, o sea, la longitud del arreglo que estamos creando; luego recorremos la secuencia de 'ordenes hasta encontrar la de la tarea que termin'o con el fin de marcarla como terminada, esto tiene costo O(o), siendo o la cantidad de 'ordenes en la planta. Despu'es, podemos actualizar los recursos liberados por la tarea reci'en finalizada, esta operaci'on tiene costo O(1) ya que el multiconjunto est'a acotado. A continuaci'on, debemos ver los sucesores de esta tarea, iterar sobre esta secuencia tiene costo O(s) siendo o los sucesores de 'esta; al iterar s'olo actualizamos los predecesores pendientes y vemos si este n'umero es 0, hacer esto es inmediato puesto que es una posici'on del arreglo al cual ya hab'iamos accedido cuando iteramos sobre orden; en caso de que esa tarea tenga todos sus predecesores terminados, la agregamos al final de la secuencia (recordar que estamos accediendo a una secuencia ordenada por prioridad) en O(1). Una vez lista la secuencia, la encolamos en la cola enEspera, esta operacion tiene costo O(t+s) tal como lo dice el m'odulo cola, siendo t la cantidad de tareas en la cola y s la de la secuencia de sucesores listos para ejecutar.
+Hecho esto, debemos iterar sobre la cola para ver qu'e tareas entran en ejecuci'on, iterar sobre la cola tiene un costo O(e), en cada tarea se verifica si alcanzan los recursos (en O(1) con la operacion mconjIncluidoEnArreglo), en caso de que se pueda ejecutar, se saca la primera orden y se actualiza el arreglo con los nuevos consumos en tiempo constante, luego se vuelve a verificar hasta terminar la cola. Por lo tanto, esta 'ultima operaci'on solo se ejecuta una cantidad de veces determinada por cu'antas operaciones se entren a ejecutar, si esta cantidad es j, esta operaci'on es O(j), sabiendo que el costo O(t) ya estaba pagado. En resumen, la operaci'on tiene un costo total O(r+o+s+e+j), siendo cada letra lo ya indicado
+
+\end{algoritmo}
+
+\newpage
+
+\begin{algoritmo}
+\caption{}\\
+recursosAArreglo (in p: estrPlanta) $\rightarrow$ $res$: arregloDimensionable (nat) \\
+	\indent \ \ \ \ \ \  var n: nat = tiposDeRecurso (p.recursos)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var ar: arregloDimensionable (nat) = ad(n)  \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \  var i: nat = 0  \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \  while (i $<$ n)  \ \ \ \ \ O(r)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ ar[i] = disponible (p.recursos, i) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ i++ \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \  endWhile \ \ \ \ \ O(1)\\ 
+	\indent \ \ \ \ \ \  devolver res    \\
+   end Function \\
+
+Para bajar el usoRecursos a un arreglo, simplemente debemos crear un arreglo con la cantidad de recursos diferentes, y mover cada disponible al nuevo arreglo. Cada una de estas operaciones tiene costo O(1), por lo tanto la operaci'on tiene costo O(r), siendo r la cantidad de recursos diferentes en usoRecursos
+
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  mconjIncluidoEnArreglo(in r: arregloDimensionable(nat), in mconj: recursos) $\rightarrow$ $res$: bool) \\
+	\indent \ \ \ \ \ \ res $\gets$ true  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ var it: recursos $\gets$ crearIt (mconj)  \ \ \ \ \ O(1)\\ 
+	\indent \ \ \ \ \ \ while (hayMas (it) $\wedge$ res)  \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ rtemp = actual (it) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ res $\gets$ (r[rtemp] $\geq$ cardinal (mconj, rtemp))\ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ borrarActual(it) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ devolver res \ \ \ \ \ \\
+   end Function \\
+
+Esta funci'on siempre se llama con un multiconjunto de recursos proveniente de los recursos requeridos por una tarea, los cuales sabemos que estan acotados, por lo tanto iterar sobre ellos es siempre O(1), por lo tanto la operaci'on es O(1)
+
+\end{algoritmo}
+
+\newpage
+
+\begin{algoritmo}
+\caption{}\\
+  actualizarArreglo(inout r: arregloDimensionable(nat), in mconj: recursos, in sumar: bool) \\
+	\indent \ \ \ \ \ \  var rtemp: recurso = 0 \ \ \ \ \ \\
+	\indent \ \ \ \ \ \  var it: recursos $\gets$ crearIt (mconj)  \ \ \ \ \ O(1)\\ 
+	\indent \ \ \ \ \ \  if (sumar) \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ while (hayMas (it))  \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rtemp = actual (it) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ r[rtemp] += cardinal (mconj, rtemp)\ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ borrarActual (it) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ endWhile \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ else \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ while (hayMas (it))  \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rtemp = actual (it)\ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ r[rtemp] -= cardinal (mconj, rtemp)\ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ borrarActual (it) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ endWhile \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endIf \ \ \ \ \ \\
+   end Function\\
+
+Nuevamente, debemos iterar sobre un multiconjunto proveniente de un requerimiento de tarea, entonces la iteraci'on sobre el mismo tiene costo O(1), y obviamente acceder al arreglo conociendo las posiciones a actualizar es constante, entonces la operaci'on tarda O(1) 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iActividades(in p: estrPlanta) $\rightarrow$ $res$: conj (actividad) \\
+	\indent \ \ \ \ \ \  res $\gets$ vacio  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var i: nat = 0  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var itord: secu ($<$nat,arregloDimensionable($<$bool, nat$>$)$>$) $\gets$ crearIt(p.terminadas)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  while (hayMas (itord))  \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ while i $<$ cantTareas(p.workflow) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ agregar (actividad (orden (actual(itord)), i))\ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i++) \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ endWhile \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ avanzar (it) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ i = 0 \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+   	\indent \ \ \ \ \ \ devolver res    \\
+   end Function \\
+
+Esta operaci'on en principio itera sobre la secuencia de 'ordenes, por lo tanto implica un costo O(o), con o la cantidad de 'ordenes de la planta, y luego en cada orden sobre la cantidad de tareas, como el agregar insume tiempo constante, la operacion en total tiene un costo O(o$*$t), siendo t la cantidad de tareas
+\end{algoritmo}
+
+
+\begin{algoritmo}
+\caption{}\\
+  iOrdenes(in p: estrPlanta) $\rightarrow$ $res$: conj (orden) \\
+  \indent \ \ \ \ \ \  res $\gets$ vacio  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var it: secu ($<$nat,arregloDimensionable($<$bool, nat$>$)$>$) $\gets$ crearIt(p.terminadas)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  while (hayMas (it))  \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ Ag ($\pi_1$ (actual(it), res))\ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ avanzar (it) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+   	\indent \ \ \ \ \ \ devolver res    \\
+   end Function \\
+
+Esta operaci'on itera sobre la secuencia de 'ordenes, por lo tanto implica un costo O(o),  como el agregar insume tiempo constante, la operacion en total tiene un costo O(o)
+
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iOrdenesFinalizadas(in p: estrPlanta) $\rightarrow$ $res$: conj (orden) \\
+	\indent \ \ \ \ \ \  res $\gets$ vacio  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var it: secu ($<$nat,arregloDimensionable($<$bool, nat$>$)$>$) $\gets$ crearIt(p.terminadas)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  while (hayMas (it))  \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ if (terminoOrden (tareas (it)), cantTareas (p.workflow))\ \ \ \ \ O(t) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Ag ($\pi_1$ (actual(it), res))\ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ endIf \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ avanzar (it) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+   	\indent \ \ \ \ \ \ devolver res    \\
+   end Function \\
+
+Esta operaci'on en principio itera sobre la secuencia de 'ordenes, por lo tanto implica un costo O(o), con o la cantidad de 'ordenes de la planta, y luego en cada orden llamar la funcion terminoOrden con costo O(t) como el agregar insume tiempo constante, la operacion en total tiene un costo O(o$*$t), siendo t la cantidad de tareas
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  terminoOrden (in at:arregloDimensionable($<$bool, nat$>$), in n: nat) $\rightarrow$ $res$: bool \\
+	\indent \ \ \ \ \ \ res $\gets$ true \ \ \ \ \  O(1)\\
+	\indent \ \ \ \ \ \ var i: nat = 0 \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ while (i$<$ n $\wedge$ res)   \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ if ($\neg$ $\pi_1$ (at[i])\ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ res $\gets$ false \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ endIf \ \ \ \ \ O(1) \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ i++ \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+   	\indent \ \ \ \ \ \ devolver res    \\
+   end Function \\
+
+Aqu'i debemos recorrer todo el arreglo para verificar si los bool de terminoTarea son true, esto tiene un costo de O(t) siendo t la cantidad de tareas, por lo tanto al final el costo total es O(t)
+\end{algoritmo}
+
+\newpage
+
+\begin{algoritmo}
+\caption{}\\
+  iDisponibles (in at:arregloDimensionable($<$bool, nat$>$), in n: nat) $\rightarrow$ $res$: bool \\
+	\indent \ \ \ \ \ \  res $\gets$ disponiblesEnMulticonj (p.recursos)  \ \ \ \ \ O(r$^{2}*$m) \\ 
+   	\indent \ \ \ \ \ \ devolver res    \\
+   end Function \\
+
+Esta funci'on se limita a llamar a disponiblesEnMulticonj, por lo tanto su costo es id'entico, esto es O(r$^{2}*$m)), siendo r la cantidad de recursos diferentes y m el m'aximo existente de un recurso
+\end{algoritmo}
+
+
+\begin{algoritmo}
+\caption{}\\
+  iConsumo(in p: estrPlanta, in r: recurso) $\rightarrow$ $res$: nat \\
+	\indent \ \ \ \ \ \  res $\gets$ total(p.recursos, r) - disponible (p.recursos, r)  \ \ \ \ \ O(r)\\
+	\indent \ \ \ \ \ \  devolver res    \\
+   end Function \\
+
+Esta funcion dado un recurso simplemente llama a las funciones de usoRecursos con el mismo, sabemos que ambas tardan O(1) por lo tanto esta funci'on tambi'en es O(1)
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iMenorConsumo(in p: estrPlanta) $\rightarrow$ $res$: nat \\
+	\indent \ \ \ \ \ \  res $\gets$ menorConsumo (p.recursos)  \ \ \ \ \ O(r)\\
+	\indent \ \ \ \ \ \  devolver res    \\
+   end Function \\
+
+Esta funcion dado un simplemente llama a la de usoRecursos, que tiene un costo O(1) por lo tanto esta funci'on tambi'en es O(1)
+\end{algoritmo}
+
+\newpage
+
+\section{Secuencia con Iteradores}
+
+\subsection{Interfaz}
+
+\indent \noindent \textbf{interfaz:} \nombretad{Secuencia con Iteradores}\\
+\indent \textbf{usa:}\nombretad{Nat}\\
+\indent \textbf{se explica con:} \nombretad{Secuencia ($\alpha$), Iterador ($\alpha$)}\\
+\indent \textbf{g'eneros:} \nombretad{secu $\alpha$, iterador ($\alpha$)}\\
+
+\noindent \textbf{\textsl{Operaciones:}}\\
+
+\noindent vacia?(\textbf{in}\ $s$: secu($\alpha$))  \en $res$: bool \ \ \ \ \ \\
+\indent \{P:\ true\ \}  \\
+\indent \{Q:\ res \igobs vacia? (s) \}\\
+
+\noindent esta?(\textbf{in}\ $s$: secu($\alpha$), n: $\alpha$)  \en $res$: $\alpha$ \ \ \ \ \ \\
+\indent \{P:\ true) \}  \\
+\indent \{Q:\ res \igobs esta? (s,n) \}\\
+
+\noindent prim(\textbf{in}\ $s$: secu($\alpha$))  \en $res$: $\alpha$ \ \ \ \ \ \\
+\indent \{P:\ $\neg$ vacia? (s) \}  \\
+\indent \{Q:\ res \igobs prim (s) \}\\
+
+\noindent fin(\textbf{inout}\ $s$: secu($\alpha$)) \ \ \ \ \ \\
+\indent \{P:\ s = s$_0$ $\wedge$ $\neg$ vacia? (s) \}  \\
+\indent \{Q:\ s \igobs fin (s$_0$) \}\\
+
+\noindent vacia()  \en $res$: secu($\alpha$) \ \ \ \ \ \\
+\indent \{P:\ true \}  \\
+\indent \{Q:\ res \igobs $<>$ \}\\
+
+\noindent agregarAdelante(\textbf{in}\ $s$: secu($\alpha$), n: $\alpha$)  \en $res$: secu($\alpha$) \ \ \ \ \ \\
+\indent \{P:\ true \}  \\
+\indent \{Q:\ res \igobs n $\puntito$ s \}\\
+
+\noindent agregarAtras(\textbf{in}\ $s$: secu($\alpha$), n: $\alpha$)  \en $res$: secu($\alpha$) \ \ \ \ \ \\
+\indent \{P:\ true \}  \\
+\indent \{Q:\ res \igobs n $\circulito$ s \}\\
+
+\noindent crearIt(\textbf{in}\ $s$: secu($\alpha$))  \en $res$: iterador($\alpha$) \ \ \ \ \ \\
+\indent \{P:\ true \}  \\
+\indent \{Q:\ res \igobs crearIt($<>$,s) \}\\
+
+\noindent hayMas(\textbf{in}\ $it$: iterador($\alpha$))  \en $res$: bool \ \ \ \ \ \\
+\indent \{P:\ true \}  \\
+\indent \{Q:\ res \igobs hayMas(it) \}\\
+
+\noindent actual(\textbf{in}\ $it$: iterador($\alpha$))  \en $res$: $\alpha$ \ \ \ \ \ \\
+\indent \{P:\ hayMas (it) \}  \\
+\indent \{Q:\ res \igobs actual(it) \}\\
+
+\noindent avanzar(\textbf{inout}\ $it$: iterador($\alpha$))\ \ \ \ \ \\
+\indent \{P:\ it = it$_0$ $\wedge$ hayMas (it) \}  \\
+\indent \{Q:\ it \igobs avanzar(it$_0$) \}\\
+
+
+\noindent agregarAtrasDeIt(\textbf{inout}\ $it$: iterador($\alpha$), n: $\alpha$) \ \ \ \ \ \\
+\indent \{P:\ it = it$_0$ \}  \\
+\indent \{Q:\ it \igobs agregarAtrasDeIt (it$_0$, n) \}\\
+
+\noindent agregarAdelanteDeIt(\textbf{inout}\ $it$: iterador($\alpha$), n: $\alpha$) \ \ \ \ \ \\
+\indent \{P:\ it = it$_0$ \}  \\
+\indent \{Q:\ it \igobs agregarAdelanteDeIt (it$_0$, n) \}\\
+
+\noindent retrocederAlPrincipio(\textbf{inout}\ $it$: iterador($\alpha$)) \ \ \ \ \ \\
+\indent \{P:\ it = it$_0$ \}  \\
+\indent \{Q:\ it \igobs retrocederAlPrincipio (it$_0$) \}\\
+
+\noindent borrarActual(\textbf{inout}\ $it$: iterador($\alpha$)) \ \ \ \ \ \\
+\indent \{P:\ it = it$_0$ $\wedge$ hayMas (it) \}  \\
+\indent \{Q:\ it \igobs borrarActual (it$_0$, n) \}\\
+
+Es importante remarcar que las operaciones actual, agregarAtrasDeIt, agregarAdelanteDeIt y borrarActual sufren de aliasing, que es lo que nosotros queremos para poder usar el iterador correctamente, cualquier cambio realizado al iterador con alguna de esas funciones har'a que los cambios se vean reflejados en la secuencia que est'a siendo iterada, ya que el iterador comparte la estructura interna con la secuencia. An'alogamente, cualquier cambio que ocurra en la secuencia iterada que no tenga que ver con el iterador lo afectar'a al mismo. Esto hace f'acil eliminar un elemento del medio de la secuencia, agregarlo, o cambiarlo, y para esto usaremos dichas operaciones con el fin de facilitarnos el manejo de las secuencias.  Obviamente, el aliasing de este iterador se aplica tambi'en en los otros m'odulos que usan el mismo iterador
+
+\newpage
+\subsection{Estructura}
+
+    \noindent \textsc{estrSecu se representa tupla} $<$ primero: puntero (nodo) $\times$ ultimo: puntero (nodo) $>$, donde nodo es tupla $<$dato: $\alpha$ $\times$ prox: puntero (nodo) $\times$ ant: puntero (nodo)$>$
+
+    \noindent \textsc{estrIterador es tupla} $<$ sec: puntero (estrSecu) $\times$ posic: puntero (nodo) $>$
+
+
+\subsection{Invariante de Representacion}
+
+\indent \ \ \ \ \ \ Rep: $\sombrero{estrSecu}$ $\rightarrow$ bool \\
+    
+($\forall\ e$ : estrSecu) Rep$(e)$ = true $\leftrightarrow$ no hay ciclos en la lista encadenada
+
+\subsection{Funcion de Abstraccion}
+
+\indent \ \ \ \ \ \ Abs : estrSecu e $\rightarrow$ secu($\alpha$) \ \ \ \ \ \ \ \ \ \ \ \ \ (Rep($e$))\\
+   
+   $(\forall\ e$: estrSecu) {Abs$(e) = s$: secu($\alpha$)} \ \ / \ \ 
+   \lif e.primero $=$ nil \lthen $<>$ \lelse e.dato \puntito Abs (e.prox) \lfi\\
+
+
+\indent \ \ \ \ \ \ AbsIt : estrSecu e $\rightarrow$ iterador($\alpha$) \ \ \ \ \ \ \ \ \ \ \ \ \ (Rep($e$))\\
+   
+   $(\forall\ e$: estrSecu) {AbsIt$(e) = s$: iterador($\alpha$)} \ \ / \ \  crearIt(Abs(e))
+
+
+\newpage
+\subsection{Algoritmos}
+
+\begin{algoritmo}
+\caption{}\\
+  iVacia?(in s: estrSecu($\alpha$)) $\rightarrow$ $res$: bool \\
+	\indent \ \ \ \ \ \  res $\gets$ (s.primero $==$ nil)  \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iPrim(in s: estrSecu($\alpha$)) $\rightarrow$ $res$: $\alpha$ \\
+	\indent \ \ \ \ \ \  res $\gets$ dato (s.primero)  \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iFin(inout s: estrSecu($\alpha$))\\
+	\indent \ \ \ \ \ \  s.primero = prox (s.primero)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  ant (s.primero)  $\rightarrow$  nil  \ \ \ \ \ O(1)\\
+
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iVacia() $\rightarrow$ $res$: $\alpha$\\
+	\indent \ \ \ \ \ \  res.primero = res.ultimo = nil \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iAgregarAdelante(inout s: estrSecu($\alpha$), in n: $\alpha$)\\
+	\indent \ \ \ \ \ \  var new: nodo \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  new.prox $\gets$ (s.primero)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  new.ant  $\gets$ nil  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  new.dato $\gets$ n  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  s.primero $\gets$ new \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iAgregarAtras(inout s: estrSecu($\alpha$), in n: $\alpha$)\\
+	\indent \ \ \ \ \ \  var new: nodo \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  new.prox $\gets$ nil  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  new.dato  $\gets$ n  \ \ \ \ \ O(1)\\ 
+	\indent \ \ \ \ \ \  new.ant  $\gets$ s.ultimo  \ \ \ \ \ O(1)\\ 
+	\indent \ \ \ \ \ \  proximo (s.ultimo) $\gets$ new \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  s.ultimo $\gets$ new \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iCrearIt(in s: estrSecu($\alpha$)) $\rightarrow$ $res$: estrIterador($\alpha$)\\
+	\indent \ \ \ \ \ \  res.sec $\gets$ s \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  res.posic $\gets$ s.primero  \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iHayMas(in it: estrIterador($\alpha$)) $\rightarrow$ $res$: bool\\
+	\indent \ \ \ \ \ \  res $\gets$ (it.posic $\neq$ nil)   \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iActual(in it: estrIterador($\alpha$)) $\rightarrow$ $res$: $\alpha$ \\
+	\indent \ \ \ \ \ \  res $\gets$ dato (it.posic )   \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iAvanzar(inout it: estrIterador($\alpha$)) \\
+	\indent \ \ \ \ \ \  it.posic $\gets$ prox (it.posic)  \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iAgregarAtrasDeIt(inout it: estrIterador($\alpha$), in n: $\alpha$)\\
+	\indent \ \ \ \ \ \ var new: nodo \ \ \ \ \ O(1)\\   
+	\indent \ \ \ \ \ \ new.dato $\gets$ n \ \ \ \ \ O(1)\\   
+	\indent \ \ \ \ \ \ if (primero (it.sec) $\rightarrow$ nil) \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  primero (it.sec) = ultimo (it.sec) = new \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  new.prox $\gets$ nil \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  new.ant  $\gets$ nil \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  it.posic $\gets$ new \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ else if (it.posic = ultimo (it.sec))\ \ \ \ \ \\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  new.ant $\gets$ ultimo (it.sec)\ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  ultimo (it.sec) = new \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  new.prox $\gets$ nil \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  it.posic $\gets$ new \ \ \ \ \ O(1)\\ 
+	\indent \ \ \ \ \ \ else \ \ \ \ \ \\  	
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  new.prox $\gets$ prox (it.posic) \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  new.ant $\gets$ ant (it.posic) \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  ant(new.prox) $\gets$ new \ \ \ \ \ O(1)\\ 
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  prox (it.posic) $\gets$ new \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  it.posic $\gets$ new \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endIf \ \ \ \ \ \\  	
+end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iAgregarAdelanteDeIt(inout it: estrIterador($\alpha$), in n: $\alpha$)\\
+	\indent \ \ \ \ \ \ var new: nodo \ \ \ \ \ O(1)\\   
+	\indent \ \ \ \ \ \ new.dato $\gets$ n \ \ \ \ \ O(1)\\   
+	\indent \ \ \ \ \ \ if (primero (it.sec) $\rightarrow$ nil) \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  primero (it.sec) = ultimo (it.sec) = new \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  new.prox $\gets$ nil \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  new.ant  $\gets$ nil \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  it.posic $\gets$ new \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ else if (it.posic = primero (it.sec))\ \ \ \ \ \\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  new.prox $\gets$ primero (it.sec)\ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  primero (it.sec) = new \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  new.ant $\gets$ nil \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  it.posic $\gets$ new \ \ \ \ \ O(1)\\ 
+	\indent \ \ \ \ \ \ else \ \ \ \ \ \\  	
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  new.prox $\gets$ it.posic \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  new.ant $\gets$ ant (it.posic) \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  ant (it.posic) $\gets$ new \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  prox (new.ant) $\gets$ new \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endIf \ \ \ \ \ \\  	
+end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iRetrocederAlPrincipio(inout it: estrIterador($\alpha$)) \\
+	\indent \ \ \ \ \ \  it.posic $\gets$ primero (it.sec)   \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\newpage
+
+\begin{algoritmo}
+\caption{}\\
+  iBorrarActual(inout it: estrIterador($\alpha$))\\
+	\indent \ \ \ \ \ \ if (it.posic = prim (it.sec))\ \ \ \ \ \\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  prim (it.sec) $\gets$ prox (it.posic) \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  if (primero (it.sec) $\rightarrow$ nil) \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  it.posic$\gets$ nil \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  ultimo (it.sec)$\gets$ nil \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  else \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ant (prox (it.posic)) $\gets$ nil \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ it.posic $\gets$ prox (it.posic) \ \ \ \ \ O(1)\\ 
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  endIf \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ else if (it.posic = ultimo (it.sec))\ \ \ \ \ \\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  ultimo (it.sec) $\gets$ ant (it.posic) \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  prox (ant (it.posic)) $\gets$ nil \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  it.posic $\gets$ nil \ \ \ \ \ O(1)\\ 
+	\indent \ \ \ \ \ \ else \ \ \ \ \ \\  	
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  ant (prox (it.posic) $\gets$ ant (it.posic) \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  prox (ant (it.posic) $\gets$ prox (it.posic) \ \ \ \ \ O(1)\\  
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \  it.posic $\gets$ prox (it.posic) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endIf \ \ \ \ \ \\  	
+end Function 
+\end{algoritmo}
+
+\newpage
+
+\section{Conjunto con Iteradores}
+
+\subsection{Interfaz}
+
+\indent \noindent \textbf{interfaz:} \nombretad{Conjunto con Iteradores}\\
+\indent \textbf{usa:}\nombretad{Secuencia con Iteradores ($\alpha$)}\\
+\indent \textbf{se explica con:} \nombretad{Conjunto ($\alpha$), iterador ($\alpha$)}\\
+\indent \textbf{g'eneros:} \nombretad{conj $\alpha$, iterador ($\alpha$)}\\
+
+\noindent \textbf{\textsl{Operaciones:}}\\
+
+\noindent pertenece(\textbf{in}\ $a$: $\alpha$, \textbf{in}\ $c$: conj($\alpha$))  \en $res$: bool \ \ \ \ \ \\
+\indent \{P:\ true\ \}  \\
+\indent \{Q:\ res \igobs a $\in$ c \}\\
+
+\noindent vacio()  \en $res$: conj($\alpha$) \ \ \ \ \ \\
+\indent \{P:\ true\ \}  \\
+\indent \{Q:\ res \igobs $\emptyset$ \}\\
+
+\noindent vacio?(\textbf{in}\ $c$: conj($\alpha$))  \en $res$: bool \ \ \ \ \ \\
+\indent \{P:\ true\ \}  \\
+\indent \{Q:\ res \igobs $\emptyset$? (c) \}\\
+
+
+\noindent agregar(\textbf{in}\ $a$: $\alpha$, \textbf{inout}\ $c$: conj($\alpha$))  \ \ \ \ \ \\
+\indent \{P:\ c = c$_0$ \}  \\
+\indent \{Q:\ c \igobs Ag (a,c$_0$) \}\\
+
+\noindent sacar(\textbf{in}\ $a$: $\alpha$, \textbf{inout}\ $c$: conj($\alpha$))  \ \ \ \ \ \\
+\indent \{P:\ c = c$_0$ \}  \\
+\indent \{Q:\ c \igobs c$_0$ - \{a\} \}\\
+
+\noindent union(\textbf{inout}\ $c$: conj($\alpha$), \textbf{in}\ $otroc$: conj($\alpha$))  \ \ \ \ \ \\
+\indent \{P:\ c = c$_0$ \}  \\
+\indent \{Q:\ c \igobs c$_0$ $\cup$ otroc \}\\
+
+\noindent crearIt(\textbf{in}\ $c$: conj($\alpha$))  \en $res$: iterador($\alpha$) \ \ \ \ \ \\
+\indent \{P:\ true \}  \\
+\indent \{Q:\ res \igobs crearIt(c) \}\\
+
+\noindent hayMas(\textbf{in}\ $it$: iterador($\alpha$))  \en $res$: bool \ \ \ \ \ \\
+\indent \{P:\ true \}  \\
+\indent \{Q:\ res \igobs hayMas(it) \}\\
+
+\noindent actual(\textbf{in}\ $it$: iterador ($\alpha$))  \en $res$: $\alpha$ \ \ \ \ \ \\
+\indent \{P:\ hayMas (it) \}  \\
+\indent \{Q:\ res \igobs actual(it) \}\\
+
+\noindent avanzar(\textbf{inout}\ $it$: iterador ($\alpha$)) \ \ \ \ \ \\
+\indent \{P:\ hayMas (it) \}  \\
+\indent \{Q:\ res \igobs avanzar(it) \}\\
+
+\noindent borrarActual(\textbf{inout}\ $it$: iterador($\alpha$)) \ \ \ \ \ \\
+\indent \{P:\ it = it$_0$ $\wedge$ hayMas (it) \}  \\
+\indent \{Q:\ it \igobs borrarActual (it$_0$, n) \}\\
+
+\newpage
+\subsection{Estructura}
+
+    \noindent \textsc{estrConj se representa con Secuencia($\alpha$)}
+
+
+\subsection{Invariante de Representacion}
+
+    \indent \ \ \ \ \ \ Rep: $\sombrero{estrConj}$ $\rightarrow$ bool \\
+    
+($\forall\ e$ : estrConj) Rep$(e) =$ noHayRepetidos (e) \\
+
+noHayRepetidos: secu($\alpha$) \en bool\\
+	\indent noHayRepetidos($s$) = $\neg$ esta?(prim($s$), noHayRepetidos(fin($s$)))  \\    
+
+
+\subsection{Funcion de Abstraccion}
+
+\subsection{Algoritmos}
+
+\begin{algoritmo}
+\caption{}\\
+  iPertenece(in a: $\alpha$, in c: estrConj($\alpha$)) $\rightarrow$ $res$: bool \\
+	\indent \ \ \ \ \ \  res $\gets$ esta?(c,a)  \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iVacio() $\rightarrow$ $res$: estrConj($\alpha$) \\
+	\indent \ \ \ \ \ \  res $\gets$ vacia  \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iVacio? (in c: estrConj($\alpha$)) $\rightarrow$ $res$: bool \\
+	\indent \ \ \ \ \ \  res $\gets$ vacia? (c)  \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iAgregar(in a: $\alpha$, inout c: estrConj($\alpha$)) \\
+	\indent \ \ \ \ \ \  if ($\neg$ pertenece (a,c))  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  agregarAdelante (c,a)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  endIf\ \ \ \ \ O(1)\\
+   end Function \\
+
+   Como la funcion debe llamar a pertenece, que tiene un costo O(n), y el agregarAdelante es O(1), en total el costo es O(n)
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iSacar(in a: $\alpha$, inout c: estrConj($\alpha$))\\
+	\indent \ \ \ \ \ \  var it: secu($\alpha$) $\gets$ crearIt(c)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var bool: queda = true \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  while (hayMas (it) $\wedge$ queda) \ \ \ \ \ O(n)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  if (actual (it) $==$ a)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ borrarActual (it)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ queda = false  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  endIf \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  avanzar (it) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iUnion(inout c: estrConj($\alpha$), in otroc: estrConj($\alpha$))\\
+	\indent \ \ \ \ \ \  var it: secu($\alpha$) $\gets$ crearIt(otroc)  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  while (hayMas (it)) \ \ \ \ \ O(\# otroc)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  if ($\neg$ esta? (c, actual (it))  \ \ \ \ \ O(\# c)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ agregarAdelante (c, actual(it))  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  endIf \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  avanzar (it) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iCrearIt(in c: estrConj($\alpha$)) $\rightarrow$ $res$: iterador($\alpha$) \\
+	\indent \ \ \ \ \ \  res $\gets$ crearIt (c)  \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+ iHayMas(in it: iterador($\alpha$)) $\rightarrow$ $res$: bool \ \ \ \ \ \\
+	\indent \ \ \ \ \ \  res $\gets$ hayMas (it)  \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+ iActual(in it: iterador($\alpha$)) $\rightarrow$ $res$: $\alpha$ \ \ \ \ \ \\
+	\indent \ \ \ \ \ \  res $\gets$ actual (it)  \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+ iAvanzar(inout it: iterador($\alpha$)) \ \ \ \ \ \\
+	\indent \ \ \ \ \ \  avanzar(it) \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+ iBorrarActual(inout it: iterador($\alpha$)) \ \ \ \ \ \\
+	\indent \ \ \ \ \ \  res $\gets$ borrarActual (it)  \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\newpage
+
+\section{Multiconjunto con Iteradores}
+
+\subsection{Interfaz}
+
+\indent \noindent \textbf{interfaz:} \nombretad{Multiconjunto con Iteradores}\\
+\indent \textbf{usa:}\nombretad{Secuencia con Iteradores ($\alpha$)}\\
+\indent \textbf{se explica con:} \nombretad{Multiconjunto ($\alpha$), iterador ($\alpha$)}\\
+\indent \textbf{g'eneros:} \nombretad{mconj $\alpha$, iterador ($\alpha$)}\\
+
+\noindent \textbf{\textsl{Operaciones:}}\\
+
+\noindent cardinal (\textbf{in}\ $a$: $\alpha$, \textbf{in}\ $c$: mconj($\alpha$))  \en $res$: bool \ \ \ \ \ \\
+\indent \{P:\ true\ \}  \\
+\indent \{Q:\ res \igobs $\#$ (a,c) \}\\
+
+\noindent vacio()  \en $res$: mconj($\alpha$) \ \ \ \ \ \\
+\indent \{P:\ true\ \}  \\
+\indent \{Q:\ res \igobs $\emptyset$ \}\\
+
+\noindent agregar(\textbf{in}\ $a$: $\alpha$, \textbf{inout}\ $c$: mconj($\alpha$))  \ \ \ \ \ \\
+\indent \{P:\ c = c$_0$ \}  \\
+\indent \{Q:\ c \igobs Ag (a,c$_0$) \}\\
+
+\noindent cantElemDistintos(\textbf{inout}\ $c$: mconj($\alpha$) \en $res$: bool)  \ \ \ \ \ \\
+\indent \{P:\ true \}  \\
+\indent \{Q:\ res \igobs (cantElemDistintos (c)) \}\\
+
+\noindent crearIt(\textbf{in}\ $c$: mconj($\alpha$))  \en $res$: iterador($\alpha$) \ \ \ \ \ \\
+\indent \{P:\ true \}  \\
+\indent \{Q:\ res \igobs crearIt(c) \}\\
+
+\noindent hayMas(\textbf{in}\ $it$: iterador($\alpha$))  \en $res$: bool \ \ \ \ \ \\
+\indent \{P:\ true \}  \\
+\indent \{Q:\ res \igobs hayMas(it) \}\\
+
+\noindent actual(\textbf{in}\ $it$: iterador ($\alpha$))  \en $res$: $\alpha$ \ \ \ \ \ \\
+\indent \{P:\ hayMas (it) \}  \\
+\indent \{Q:\ res \igobs actual(it) \}\\
+
+\noindent avanzar(\textbf{inout}\ $it$: iterador ($\alpha$)) \ \ \ \ \ \\
+\indent \{P:\ hayMas (it) \}  \\
+\indent \{Q:\ res \igobs avanzar(it) \}\\
+
+\noindent borrarActual(\textbf{inout}\ $it$: iterador($\alpha$)) \ \ \ \ \ \\
+\indent \{P:\ it = it$_0$ $\wedge$ hayMas (it) \}  \\
+\indent \{Q:\ it \igobs borrarActual (it$_0$, n) \}\\
+
+\newpage
+\subsection{Estructura}
+
+    \noindent \textsc{estrMConj se representa con Secuencia($<$cant: nat, elem: $\alpha>$)}
+
+
+\subsection{Invariante de Representacion}
+
+    \indent \ \ \ \ \ \ Rep: $\sombrero{estrMConj}$ $\rightarrow$ bool \\
+    
+($\forall\ e$ : estrMConj) Rep$(e) =$ noHayRepetidos (e) $\wedge$ cantidadCorrecta($e$) \\
+
+noHayRepetidos: secu($\alpha$) \en bool\\
+	\indent noHayRepetidos($s$) = $\neg$ esta?(prim($s$), noHayRepetidos(fin($s$)))  \\    
+	
+cantidadCorrecta: secu($\alpha$) \en bool\\
+	\indent cantidadCorrecta($s$) = cant(elem) $\geq$ 0 \\
+
+
+\subsection{Funcion de Abstraccion}
+
+\subsection{Algoritmos}
+
+\begin{algoritmo}
+\caption{}\\
+  iCardinal(in a: $\alpha$, in c: estrConj($\alpha$)) $\rightarrow$ $res$: nat \\
+	\indent \ \ \ \ \ \ var it: secu ($\alpha$) $\gets$ crearIt(c)\ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ var noencontro: bool = true \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ res $\gets$ 0 \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ while (hayMas (it) $\wedge$ noecontro) \ \ \ \ \ O(\# otroc)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  if (elem(actual (it) $==$ a)  \ \ \ \ \ O(\# c)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ res $\gets$ cant(actual(it))  \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ noencontro = false  \ \ \\ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  endIf \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  avanzar (it) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+   end Function \\
+   
+   La funci'on cardinal es f'acil ver que su complejidad en peor caso es O(n) siendo n la cantidad de tuplas en la secuencia, pero hay que tener en cuenta cada vez que la usemos lo haremos de manera que el cardinal que se pida sea el del primer elemento, por lo que en esos casos va a ser O(1) ya que es inmediato
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iVacio() $\rightarrow$ $res$: estrConj($\alpha$) \\
+	\indent \ \ \ \ \ \  res $\gets$ vacia  \ \ \ \ \ O(1)\\
+  end Function \\
+   
+   La operacion vacia? de secu es O(1), por lo tanto esta operaci'on lo es tambi'en
+  
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iAgregar(in a: $\alpha$, inout c: estrMConj($\alpha$)) \\
+	\indent \ \ \ \ \ \  var it: secu ($\alpha$) $\gets$ crearIt(c)\ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  var noencontro: bool = true \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  res $\gets$ 0 \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  while (hayMas (it) $\wedge$ noecontro) \ \ \ \ \ O(\# otroc)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  if (elem(actual (it) $==$ a)  \ \ \ \ \ O(\# c)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ actual (it) = actual(it) +1   \ \ \\ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ noencontro = false  \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  endIf \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  avanzar (it) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ if ($\neg$ noencontro) \ \ \ \ \ \\ O(1)
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  agregarAlFinal ($<$1,a$>$) \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+   end Function \\
+   
+  La funcion debe recorrer toda la secuencia hasta encontrar el elemento en la tupla (si lo hubiere), esto cuesta O(n), y el agregarAlFinal es O(1), en total el costo es O(n), con n la longitud de la secuencia
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iCantElemDistintos(in c: estrMConj($\alpha$)) \\
+	\indent \ \ \ \ \ \  var it: secu ($\alpha$) $\gets$ crearIt(c)\ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  res $\gets$ 0 \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \  while (hayMas (it)) \ \ \ \ \ O(long(c))\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  res ++ \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  avanzar (it) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ devolver res \ \ \ \ \ \\ O(1)
+   end Function \\
+   
+   Esta funci'on debe iterar sobre toda la secuencia, es decir, sobre la cantidad de tuplas, en total tiene complejidad O(n), con n la longitud de la secuencia
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iCrearIt(in c: estrMConj($\alpha$)) $\rightarrow$ $res$: iterador($\alpha$) \\
+	\indent \ \ \ \ \ \  res $\gets$ crearIt (c)  \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+ iHayMas(in it: iterador($\alpha$)) $\rightarrow$ $res$: bool \ \ \ \ \ \\
+	\indent \ \ \ \ \ \  res $\gets$ hayMas (it)  \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+ iActual(in it: iterador($\alpha$)) $\rightarrow$ $res$: $\alpha$ \ \ \ \ \ \\
+	\indent \ \ \ \ \ \  res $\gets$ actual (it)  \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+ iAvanzar(inout it: iterador($\alpha$)) \ \ \ \ \ \\
+	\indent \ \ \ \ \ \  avanzar(it) \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+
+\begin{algoritmo}
+\caption{}\\
+ iBorrarActual(inout it: iterador($\alpha$)) \ \ \ \ \ \\
+	\indent \ \ \ \ \ \  res $\gets$ borrarActual (it)  \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\newpage
+
+\section{Cola}
+
+\subsection{Interfaz}
+
+\indent \noindent \textbf{interfaz:} \nombretad{Cola}\\
+\indent \textbf{usa:}\nombretad{Secuencia con Iteradores ($\alpha$)}\\
+\indent \textbf{se explica con:} \nombretad{Cola, iterador ($\alpha$)}\\
+\indent \textbf{g'eneros:} \nombretad{cola, iterador ($\alpha$)}\\
+
+\noindent \textbf{\textsl{Operaciones:}}\\
+
+\noindent vacia? (\textbf{in}\ $c$: cola) \en $res$: bool \ \ \ \ \ \\
+\indent \{P:\ true\ \}  \\
+\indent \{Q:\ res \igobs vacia? (c) \}\\
+
+\noindent proxima (\textbf{in}\ $c$: cola) \en $res$: actividad \ \ \ \ \ \\
+\indent \{P:\ $\neg$ (vacia?(c))\ \}  \\
+\indent \{Q:\ res \igobs proximo (c) \}\\
+
+\noindent prioridad (\textbf{in}\ $c$: cola) \en $res$: nat \ \ \ \ \ \\
+\indent \{P:\ $\neg$ (vacia?(c))\ \}  \\
+\indent \{Q:\ res \igobs prioridad (c) \}\\
+
+\noindent ordenes (\textbf{in}\ $c$: cola, \textbf{in}\ $t$: tarea) \en $res$: secu (orden) \ \ \ \ \ \\
+\indent \{P:\ (esta? (c,t))\ \}  \\
+\indent \{Q:\ res \igobs ordenes (c,t) \}\\
+
+\noindent esta? (\textbf{in}\ $c$: cola, \textbf{in}\ $t$: tarea) \en $res$: true \ \ \ \ \ \\
+\indent \{P:\ true\ \}  \\
+\indent \{Q:\ res \igobs esta? (c,t) \}\\
+
+\noindent sacarOrden (\textbf{inout}\ $c$: cola, \textbf{in}\ $t$: tarea, \textbf{in}\ $o$: nat) \ \ \ \ \ \\
+\indent \{P:\ c = c$_0$ $\wedge$ esta? (c,t) $\yluego$ esta? (o, ordenes (c,t)) \ \}  \\
+\indent \{Q:\ c \igobs desencolar (c$_0$,o) \}\\
+
+\noindent vacia () \en $res$: $c$: cola \ \ \ \ \ \\
+\indent \{P:\ true)\ \}  \\
+\indent \{Q:\ c \igobs vacia () \}\\
+
+\noindent encolar (\textbf{inout}\ $c$: cola, \textbf{in}\ $t$: tarea, \textbf{in}\ $p$: prioridad, \textbf{in}\ $o$: nat) \ \ \ \ \ \\
+\indent \{P:\ c = c$_0$ $\wedge$)\ \}  \\
+\indent \{Q:\ c \igobs encolar (c$_0$, t, p, o) \}\\
+
+\noindent encolarSecuOrdenada (\textbf{inout}\ $c$: cola, \textbf{in}\ $s$: secu ($<$actividad, nat$>$)) \ \ \ \ \ \\
+\indent \{P:\ c = c$_0$ $\wedge$)\ \}  \\
+\indent \{Q:\ c \igobs encolarSecuOrdenada (c, s) \}\\
+
+\noindent crearIt(\textbf{in}\ $c$: conj($\alpha$))  \en $res$: iterador($\alpha$) \ \ \ \ \ \\
+\indent \{P:\ true \}  \\
+\indent \{Q:\ res \igobs crearIt(c) \}\\
+
+\noindent hayMas(\textbf{in}\ $it$: iterador($\alpha$))  \en $res$: bool \ \ \ \ \ \\
+\indent \{P:\ true \}  \\
+\indent \{Q:\ res \igobs hayMas(it) \}\\
+
+\noindent actual(\textbf{in}\ $it$: iterador ($\alpha$))  \en $res$: $\alpha$ \ \ \ \ \ \\
+\indent \{P:\ hayMas (it) \}  \\
+\indent \{Q:\ res \igobs actual(it) \}\\
+
+\noindent avanzar(\textbf{inout}\ $it$: iterador ($\alpha$)) \ \ \ \ \ \\
+\indent \{P:\ hayMas (it) \}  \\
+\indent \{Q:\ res \igobs avanzar(it) \}\\
+
+\noindent borrarActual(\textbf{inout}\ $it$: iterador($\alpha$)) \ \ \ \ \ \\
+\indent \{P:\ it = it$_0$ $\wedge$ hayMas (it) \}  \\
+\indent \{Q:\ it \igobs borrarActual (it$_0$, n) \}\\
+
+\newpage
+\subsection{Estructura}
+
+    \noindent \textsc{estrCola se representa con Secuencia(PriorAct)}, con PriorAct un renombre de la tupla $<$tarea: nat, prioridad: nat, ordenes: secu (orden)$>$
+
+
+\subsection{Invariante de Representacion}
+ 	  	  	
+ 	\indent \ \ \ \ \ \ Rep: $\sombrero{estrCola}$ $\rightarrow$ bool \\
+ 	  	  	
+ 	  	  	($\forall\ e$ : estrMConj) Rep$(e) =$ estanOrdenados (e) $\wedge$ noHayTareasRepetidas (e) $\wedge$ noHayPrioridadesRepetidas (e) noHayOrdenesRepeEnSecu (e)\\
+ 	  	  	
+ 	  	  	estanOrdenados: secu($<$nat, nat, secu (nat)) \en bool\\
+ 	  	  	\indent estanOrdenados($s$) = vacia (s) $\oluego$ (esMayor (prim (s), fin (s)) $\yluego$ estanOrdenados (fin (s))\\
+ 	  	  	
+ 	  	  	esMayor: $<$nat, nat, secu (nat), secu($<$nat, nat, secu (nat)) \en bool\\
+ 	  	  	\indent esMayor($t$,$s$) = vacia (s) $\oluego$ (prioridad (t) $<$ prioridad (fin(s)) $\yluego$ esMayor (t, fin(s)))\\
+ 	  	  	
+ 	  	  	noHayTareasRepetidas: secu($<$nat, nat, secu (nat)) \en bool\\
+ 	  	  	\indent noHayTareasRepetidas($s$) = sinRepe (dameTareas (s))\\
+ 	  	  	
+ 	  	  	noHayPrioridadesRepetidas: secu($<$nat, nat, secu (nat)) \en bool\\
+ 	  	  	\indent noHayPrioridadesRepetidas($s$) = sinRepe (damePrio (s))\\
+ 	  	  	
+ 	  	  	noHayOrdenesRepeEnSecu: secu($<$nat, nat, secu (nat)) \en bool\\
+ 	  	  	\indent noHayOrdenesRepeEnSecu($s$) = vacia (s) $\oluego$ ( sinRepe (ordenes(prim(s))) $\yluego$ noHayOrdenesRepeEnSecu (fin(s)))\\
+ 	  	  	
+ 	  	  	
+	  	  	dameTareas: secu($<$nat, nat, secu (nat)) \en secu (nat)\\
+ 	  	  	\indent dameTareas($s$) = \lif vacia? (s) \lthen vacia \lelse tarea (prim(s)) $\puntito$ dameTareas (fin (s)) \\
+ 	  	  	
+ 	  	  	damePrio: secu($<$nat, nat, secu (nat)) \en secu (nat)\\
+	  	  	\indent damePrio($s$) = \lif vacia? (s) \lthen vacia \lelse prioridad (prim(s)) $\puntito$ damePrio (fin (s)) \\
+ 	  	  	
+ 	  	  	sinRepe: secu($\alpha$) \en bool \\
+ 	  	  	\indent sinRepe($s$) = vacia (s) $\oluego$ $\neg$ esta? (prim (s), fin (s)) $\yluego$ sinRepe (fin(s)))\\
+ 	  	  	
+\subsection{Funcion de Abstraccion}
+ 	  	  	
+ 	\indent \ \ \ \ \ \ Abs : estrCola e $\rightarrow$ cola \ \ \ \ \ \ \ \ \ \ \ \ \ (Rep($e$))\\
+ 	  	  	
+ 	  	  	$(\forall\ e$: estrCola) {Abs$(e) = c$: cola)} \ \ / \ \
+ 	  	  	\lif vacia? (e) \lthen vacia (c) \lelse tarea (prim (e)) = proximo (c) $\wedge$ prioridad (prim(e)) 	= prioridad (c) $\wedge$ prim (ordenes (prim (e))) = prim (ordenes (c, proximo (c))) $\yluego$ sacarOrden (e) = sacarOrden (c)
+
+\newpage 	  	  	
+\subsection{Algoritmos}
+
+\begin{algoritmo}
+\caption{}\\
+  iVacia?(in c: estrCola) $\rightarrow$ $res$: bool \\
+	\indent \ \ \ \ \ \  res $\gets$ vacia?(c)  \ \ \ \ \ O(1)\\
+     end Function \\
+   
+   La operacion vacia? de secu es O(1), por lo tanto esta operaci'on lo es tambi'en
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iEsta?(in c: estrCola, in t: tarea) $\rightarrow$ $res$: bool \\
+	\indent \ \ \ \ \ \ var it: secu (priorAct) $\gets$ crearIt(c)\ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ res $\gets$ false \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ while (hayMas (it) $\wedge$ $\neg$ res) \ \ \ \ \ O(c)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  if (tarea(actual (it) $==$ t))  \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ res $\gets$ true  \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  endIf \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  avanzar (it) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+   end Function \\
+   
+   Esta operacion debe recorrer todas las tuplas hasta encontrar la buscada, por lo tanto es O(c) siendo c la longitud de la secuencia
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iProxima(in c: estrCola) $\rightarrow$ $res$: actividad \\
+	\indent \ \ \ \ \ \  res $\gets$ actividad(tarea (prim (c), prim (ordenes (prim(c)))))  \ \ \ \ \ O(1)\\
+   end Function \\
+   
+   El acceso al primer elemento de la secuencia es inmediato, por lo tanto es O(1)
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iPrioridad(in c: estrCola) $\rightarrow$ $res$: nat \\
+	\indent \ \ \ \ \ \  res $\gets$ prioridad (prim (c))  \ \ \ \ \ O(1)\\
+    end Function \\
+   
+   El acceso al primer elemento de la secuencia es inmediato, por lo tanto es O(1)
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iOrdenes(in c: estrCola) $\rightarrow$ $res$: secu(orden) \\
+	\indent \ \ \ \ \ \  res $\gets$ ordenes (prim (c))  \ \ \ \ \ O(1)\\
+    end Function \\
+   
+   El acceso al primer elemento de la secuencia es inmediato, por lo tanto es O(1)
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iSacarOrden(inout c: estrCola, in t:tarea, in o :orden)\\
+	\indent \ \ \ \ \ \ var it: secu (priorAct) $\gets$ crearIt(c)\ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ while (tarea (actual (it)) $\neq$ t) \ \ \ \ \ O(c)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  avanzar (it) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ var itord: secu (nat) $\gets$ crearIt(ordenes(actual)) \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ while (actual (itord)) $\neq$ t) \ \ \ \ \ O(c)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  avanzar (it) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ borrarActual (itord) \ \ \ \ \ O(c)\\
+	\indent \ \ \ \ \ \ if (vacia? (ordenes(actual(it)))) \ \ \ \ \ O(c)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  borrarActual (it) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endIf \ \ \ \ \ \\
+   end Function \\
+   
+   Esta funci'on recorre toda la secuencia de tuplas hasta encontrar la tarea buscada, y una vez encontrada recorre toda la secuencia de ordenes hasta encontrar la orden pasada, en caso de que luego de borrar esa orden la secuencia quede vacia el borrado de la tupla se hace en orden constante, por lo tanto la complejidad total es O(e+o), siendo e la longitud de la cola y o la cantidad de ordenes que contiene la tarea pasada por par'ametro
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iVacia() $\rightarrow$ $res$: estrCola \\
+	\indent \ \ \ \ \ \  res $\gets$ vacia  \ \ \ \ \ O(1)\\
+    end Function \\
+   
+   La operacion vacia de secu es O(1), por lo tanto esta operaci'on lo es tambi'en
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iEncolar(inout c: estrCola, in t:tarea, in p:prioridad, in o :orden)\\
+	\indent \ \ \ \ \ \ var it: secu (priorAct) $\gets$ crearIt(c)\ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ while (hayMas(it) $\wedge$ prioridad(actual (it)) $<$ p) \ \ \ \ \ O(c)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  avanzar (it) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ if (hayMas(it) $\wedge$ prioridad (actual (it)) $==$ p)  \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  agregarAtras (ordenes (actual (it)), o) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ else\ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  var secord: secu (nat) $\gets$ vacia \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \  agregarAdelanteDeIt ($<$t, p, agregarAtras (secord, o)$>$) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ endIf \ \ \ \ \ \\
+    end Function \\
+   
+   Esta funci'on recorre toda la secuencia de tuplas hasta encontrar una tarea con menor o igual prioridad, en caso de que encuentre una con menor, significa que debe crear un nuevo nodo en O (1) y agregarlo tambi'en en tiempo constante, en caso contrario debe agregarAtras sobre la secuencia de 'ordenes, tambi'en O(1), por lo tanto la complejidad es O(c) siendo c la longitud de la cola 
+   
+   
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iEncolarSecuOrdenada(inout c: estrCola, in s:secu ($<$actvidad, prioridad$>$))\\
+  \indent \ \ \ \ \ \ var itsecu: secu ($<$actvidad, prioridad$>$) $\gets$ crearIt(s)\ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ var itcola: secu (priorAct) $\gets$ crearIt(c)\ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ while (hayMas(itsecu)) $<$ p) \ \ \ \ \ O(c)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ while (hayMas(itcola) $\wedge$  prioridad(actual (it)) $<$ $\pi_2$ (actual (itsecu))) \ \ \ \ \ O(c)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ avanzar (itcola) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ if (hayMas(itcola) $\wedge$ prioridad (actual (itcola)) $==$ $\pi_2$ (actual (itsecu)))  \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ agregarAtras (ordenes (actual (itcola)), o) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ else\ \ \ \ \ \\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ var secord: secu (nat) $\gets$ vacia \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ agregarAdelanteDeIt ($<$t, p, agregarAtras (secord, o)$>$) \ \ \ \ \ O(1)\\
+	\indent \ \ \ \ \ \ \ \ \ \ \ \ endIf \ \ \ \ \ \\
+	\indent \ \ \ \ \ \ endWhile \ \ \ \ \ \\
+   end Function \\
+   
+   Como sabemos que ambas secuencias estan ordenadas, agregar un elemento a la otra es simplemente recorrer hasta encontrar la posici'on, y luego es posible seguir agregando el siguiente elemento desde la misma sin necesidad de volver hacia atr'as, esto garantiza que se puede hacer la operaci'on con una sola pasada por cada secuencia, como las operaciones de agregar y la creaci'on de iteradores se hace en tiempo constante, en total la operaci'on cuesta O(c+s), siendo c la cola y s la secuencia ordenada a agregar
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+  iCrearIt(in c: estrCola($\alpha$)) $\rightarrow$ $res$: iterador($\alpha$) \\
+	\indent \ \ \ \ \ \  res $\gets$ crearIt (c)  \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+ iHayMas(in it: iterador($\alpha$)) $\rightarrow$ $res$: bool \ \ \ \ \ \\
+	\indent \ \ \ \ \ \  res $\gets$ hayMas (it)  \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\newpage
+\begin{algoritmo}
+\caption{}\\
+ iActual(in it: iterador($\alpha$)) $\rightarrow$ $res$: $\alpha$ \ \ \ \ \ \\
+	\indent \ \ \ \ \ \  res $\gets$ actual (it)  \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+ iAvanzar(inout it: iterador($\alpha$)) \ \ \ \ \ \\
+	\indent \ \ \ \ \ \  avanzar(it) \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\begin{algoritmo}
+\caption{}\\
+ iBorrarActual(inout it: iterador($\alpha$)) \ \ \ \ \ \\
+	\indent \ \ \ \ \ \  res $\gets$ borrarActual (it)  \ \ \ \ \ O(1)\\
+   end Function 
+\end{algoritmo}
+
+\end{document}

@@ -1,0 +1,259 @@
+\documentclass[10pt, a4paper]{article}
+
+%Margenes de la pagina.  otra opcion, usar \usepackage{a4wide}
+\usepackage[paper=a4paper, left=1.5cm, right=1.5cm, bottom=1.5cm, top=3.5cm]{geometry}
+
+%este paquete permite incluir acentos.  Notar que espera un formato ANSI-blah de archivo.  Si en lugar de eso se tiene un utf8 (usual en los linux), entonces usar \usepackage[utf8]{inputenc}
+\usepackage[latin1]{inputenc}
+
+\usepackage{lastpage}
+
+
+%Este paquete es para que algunos titulos (como Tabla de Contenidos) esten en castellano
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{TP de Especificacin - rdenes de Produccin }
+\rhead{Algoritmos y Estructuras de Datos II - 1 Cuatrimestre de 2010}
+\cfoot{\thepage\ de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt} 
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+\usepackage[spanish,activeacute]{babel}
+
+%Estos son los paquetes de TADs.  aed2-symb contiene algunos simbolos, itef permite escribir if then else fi de forma simple, y aed2-tad es el paquete central.
+\usepackage{aed2-symb,aed2-itef,aed2-tad}
+
+ 
+
+\begin{document}
+ 
+ %esto construye la caractula
+ \maketitle 
+
+ %aca empieza el TP.
+ \section{Signatura de los TADs}
+
+\begin{tad}{\nombretad{usoRecursos}}
+  
+  \tadGeneros{usoRecursos}
+  \tadExporta{usoRecursos, generadores, observadores, menorConsumo}
+  \tadUsa{Nat, Tarea, Recursos, Bool }
+
+  \tadIgualdadObservacional{a}{b}{workflow}{tiposDeRecursos ($a$) $\igobs$ tiposDeRecursos ($b$) $\yluego$ ($\forall$ $r$: recurso) $\yluego$ verTotal ($a$,$r$) $\igobs$ verTotal ($b$,$r$) $\wedge$  disponibilidad ($a$,$r$) $\igobs$ disponibilidad ($b$,$r$)}
+
+
+  \tadObservadores
+
+ %\begin{framed}
+  %Para ver c�mo se logra la alineacion de las signaturas, consultar el codigo fuente.  Ver adem�s, que es importante NO DEJAR ESPACIOS entre la ',' y el tipo de parametro, en la macro \verb|tadOperacion|.  De otra forma, ese espacio ser� agregado al existente.
+  %\end{framed}
+
+  \tadAlinearFunciones{tiposDeRecursos}{\tadTipoFuncion{usoRecursos $u$,recursos $r$,nat $n$}}
+  \tadOperacion{tiposDeRecursos}{usoRecursos}{nat}{}
+  \tadOperacion{verTotal}{usoRecursos $u$,recurso $r$}{nat}{r $<$ tiposDeRecuros($u$)}
+  \tadOperacion{disponibilidad}{usoRecurs $u$,recurso $r$}{nat}{r $<$ tiposDeRecuros($u$)}
+
+  \tadGeneradores
+
+  %\begin{framed}
+  %Si quieren, aca pueden realinear las funciones o no.  Ver el codigo fuente.
+  %\end{framed}
+
+  \tadAlinearFunciones{nuevoConsumo}{\tadTipoFuncion{usoRecursos $u$,recursos $r$,nat $n$}}
+  \tadOperacion{generar}{recursos}{usoRecursos}{}
+  \tadOperacion{nuevoConsumo}{usoRecursos $u$,recurso $r$,nat $n$}{usoRecursos}{r $<$ tipoDeRecursos($u$) $\wedge$ $n$ verTotal($u$,$r$)}
+
+  \tadOtrasOperaciones
+  \tadAlinearFunciones{alcanzanLosRecursos}{\tadTipoFuncion{usoRecursos $u$, arregloDimensionable (nat) $ar$}}
+  \tadOperacion{menorConsumo}{usoRecursos $u$}{recurso}{tipoDeRecursos($u$) $>$ 0}
+  \tadOperacion{actualizarConsumo}{usoRecursos $u$, recursos $mconj$}{usoRecursos}{($\forall$ $r$: recurso) $r$ $\in$ mconj $\impluego$ ($r$ $<$ tiposDeRecursos $u$ $\yluego$ $\#$ ($r$, $mconj$) $<$ verTotal ($u$, $i$))}
+  \tadOperacion{actualizarUso}{usoRecursos $u$, arregloDimensionable (nat) $ar$}{usoRecursos}{tiposDeRecursos ($u$) $==$ tam ($ar$) $\wedge$ ($\forall$ $i$: nat) $i$ $<$ tam ($ar$) $\impluego$ $ar[i]$ $<$ verTotal ($u$, $i$)}
+  \tadOperacion{alcanzanLosRecursos}{usoRecursos $u$, recursos $mconj$}{bool}{($\forall$ $r$: recurso) $r$ $\in$ mconj $\impluego$ ($r$ $<$ tiposDeRecursos($u$))}
+  \tadOperacion{multiconjuntizar}{usoRecursos $u$}{recursos}{}
+  \tadOperacion{disponiblesEnMultiConj}{usoRecursos $u$}{recursos}{}
+  \tadOperacion{actualizarUsoAux}{usoRecursos $u$, arregloDimensionable (nat) $ar$, nat $n$}{usoRecursos}{tiposDeRecursos ($u$) $==$ tam ($ar$) $\wedge$ ($\forall$ $i$: nat) $i$ $<$ tam ($ar$) $\impluego$ $ar[i]$ $<$ verTotal ($u$, $i$)}
+	\tadOperacion{multiconjuntizarAux}{usoRecursos $u$, nat $n$}{recursos}{}
+	\tadOperacion{agregarMuchos}{recursos $mconj$, recurso $r$, nat $n$}{recursos}{}
+	\tadOperacion{disponiblesEnMultiConjAux}{usoRecursos $u$, nat $n$}{recursos}{}
+
+
+  \tadAxiomas $\forall$ $u$: usoRecursos, $\forall$ $rs, mconj$: recursos, $\forall$ $r1, r$: recurso, $\forall$ $n,i $: nat\\
+  
+ 
+  ~
+	\tadAxioma{tiposDeRecursos (crear ($rs$)}{cantidadDeRec(recursos)}
+  \tadAxioma{tiposDeRecursos (nuevoConsumo ($u$,$r$,$n$)}{tiposDeRecursos($u$)}
+  
+  ~
+	\tadAxioma{verTotal (crear ($rs$),$r$)}{$#$($r$,$rs$)}
+  \tadAxioma{verTotal (nuevoConsumo ($u$,$r$,$n$),$r1$)}{tipoDeRecursos($u$)}
+  
+  ~
+  
+ 	\tadAxioma{disponibilidad(crear ($rs$),$r$)}{$#$($r$,$rs$)}
+    \tadAxioma{disponibilidad (nuevoConsumo ($u$,$r$,$n$),$r1$)}{\lif $r$=dameUno($r1$) \lthen $n$ \lelse disponibilidad ($u$)\lfi}
+  
+  ~
+  
+  \tadAxioma{menorConsumo ($u$)}{dameElMinimo ($u$,0,0)}
+  
+  ~
+  
+  \tadAxioma{dameElMinimo ($u$,$n$,$min$)}{\lif $n$ $==$ cantElemDistintos($u$) \lthen $min$ \lelse 
+  \lif ((verTotal($u$,$n$) - disponibilidad ($u$,$n$)$<$ min) \lthen dameElMinimo ($u$,$n$+1,(verTotal($u$,$n$) - disponibilidad ($u$,$n$)) \lelse dameElMinimo ($u$,$n$+1,$min$}
+   
+  ~
+  
+  \tadAxioma{actualizarConsumo ($u$, $mconj$)}{\lif vacio? ($mconj$) \lthen u \lelse actualizarConsumo (nuevoConsumo ($u$, dameUno ($mconj$), $\#$ (dameUno ($mconj$), $mconj$)), $mconj$ $\backslash$ dameUno $mconj$) \lfi}
+  
+  ~
+   
+  \tadAxioma{actualizarUso ($u$, $ar$)}{actualizarUsoAux ($u,ar,0$)}
+  
+  ~
+   
+  \tadAxioma{actualizarUsoAux ($u$, $ar$, $n$)}{\lif $n$ $==$ tiposDeRecur\begin{flushleft}
+•
+\end{flushleft}sos ($u$) \lthen $u$ \lelse actualizarUsoAux (nuevoConsumo ($u$, $n$, $ar[n]$), $ar$, $n+1$)}
+  
+  ~
+  
+  \tadAxioma{alcanzanLosRecursos ($u$, $mconj$)}{\lif vacio? ($mconj$) \lthen true \lelse disponibilidad ($u$, dameUno ($mconj$)) $\geq$ $\#$ (dameUno ($mconj$), $mconj$)) $wedge$ alcanzanLosRecursos ($u$, $mconj$ $\backslash$ dameUno $mconj$) \lfi}
+  
+  ~
+  
+  \tadAxioma{multiconjuntizar ($u$)}{multiconjuntizarAux ($u$,0)}
+  
+  ~
+  
+  \tadAxioma{multiconjuntizarAux ($u$,$n$)}{\lif $n$ $==$ tiposDeRecursos ($u$) \lthen vacio \lelse agregarMuchos (multiconjuntizarAux ($u$, $n+1$),_$n$, verTotal ($u$, $n$)}
+  
+  ~
+  
+  \tadAxioma{disponiblesEnMulticonj ($u$)}{disponiblesEnMulticonjAux ($u$,0)}
+  
+  ~
+  
+  \tadAxioma{disponiblesEnMulticonjAux ($u$,$n$)}{\lif $n$ $==$ tiposDeRecursos ($u$) \lthen vacio \lelse agregarMuchos (disponiblesEnMulticonjAux ($u$, $n+1$),_$n$, disponibilidad ($u$, $n$)}
+  
+  ~
+  
+ \tadAxioma{agregarMuchos ($mconj$,$r$,$n$)}{\lif $n$ $==$ 0 ($u$) \lthen $mconj$ \lelse agregarMuchos (Ag ($r$, $mconj$), r, $n-1$)}
+  
+  ~
+ \end{tad}
+
+\newpage
+\begin{tad}{\nombretad{Iterador}}
+  
+  \tadGeneros{Iterador}
+  \tadExporta{iterador, generadores, observadores, otras operaciones}
+  \tadUsa{Nat, Bool }
+						%COMPLETAR
+  \tadIgualdadObservacional{a}{b}{iterador}{secuOriginal ($a$) $\igobs$ secuOriginal ($b$) $\wedge$ HayMas ($a$) $\igobs$ HayMas ($b$) $\wedge$ Actual ($a$) $\igobs$ Actual ($b$) $\wedge$ Avanzar ($a$) $\igobs$ Avanzar ($b$) }
+
+
+  \tadObservadores
+
+ %\begin{framed}
+  %Para ver c�mo se logra la alineacion de las signaturas, consultar el codigo fuente.  Ver adem�s, que es importante NO DEJAR ESPACIOS entre la ',' y el tipo de parametro, en la macro \verb|tadOperacion|.  De otra forma, ese espacio ser� agregado al existente.
+  %\end{framed}
+
+  \tadAlinearFunciones{secuOriginal}{\tadTipoFuncion{iterador($\alpha$) $i$}}
+  \tadOperacion{secuOriginal}{iterador($\alpha$) $i$}{secu($\alpha$)}{}  
+  \tadOperacion{HayMas?}{iterador($\alpha$) $i$}{bool}{}
+  \tadOperacion{Actual}{iterador($\alpha$) $i$}{nat}{HayMas?($i$)}
+  \tadOperacion{Avanzar}{iterador($\alpha$) $i$}{nat}{HayMas?($i$)}
+
+\tadGeneradores
+  \tadAlinearFunciones{crearIt}{\tadTipoFuncion{secu($\alpha$) $i$  secu($\alpha$) $s$}}
+  \tadOperacion{crearIt}{secu($\alpha$) $i$  secu($\alpha$) $s$}{iterador($\alpha$)}{}
+  
+  \tadOtrasOperaciones
+  \tadAlinearFunciones{retrocederAlPrincipio}{{iterador($\alpha$) $i$, nat $n$   }}
+  \tadOperacion{agregarAtrasDeIt}{iterador($\alpha$) $i$, nat $n$}{iterador($\alpha$)}{}%{tipoDeRecursos($u$) $>$ 0}
+  \tadOperacion{agregarAdelanteDeIt}{iterador($\alpha$) $i$, nat $n$}{iterador($\alpha$)}{}
+  \tadOperacion{retrocederAlPrincipio}{iterador($\alpha$) $i$}{iterador($\alpha$)}{}
+  \tadOperacion{borrarActual}{iterador($\alpha$) $i$}{iterador($\alpha$)}{}
+  \tadOperacion{hastaIt}{secu($\alpha$) $i$,secu($\alpha$) $s$}{Secu($\alpha$)} {}
+   \tadOperacion{tomar}{secu($\alpha$)$i$,nat $n$ }{Secu($\alpha$)} {}
+   
+\tadAxiomas $\forall$ $i$,$s$: secu($\alpha$), $\forall$ $n$:nat\\
+  
+ 
+  ~
+  \tadAxioma{secuOriginal (crearIt ($i$,$s$))}{$s$}
+  \tadAxioma{HayMas (crearIt ($i$,$s$))}{Vacia?($s$)}
+  \tadAxioma{Actual (crearIt ($i$,$s$))}{prim($s$)}
+  \tadAxioma{Avanzar (crearIt ($i$,$s$))}{crearIt($i$ $\circulito$ prim($s$),$s$)}
+  \tadAxioma{Actual (crearIt ($i$),$s$)}{prim($s$)}
+  \tadAxioma{AgregarAtrasDeIt (crearIt ($i$,$s$)),$n$}{crearIt(hastaIt($i$,$s$)$\&\&$ ($i$ $\circulito$ $n$),$s$)}
+  \tadAxioma{AgregarAdelanteDeIt (crearIt ($i$,$s$)),$n$}{crearIt(hastaIt($i$,$s$)$\&\&$ ($n$ $\puntito$ $i$),$s$)}
+  \tadAxioma{retrocederAlPrincio (crearIt ($i$,$s$))}{crearIt ($<>$,$s$)}
+  \tadAxioma{borrarActual (crearIt ($i$,$s$))}{crearIt (hastaIt($i$,$s$)$\&\&$fin($i$)),$s$)}
+  \tadAxioma{hastaIt($i$, $s$ )}{tomar($i$,long($s$)$-$long($i$))} 
+  \tadAxioma{tomar($i$,$n$ )}{\lif $n$=0 \lthen $<>$ \lelse prim($i$) $\puntito$ tomar (fin($i$), n$-$1)} 
+
+
+\end{tad}
+
+\newpage
+\begin{tad}{\nombretad{cola}}
+  
+  \tadGeneros{cola}
+  \tadExporta {generadores, observadores, otras operaciones}
+  \tadUsa{Nat, Bool, Secu ($\alpha$)}
+						%COMPLETAR
+  \tadIgualdadObservacional{a}{b}{cola}{vacia ($a$) $\igobs$ vacia ($b$) $\wedge$ proxima ($a$) $\igobs$ proxima ($b$) $\wedge$ prioridad ($a$) $\igobs$ prioridad ($b$) $\yluego$ ($\forall$ $t$: tarea)  ordenes ($a$,$t$) $\igobs$ ordenes ($b$,$t$) $\yluego$ ($\forall$ $n$: nat)  sacarOrden ($a$,$t$,$n$) $\igobs$ sacarOrden ($b$,$t$,$n$)}
+
+
+  \tadObservadores
+
+ %\begin{framed}
+  %Para ver c�mo se logra la alineacion de las signaturas, consultar el codigo fuente.  Ver adem�s, que es importante NO DEJAR ESPACIOS entre la ',' y el tipo de parametro, en la macro \verb|tadOperacion|.  De otra forma, ese espacio ser� agregado al existente.
+  %\end{framed}
+
+  \tadAlinearFunciones{sacarOrden}{\tadTipoFuncion{cola $c$, tarea $t$, nat $n$}}
+  \tadOperacion{vacia?}{cola $c$}{bool}{}  
+  \tadOperacion{proxima}{cola $c$}{actividad}{$\neq$ vacia?(c)}
+  \tadOperacion{prioridad}{cola $c$}{nat}{$\neq$ vacia?(c)}
+  \tadOperacion{ordenes}{cola $c$, tarea $t$}{secu(Orden)}{}
+  \tadOperacion{sacarOrden}{cola $c$, tarea $t$, nat $n$}{cola}{esta?($c$,$t$) $\yluego$ esta?($n$, ordenes ($c$,$t$)}
+  
+
+ 
+\tadGeneradores	
+  \tadAlinearFunciones{encolar}{\tadTipoFuncion{cola $c$, tarea $t$, prioridad $p$, nat $n$}}
+  \tadOperacion{vacia}{}{cola}{}
+  \tadOperacion{encolar}{cola $c$, tarea $t$, prioridad $p$, nat $n$}{cola}{}
+
+  
+  \tadOtrasOperaciones
+  \tadAlinearFunciones{encolarSecuOrdenada}{\tadTipoFuncion{cola $c$,secu$<$actividad,nat$>$ $s$}}
+	\tadOperacion{Esta?}{cola $c$, tarea $t$}{bool}{}   
+	  \tadOperacion{encolarSecuOrdenada}{cola $c$,secu$<$actividad,nat$>$ $s$}{cola}{}
+
+
+\tadAxiomas $\forall$ $i$,$s$: secu($\alpha$), $\forall$ $n$:nat\\
+  
+ 
+  ~
+  \tadAxioma{vacia? (vacia)}{true}
+  \tadAxioma{vacia? (encolar ($c$,$t$,$p$,$n$))}{false}
+
+~
+  \tadAxioma{proxima (encolar ($c$,$t$,$p$,$n$))}{actividad ($n$,$t$)}
+  
+  ~
+  \tadAxioma{prioridad (encolar ($c$,$t$,$p$,$n$))}{$p$)}
+  
+  ~
+  \tadAxioma{ordenes (vacia)}{$<>$}  
+  \tadAxioma{ordenes (encolar ($c$,$t$,$p$,$n$))}{ordenes ($c$) $\circulito$ n}
+  
+    ~
+  \tadAxioma{sacarOrden (encolar ($c$,$t$,$p$,$n$), $t1$, $o$)}{\lif $t$ $==$ $t1$ $\wedge$ n $==$ $o$ \lthen $c$ \lelse encolar (ordenes ($c$), $t$, $p$, $n$)}
+  
+ \end{tad}
+\end{document}

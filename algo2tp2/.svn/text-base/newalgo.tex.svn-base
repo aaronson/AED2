@@ -1,0 +1,71 @@
+% $Id: algo2symb.tex,v 1.6 2004/08/13 15:09:52 fpscha Exp $
+\documentclass[a4paper]{article}
+\usepackage[a4paper,margin=2cm,top=2.0cm,bottom=2.34cm]{geometry}
+\usepackage[spanish,activeacute]{babel}
+\usepackage{algo2symb}
+\usepackage{newalgo}
+
+\parskip=1.5ex
+\pagestyle{empty}
+
+\begin{document}
+\RCS $Revision: 1.2 $
+\RCSdate $Date: 2006/09/30 14:08:52 $
+
+\begin{center}{\Large Package \texttt{newalgo}} \par\medskip Versi'on \version -- \RCSDate\end{center}
+\medskip
+
+Este paquete provee el ambiente \emph{algorithm} y algunas macros para escribir algoritmos en el lenguaje de diseño de la materia Algoritmos y Estructuras de Datos II (FCEyN, UBA). Los docentes de la c'atedra lo utilizamos para componer pr'acticas, apuntes y parciales; desde luego, los alumnos que decidan usar \LaTeX\ durante la cursada tambi'en est'an invitados a aprovecharlo.
+
+Las líneas de los algoritmos se numeran para facilitar la referencia a las mismas durante los cálculos de complejidad.
+
+\bigskip
+
+\noindent \textbf{Listado de comandos provistos}
+\medskip
+
+\begin{tabular}{l@{\hspace{36pt}}c}
+\verb|\restriccion{a \leq b}| & \restriccion{a \leq b} \\
+\verb|\comentario{Esto es un comentario}| & \comentario{Esto es un comentario} \\
+\verb|\param{inout}{c}{conj\dealfa}| & \param{inout}{c}{conj\dealfa} 
+\end{tabular}
+
+\medskip
+
+Dentro del ambiente algorithm se pueden utilizar los ambientes IF, WHILE, FOR y otros similares, y dentro de IF, el comando \verb|\ELSE|. El comando \verb|\=| dentro de un algoritmo produce la flechita de asignación $\leftarrow$. El comando \verb|\VAR| sirve para declarar las variables a utilizar.
+
+El ambiente algorithm requiere 3 parámetros: nombre del algoritmo, argumentos, y valor de retorno. Si el valor de retorno es vacío, el algoritmo no devolverá ningún valor (ver segundo ejemplo).
+
+\medskip
+
+\begin{large}\textbf{Ejemplos:}\end{large}
+
+\restriccion{\forall i, j: nat\ (0\leq i<j<tam(pajar)\Rightarrow pajar[i]\leq pajar[j])}
+\begin{algorithm}{BúsquedaBinaria}{\param{in}{aguja}{nat}, \param{in}{pajar}{arreglo(nat)}}{res\!: bool}
+    \VAR{desde, hasta, actual\!: nat}\\
+    desde \= 0 \\
+    hasta \= tam(pajar) \\
+    res \= false \\
+    \begin{WHILE}{desde < hasta \land \lnot res}
+      actual \= (desde + hasta) / 2 \comentario{Tomamos el elemento del medio.}\\
+      \begin{IF}{pajar[actual] = aguja}
+        res \= true
+        \ELSE \begin{IF}{pajar[actual] > aguja}
+          hasta \= actual
+          \ELSE
+          desde \= actual + 1 \comentario{Ac'a el elemento encontrado es menor que el que buscamos.}
+          \end{IF}
+      \end{IF}
+   \end{WHILE}
+\end{algorithm}
+
+\begin{algorithm}{ReemplazarApariciones}{\param{in}{aguja}{\alfa}, \param{in}{reemplazo}{\alfa}, \param{inout}{pajar}{arreglo\dealfa}}{}
+	\VAR{actual\!: nat}\\
+	\begin{FOR}{actual\=0 \TO tam(pajar)-1}
+		\begin{IF}{pajar[actual]=aguja\comentario{Si encontramos el elemento, lo reemplazamos.}}
+			pajar[actual] \= reemplazo
+		\end{IF}
+	\end{FOR}
+\end{algorithm}
+\end{document}
+

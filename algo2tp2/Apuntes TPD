@@ -1,0 +1,19 @@
+Workflow
+------------
+Las tareas se agregan a un workflow en orden, colocandose en un arreglo redimensionable, cuyas posiciones van a denotar el ID mismo de la tarea. Un elemento del arreglo va a ser una tupla que contendrá la prioridad, los recursos y una secuencia (o sea, un puntero al prim) de predecesores
+
+
+Planta
+------------
+Al crear una planta, se ordena el arreglo del workflow por prioridad y se calculan los sucesores, y luego se copia el workflow (por ID tarea) pero ordenando los sucesores por prioridad
+
+Recursos es un arreglo con la cantidad de recursos limitada y vas sumando o restando de acuerdo a si un recurso se libear o se utiliza. Como cada tarea tiene O(1) recursos, se puede garantizar que la actualizacion es en O(1). Este arreglo ademas tiene un puntero a la posicion del recurso en el arreglo de consumo
+
+Consumo de recursos es inmediato porque lo unico que hay que hacer es mirar el uso (hay que decidir si guardamos disponibles o en uso)
+
+Para el caso de menor consumo, guardamos los recursos de acuerdo con su consumo, en un pseudo heap, para saber el de menor de forma inmediata, y en caso que haya que reordenar, si es una cantidad O(1) de recursos se puede restablecer el arreglo con los nuevos valores en O(logn), acordándose de actualizar el puntero en el arreglo de recursos; en caso de que cambien todos los recursos (o una cantidad no O(1)) el algoritmo de Floyd asegura que se puede heapificar en O(r) Un modulo para los dos arreglos
+
+Vamos a tener una secuencia de ordenes (porque no nos interesa acceder rapido a las ordenes, ya que siempre nos piden O(o) y cada nodo va a apuntar un arreglo que tendrá las tareas terminadas
+
+Además, hacemos una secuencia ordenada por prioridades que contiene una tupla de id tareas y secu de ordenes, pero solo de las que estan en espera. Cuando se agrega una nueva orden, se le agrega al final de la lista de ordenes el numero correspondiente, las tareas que no requieren nada (o sea, solo la primera). Cuando termina una tarea, miramos los sucesores de la misma (ahi vamos a tener un contador que denote cuantos predecesores le faltan terminar, cada vez que un predecesor termina le restamos 1, cuando llega a 0 esta lista para agregarse, que sabemos que estan ordenados. Una vez hecho eso, entramos a esta secu por el ppio, siempre comparando con nuestras tareas que esperan, y nos vamos fijando desde arriba cual puede entrar a ejecutarse, si se puede, se borra la primera orden, se actualizan los recursos y ademas seguimos mirando si tiene mas ordenes pendientes. Si no, se sigue hacia adelante, teniendo el cuidado de insertar los sucesores que ahora pueden ejecutarse en orden de prioridad (ya que sabemos que estos estan ordenados). 
+

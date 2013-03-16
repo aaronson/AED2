@@ -1,0 +1,43 @@
+\select@language {spanish}
+\contentsline {section}{\numberline {1}Workflow}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Interfaz}{2}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Estructura}{3}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}Invariante de Representacion}{3}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}Funcion de abstraccion}{3}{subsection.1.4}
+\contentsline {subsection}{\numberline {1.5}Algoritmos}{4}{subsection.1.5}
+\contentsline {section}{\numberline {2}UsoRecursos}{8}{section.2}
+\contentsline {subsection}{\numberline {2.1}Interfaz}{8}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Estructura}{9}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Invariante de Representaci'on}{9}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Funci'on de Abstracci'on}{9}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.5}Algoritmos}{10}{subsection.2.5}
+\contentsline {section}{\numberline {3}Planta}{15}{section.3}
+\contentsline {subsection}{\numberline {3.1}Interfaz}{15}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Estructura}{17}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Invariante de Representacion}{17}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Funcion de Abstraccion}{19}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Algoritmos}{20}{subsection.3.5}
+\contentsline {section}{\numberline {4}Secuencia con Iteradores}{30}{section.4}
+\contentsline {subsection}{\numberline {4.1}Interfaz}{30}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Estructura}{32}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Invariante de Representacion}{32}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Funcion de Abstraccion}{32}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Algoritmos}{33}{subsection.4.5}
+\contentsline {section}{\numberline {5}Conjunto con Iteradores}{37}{section.5}
+\contentsline {subsection}{\numberline {5.1}Interfaz}{37}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Estructura}{38}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Invariante de Representacion}{38}{subsection.5.3}
+\contentsline {subsection}{\numberline {5.4}Funcion de Abstraccion}{38}{subsection.5.4}
+\contentsline {subsection}{\numberline {5.5}Algoritmos}{38}{subsection.5.5}
+\contentsline {section}{\numberline {6}Multiconjunto con Iteradores}{40}{section.6}
+\contentsline {subsection}{\numberline {6.1}Interfaz}{40}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Estructura}{41}{subsection.6.2}
+\contentsline {subsection}{\numberline {6.3}Invariante de Representacion}{41}{subsection.6.3}
+\contentsline {subsection}{\numberline {6.4}Funcion de Abstraccion}{41}{subsection.6.4}
+\contentsline {subsection}{\numberline {6.5}Algoritmos}{41}{subsection.6.5}
+\contentsline {section}{\numberline {7}Cola}{43}{section.7}
+\contentsline {subsection}{\numberline {7.1}Interfaz}{43}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Estructura}{45}{subsection.7.2}
+\contentsline {subsection}{\numberline {7.3}Invariante de Representacion}{45}{subsection.7.3}
+\contentsline {subsection}{\numberline {7.4}Funcion de Abstraccion}{45}{subsection.7.4}
+\contentsline {subsection}{\numberline {7.5}Algoritmos}{46}{subsection.7.5}
